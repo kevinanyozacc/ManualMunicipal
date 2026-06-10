@@ -1,0 +1,3276 @@
+;!function(){try { var e="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof global?global:"undefined"!=typeof window?window:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&((e._debugIds|| (e._debugIds={}))[n]="534c2696-882d-6c02-1846-dfed2b11ba62")}catch(e){}}();
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,866593,8283,587632,814931,295624,190471,96233,440296,e=>{"use strict";var t,r=e.i(824627),i="Invariant Violation",n=Object.setPrototypeOf,o=void 0===n?function(e,t){return e.__proto__=t,e}:n,s=function(e){function t(r){void 0===r&&(r=i);var n=e.call(this,"number"==typeof r?i+": "+r+" (see https://github.com/apollographql/invariant-packages)":r)||this;return n.framesToPop=1,n.name=i,o(n,t.prototype),n}return(0,r.__extends)(t,e),t}(Error);function a(e,t){if(!e)throw new s(t)}var l=["debug","log","warn","error","silent"],u=l.indexOf("log");function c(e){return function(){if(l.indexOf(e)>=u)return(console[e]||console.log).apply(console,arguments)}}(t=a||(a={})).debug=c("debug"),t.log=c("log"),t.warn=c("warn"),t.error=c("error"),e.s(["InvariantError",0,s,"invariant",0,a,"setVerbosity",0,function(e){var t=l[u];return u=Math.max(0,l.indexOf(e)),t}],8283);var d="3.13.8";function p(e){try{return e()}catch(e){}}e.s(["version",0,d],587632),e.s(["maybe",0,p],814931);let f=p(function(){return globalThis})||p(function(){return window})||p(function(){return self})||p(function(){return e.g})||p(function(){return p.constructor("return this")()});e.s(["default",0,f],295624);var h=new Map;function g(e){var t=h.get(e)||1;return h.set(e,t+1),"".concat(e,":").concat(t,":").concat(Math.random().toString(36).slice(2))}function m(e,t){void 0===t&&(t=0);var r=g("stringifyForDisplay");return JSON.stringify(e,function(e,t){return void 0===t?r:t},t).split(JSON.stringify(r)).join("<undefined>")}function I(e){return function(t){for(var r=[],i=1;i<arguments.length;i++)r[i-1]=arguments[i];if("number"==typeof t){var n=t;(t=k(n))||(t=w(n,r),r=[])}e.apply(void 0,[t].concat(r))}}e.s(["makeUniqueId",0,g],190471),e.s(["stringifyForDisplay",0,m],96233);var y=Object.assign(function(e,t){for(var r=[],i=2;i<arguments.length;i++)r[i-2]=arguments[i];e||a(e,k(t,r)||w(t,r))},{debug:I(a.debug),log:I(a.log),warn:I(a.warn),error:I(a.error)}),v=Symbol.for("ApolloErrorMessageHandler_"+d);function E(e){if("string"==typeof e)return e;try{return m(e,2).slice(0,1e3)}catch(e){return"<non-serializable>"}}function k(e,t){if(void 0===t&&(t=[]),e)return f[v]&&f[v](e,t.map(E))}function w(e,t){if(void 0===t&&(t=[]),e)return"An error occurred! For more details, see the full error text at https://go.apollo.dev/c/err#".concat(encodeURIComponent(JSON.stringify({version:d,message:e,args:t.map(E)})))}e.s(["invariant",0,y,"newInvariantError",0,function(e){for(var t=[],r=1;r<arguments.length;r++)t[r-1]=arguments[r];return new s(k(e,t)||w(e,t))}],440296);var T=!1!==globalThis.__DEV__;e.s(["DEV",0,T],866593)},610499,e=>{"use strict";function t(e,t){(null==t||t>e.length)&&(t=e.length);for(var r=0,i=Array(t);r<t;r++)i[r]=e[r];return i}function r(e,t){for(var r=0;r<t.length;r++){var i=t[r];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}function i(e,t,i){return t&&r(e.prototype,t),i&&r(e,i),Object.defineProperty(e,"prototype",{writable:!1}),e}var n=function(){return"function"==typeof Symbol},o=function(e){return n()&&!!Symbol[e]},s=function(e){return o(e)?Symbol[e]:"@@"+e};n()&&!o("observable")&&(Symbol.observable=Symbol("observable"));var a=s("iterator"),l=s("observable"),u=s("species");function c(e,t){var r=e[t];if(null!=r){if("function"!=typeof r)throw TypeError(r+" is not a function");return r}}function d(e){var t=e.constructor;return void 0!==t&&null===(t=t[u])&&(t=void 0),void 0!==t?t:E}function p(e){p.log?p.log(e):setTimeout(function(){throw e})}function f(e){Promise.resolve().then(function(){try{e()}catch(e){p(e)}})}function h(e){var t=e._cleanup;if(void 0!==t&&(e._cleanup=void 0,t))try{if("function"==typeof t)t();else{var r=c(t,"unsubscribe");r&&r.call(t)}}catch(e){p(e)}}function g(e){e._observer=void 0,e._queue=void 0,e._state="closed"}function m(e,t,r){e._state="running";var i=e._observer;try{var n=c(i,t);switch(t){case"next":n&&n.call(i,r);break;case"error":if(g(e),n)n.call(i,r);else throw r;break;case"complete":g(e),n&&n.call(i)}}catch(e){p(e)}"closed"===e._state?h(e):"running"===e._state&&(e._state="ready")}function I(e,t,r){if("closed"!==e._state){if("buffering"===e._state)return void e._queue.push({type:t,value:r});if("ready"!==e._state){e._state="buffering",e._queue=[{type:t,value:r}],f(function(){var t=e._queue;if(t){e._queue=void 0,e._state="ready";for(var r=0;r<t.length&&(m(e,t[r].type,t[r].value),"closed"!==e._state);++r);}});return}m(e,t,r)}}var y=function(){function e(e,t){this._cleanup=void 0,this._observer=e,this._queue=void 0,this._state="initializing";var r=new v(this);try{this._cleanup=t.call(void 0,r)}catch(e){r.error(e)}"initializing"===this._state&&(this._state="ready")}return e.prototype.unsubscribe=function(){"closed"!==this._state&&(g(this),h(this))},i(e,[{key:"closed",get:function(){return"closed"===this._state}}]),e}(),v=function(){function e(e){this._subscription=e}var t=e.prototype;return t.next=function(e){I(this._subscription,"next",e)},t.error=function(e){I(this._subscription,"error",e)},t.complete=function(){I(this._subscription,"complete")},i(e,[{key:"closed",get:function(){return"closed"===this._subscription._state}}]),e}(),E=function(){function e(t){if(!(this instanceof e))throw TypeError("Observable cannot be called as a function");if("function"!=typeof t)throw TypeError("Observable initializer must be a function");this._subscriber=t}var r=e.prototype;return r.subscribe=function(e){return("object"!=typeof e||null===e)&&(e={next:e,error:arguments[1],complete:arguments[2]}),new y(e,this._subscriber)},r.forEach=function(e){var t=this;return new Promise(function(r,i){if("function"!=typeof e)return void i(TypeError(e+" is not a function"));function n(){o.unsubscribe(),r()}var o=t.subscribe({next:function(t){try{e(t,n)}catch(e){i(e),o.unsubscribe()}},error:i,complete:r})})},r.map=function(e){var t=this;if("function"!=typeof e)throw TypeError(e+" is not a function");return new(d(this))(function(r){return t.subscribe({next:function(t){try{t=e(t)}catch(e){return r.error(e)}r.next(t)},error:function(e){r.error(e)},complete:function(){r.complete()}})})},r.filter=function(e){var t=this;if("function"!=typeof e)throw TypeError(e+" is not a function");return new(d(this))(function(r){return t.subscribe({next:function(t){try{if(!e(t))return}catch(e){return r.error(e)}r.next(t)},error:function(e){r.error(e)},complete:function(){r.complete()}})})},r.reduce=function(e){var t=this;if("function"!=typeof e)throw TypeError(e+" is not a function");var r=d(this),i=arguments.length>1,n=!1,o=arguments[1],s=o;return new r(function(r){return t.subscribe({next:function(t){var o=!n;if(n=!0,!o||i)try{s=e(s,t)}catch(e){return r.error(e)}else s=t},error:function(e){r.error(e)},complete:function(){if(!n&&!i)return r.error(TypeError("Cannot reduce an empty sequence"));r.next(s),r.complete()}})})},r.concat=function(){for(var e=this,t=arguments.length,r=Array(t),i=0;i<t;i++)r[i]=arguments[i];var n=d(this);return new n(function(t){var i,o=0;return!function e(s){i=s.subscribe({next:function(e){t.next(e)},error:function(e){t.error(e)},complete:function(){o===r.length?(i=void 0,t.complete()):e(n.from(r[o++]))}})}(e),function(){i&&(i.unsubscribe(),i=void 0)}})},r.flatMap=function(e){var t=this;if("function"!=typeof e)throw TypeError(e+" is not a function");var r=d(this);return new r(function(i){var n=[],o=t.subscribe({next:function(t){if(e)try{t=e(t)}catch(e){return i.error(e)}var o=r.from(t).subscribe({next:function(e){i.next(e)},error:function(e){i.error(e)},complete:function(){var e=n.indexOf(o);e>=0&&n.splice(e,1),s()}});n.push(o)},error:function(e){i.error(e)},complete:function(){s()}});function s(){o.closed&&0===n.length&&i.complete()}return function(){n.forEach(function(e){return e.unsubscribe()}),o.unsubscribe()}})},r[l]=function(){return this},e.from=function(r){var i="function"==typeof this?this:e;if(null==r)throw TypeError(r+" is not an object");var n=c(r,l);if(n){var s=n.call(r);if(Object(s)!==s)throw TypeError(s+" is not an object");return s instanceof E&&s.constructor===i?s:new i(function(e){return s.subscribe(e)})}if(o("iterator")&&(n=c(r,a)))return new i(function(e){f(function(){if(!e.closed){for(var i,o=function(e){var r="u">typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(r)return(r=r.call(e)).next.bind(r);if(Array.isArray(e)||(r=function(e){if(e){if("string"==typeof e)return t(e,void 0);var r=Object.prototype.toString.call(e).slice(8,-1);if("Object"===r&&e.constructor&&(r=e.constructor.name),"Map"===r||"Set"===r)return Array.from(e);if("Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r))return t(e,void 0)}}(e))){r&&(e=r);var i=0;return function(){return i>=e.length?{done:!0}:{done:!1,value:e[i++]}}}throw TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}(n.call(r));!(i=o()).done;){var s=i.value;if(e.next(s),e.closed)return}e.complete()}})});if(Array.isArray(r))return new i(function(e){f(function(){if(!e.closed){for(var t=0;t<r.length;++t)if(e.next(r[t]),e.closed)return;e.complete()}})});throw TypeError(r+" is not observable")},e.of=function(){for(var t=arguments.length,r=Array(t),i=0;i<t;i++)r[i]=arguments[i];return new("function"==typeof this?this:e)(function(e){f(function(){if(!e.closed){for(var t=0;t<r.length;++t)if(e.next(r[t]),e.closed)return;e.complete()}})})},i(e,null,[{key:u,get:function(){return this}}]),e}();n()&&Object.defineProperty(E,Symbol("extensions"),{value:{symbol:l,hostReportError:p},configurable:!0}),e.s(["Observable",0,E])},291487,596806,e=>{"use strict";e.s(["devAssert",0,function(e,t){if(!e)throw Error(t)}],291487);e.s(["inspect",0,function(e){return function e(t,r){switch(typeof t){case"string":return JSON.stringify(t);case"function":return t.name?`[function ${t.name}]`:"[function]";case"object":return function(t,r){let i;if(null===t)return"null";if(r.includes(t))return"[Circular]";let n=[...r,t];if("function"==typeof t.toJSON){let r=t.toJSON();if(r!==t)return"string"==typeof r?r:e(r,n)}else if(Array.isArray(t)){var o,s,a=t,l=n;if(0===a.length)return"[]";if(l.length>2)return"[Array]";let r=Math.min(10,a.length),i=a.length-r,u=[];for(let t=0;t<r;++t)u.push(e(a[t],l));return 1===i?u.push("... 1 more item"):i>1&&u.push(`... ${i} more items`),"["+u.join(", ")+"]"}return o=t,s=n,0===(i=Object.entries(o)).length?"{}":s.length>2?"["+function(e){let t=Object.prototype.toString.call(e).replace(/^\[object /,"").replace(/]$/,"");if("Object"===t&&"function"==typeof e.constructor){let t=e.constructor.name;if("string"==typeof t&&""!==t)return t}return t}(o)+"]":"{ "+i.map(([t,r])=>t+": "+e(r,s)).join(", ")+" }"}(t,r);default:return String(t)}}(e,[])}],596806)},809417,633773,e=>{"use strict";var t,r,i,n;class o{constructor(e,t,r){this.start=e.start,this.end=t.end,this.startToken=e,this.endToken=t,this.source=r}get[Symbol.toStringTag](){return"Location"}toJSON(){return{start:this.start,end:this.end}}}class s{constructor(e,t,r,i,n,o){this.kind=e,this.start=t,this.end=r,this.line=i,this.column=n,this.value=o,this.prev=null,this.next=null}get[Symbol.toStringTag](){return"Token"}toJSON(){return{kind:this.kind,value:this.value,line:this.line,column:this.column}}}let a={Name:[],Document:["definitions"],OperationDefinition:["name","variableDefinitions","directives","selectionSet"],VariableDefinition:["variable","type","defaultValue","directives"],Variable:["name"],SelectionSet:["selections"],Field:["alias","name","arguments","directives","selectionSet"],Argument:["name","value"],FragmentSpread:["name","directives"],InlineFragment:["typeCondition","directives","selectionSet"],FragmentDefinition:["name","variableDefinitions","typeCondition","directives","selectionSet"],IntValue:[],FloatValue:[],StringValue:[],BooleanValue:[],NullValue:[],EnumValue:[],ListValue:["values"],ObjectValue:["fields"],ObjectField:["name","value"],Directive:["name","arguments"],NamedType:["name"],ListType:["type"],NonNullType:["type"],SchemaDefinition:["description","directives","operationTypes"],OperationTypeDefinition:["type"],ScalarTypeDefinition:["description","name","directives"],ObjectTypeDefinition:["description","name","interfaces","directives","fields"],FieldDefinition:["description","name","arguments","type","directives"],InputValueDefinition:["description","name","type","defaultValue","directives"],InterfaceTypeDefinition:["description","name","interfaces","directives","fields"],UnionTypeDefinition:["description","name","directives","types"],EnumTypeDefinition:["description","name","directives","values"],EnumValueDefinition:["description","name","directives"],InputObjectTypeDefinition:["description","name","directives","fields"],DirectiveDefinition:["description","name","arguments","locations"],SchemaExtension:["directives","operationTypes"],ScalarTypeExtension:["name","directives"],ObjectTypeExtension:["name","interfaces","directives","fields"],InterfaceTypeExtension:["name","interfaces","directives","fields"],UnionTypeExtension:["name","directives","types"],EnumTypeExtension:["name","directives","values"],InputObjectTypeExtension:["name","directives","fields"]},l=new Set(Object.keys(a));(i=t||(t={})).QUERY="query",i.MUTATION="mutation",i.SUBSCRIPTION="subscription",e.s(["Location",0,o,"OperationTypeNode",0,t,"QueryDocumentKeys",0,a,"Token",0,s,"isNode",0,function(e){let t=null==e?void 0:e.kind;return"string"==typeof t&&l.has(t)}],809417),(n=r||(r={})).NAME="Name",n.DOCUMENT="Document",n.OPERATION_DEFINITION="OperationDefinition",n.VARIABLE_DEFINITION="VariableDefinition",n.SELECTION_SET="SelectionSet",n.FIELD="Field",n.ARGUMENT="Argument",n.FRAGMENT_SPREAD="FragmentSpread",n.INLINE_FRAGMENT="InlineFragment",n.FRAGMENT_DEFINITION="FragmentDefinition",n.VARIABLE="Variable",n.INT="IntValue",n.FLOAT="FloatValue",n.STRING="StringValue",n.BOOLEAN="BooleanValue",n.NULL="NullValue",n.ENUM="EnumValue",n.LIST="ListValue",n.OBJECT="ObjectValue",n.OBJECT_FIELD="ObjectField",n.DIRECTIVE="Directive",n.NAMED_TYPE="NamedType",n.LIST_TYPE="ListType",n.NON_NULL_TYPE="NonNullType",n.SCHEMA_DEFINITION="SchemaDefinition",n.OPERATION_TYPE_DEFINITION="OperationTypeDefinition",n.SCALAR_TYPE_DEFINITION="ScalarTypeDefinition",n.OBJECT_TYPE_DEFINITION="ObjectTypeDefinition",n.FIELD_DEFINITION="FieldDefinition",n.INPUT_VALUE_DEFINITION="InputValueDefinition",n.INTERFACE_TYPE_DEFINITION="InterfaceTypeDefinition",n.UNION_TYPE_DEFINITION="UnionTypeDefinition",n.ENUM_TYPE_DEFINITION="EnumTypeDefinition",n.ENUM_VALUE_DEFINITION="EnumValueDefinition",n.INPUT_OBJECT_TYPE_DEFINITION="InputObjectTypeDefinition",n.DIRECTIVE_DEFINITION="DirectiveDefinition",n.SCHEMA_EXTENSION="SchemaExtension",n.SCALAR_TYPE_EXTENSION="ScalarTypeExtension",n.OBJECT_TYPE_EXTENSION="ObjectTypeExtension",n.INTERFACE_TYPE_EXTENSION="InterfaceTypeExtension",n.UNION_TYPE_EXTENSION="UnionTypeExtension",n.ENUM_TYPE_EXTENSION="EnumTypeExtension",n.INPUT_OBJECT_TYPE_EXTENSION="InputObjectTypeExtension",e.s(["Kind",0,r],633773)},788868,e=>{"use strict";var t=e.i(291487),r=e.i(596806),i=e.i(809417),n=e.i(633773);let o=Object.freeze({});function s(e,t){let r=e[t];return"object"==typeof r?r:"function"==typeof r?{enter:r,leave:void 0}:{enter:e.enter,leave:e.leave}}e.s(["BREAK",0,o,"getEnterLeaveForKind",0,s,"getVisitFn",0,function(e,t,r){let{enter:i,leave:n}=s(e,t);return r?n:i},"visit",0,function(e,a,l=i.QueryDocumentKeys){let u,c,d,p=new Map;for(let e of Object.values(n.Kind))p.set(e,s(a,e));let f=Array.isArray(e),h=[e],g=-1,m=[],I=e,y=[],v=[];do{var E,k,w;let e,n=++g===h.length,s=n&&0!==m.length;if(n){if(c=0===v.length?void 0:y[y.length-1],I=d,d=v.pop(),s)if(f){I=I.slice();let e=0;for(let[t,r]of m){let i=t-e;null===r?(I.splice(i,1),e++):I[i]=r}}else for(let[e,t]of(I=Object.defineProperties({},Object.getOwnPropertyDescriptors(I)),m))I[e]=t;g=u.index,h=u.keys,m=u.edits,f=u.inArray,u=u.prev}else if(d){if(null==(I=d[c=f?g:h[g]]))continue;y.push(c)}if(!Array.isArray(I)){(0,i.isNode)(I)||(0,t.devAssert)(!1,`Invalid AST Node: ${(0,r.inspect)(I)}.`);let s=n?null==(E=p.get(I.kind))?void 0:E.leave:null==(k=p.get(I.kind))?void 0:k.enter;if((e=null==s?void 0:s.call(a,I,c,d,y,v))===o)break;if(!1===e){if(!n){y.pop();continue}}else if(void 0!==e&&(m.push([c,e]),!n))if((0,i.isNode)(e))I=e;else{y.pop();continue}}void 0===e&&s&&m.push([c,I]),n?y.pop():(u={inArray:f,index:g,keys:h,edits:m,prev:u},h=(f=Array.isArray(I))?I:null!=(w=l[I.kind])?w:[],g=-1,m=[],d&&v.push(d),d=I)}while(void 0!==u)return 0!==m.length?m[m.length-1][1]:e},"visitInParallel",0,function(e){let t=Array(e.length).fill(null),r=Object.create(null);for(let i of Object.values(n.Kind)){let n=!1,a=Array(e.length).fill(void 0),l=Array(e.length).fill(void 0);for(let t=0;t<e.length;++t){let{enter:r,leave:o}=s(e[t],i);n||(n=null!=r||null!=o),a[t]=r,l[t]=o}if(!n)continue;let u={enter(...r){let i=r[0];for(let s=0;s<e.length;s++)if(null===t[s]){var n;let l=null==(n=a[s])?void 0:n.apply(e[s],r);if(!1===l)t[s]=i;else if(l===o)t[s]=o;else if(void 0!==l)return l}},leave(...r){let i=r[0];for(let s=0;s<e.length;s++)if(null===t[s]){var n;let i=null==(n=l[s])?void 0:n.apply(e[s],r);if(i===o)t[s]=o;else if(void 0!==i&&!1!==i)return i}else t[s]===i&&(t[s]=null)}};r[i]=u}return r}])},576690,679889,e=>{"use strict";e.s(["isNonNullObject",0,function(e){return null!==e&&"object"==typeof e},"isPlainObject",0,function(e){return null!==e&&"object"==typeof e&&(Object.getPrototypeOf(e)===Object.prototype||null===Object.getPrototypeOf(e))}],576690);var t=e.i(824627);e.i(866593);var r=e.i(440296),i=e.i(788868);e.s(["createFragmentMap",0,function(e){void 0===e&&(e=[]);var t={};return e.forEach(function(e){t[e.name.value]=e}),t},"getFragmentFromSelection",0,function(e,t){switch(e.kind){case"InlineFragment":return e;case"FragmentSpread":var i=e.name.value;if("function"==typeof t)return t(i);var n=t&&t[i];return(0,r.invariant)(n,87,i),n||null;default:return null}},"getFragmentQueryDocument",0,function(e,i){var n=i,o=[];return e.definitions.forEach(function(e){if("OperationDefinition"===e.kind)throw(0,r.newInvariantError)(85,e.operation,e.name?" named '".concat(e.name.value,"'"):"");"FragmentDefinition"===e.kind&&o.push(e)}),void 0===n&&((0,r.invariant)(1===o.length,86,o.length),n=o[0].name.value),(0,t.__assign)((0,t.__assign)({},e),{definitions:(0,t.__spreadArray)([{kind:"OperationDefinition",operation:"query",selectionSet:{kind:"SelectionSet",selections:[{kind:"FragmentSpread",name:{kind:"Name",value:n}}]}}],e.definitions,!0)})},"isFullyUnmaskedOperation",0,function(e){var t=!0;return(0,i.visit)(e,{FragmentSpread:function(e){if(!(t=!!e.directives&&e.directives.some(function(e){return"unmask"===e.name.value})))return i.BREAK}}),t}],679889)},98383,214054,372602,727678,744670,e=>{"use strict";function t(){}let r="u">typeof WeakRef?WeakRef:function(e){return{deref:()=>e}},i="u">typeof WeakMap?WeakMap:Map,n="u">typeof FinalizationRegistry?FinalizationRegistry:function(){return{register:t,unregister:t}};class o{constructor(e=1/0,o=t){this.max=e,this.dispose=o,this.map=new i,this.newest=null,this.oldest=null,this.unfinalizedNodes=new Set,this.finalizationScheduled=!1,this.size=0,this.finalize=()=>{let e=this.unfinalizedNodes.values();for(let t=0;t<10024;t++){let t=e.next().value;if(!t)break;this.unfinalizedNodes.delete(t);let i=t.key;delete t.key,t.keyRef=new r(i),this.registry.register(i,t,t)}this.unfinalizedNodes.size>0?queueMicrotask(this.finalize):this.finalizationScheduled=!1},this.registry=new n(this.deleteNode.bind(this))}has(e){return this.map.has(e)}get(e){let t=this.getNode(e);return t&&t.value}getNode(e){let t=this.map.get(e);if(t&&t!==this.newest){let{older:e,newer:r}=t;r&&(r.older=e),e&&(e.newer=r),t.older=this.newest,t.older.newer=t,t.newer=null,this.newest=t,t===this.oldest&&(this.oldest=r)}return t}set(e,t){let r=this.getNode(e);return r?r.value=t:(r={key:e,value:t,newer:null,older:this.newest},this.newest&&(this.newest.newer=r),this.newest=r,this.oldest=this.oldest||r,this.scheduleFinalization(r),this.map.set(e,r),this.size++,r.value)}clean(){for(;this.oldest&&this.size>this.max;)this.deleteNode(this.oldest)}deleteNode(e){e===this.newest&&(this.newest=e.older),e===this.oldest&&(this.oldest=e.newer),e.newer&&(e.newer.older=e.older),e.older&&(e.older.newer=e.newer),this.size--;let t=e.key||e.keyRef&&e.keyRef.deref();this.dispose(e.value,t),e.keyRef?this.registry.unregister(e):this.unfinalizedNodes.delete(e),t&&this.map.delete(t)}delete(e){let t=this.map.get(e);return!!t&&(this.deleteNode(t),!0)}scheduleFinalization(e){this.unfinalizedNodes.add(e),this.finalizationScheduled||(this.finalizationScheduled=!0,queueMicrotask(this.finalize))}}function s(){}e.s(["WeakCache",0,o],214054);class a{constructor(e=1/0,t=s){this.max=e,this.dispose=t,this.map=new Map,this.newest=null,this.oldest=null}has(e){return this.map.has(e)}get(e){let t=this.getNode(e);return t&&t.value}get size(){return this.map.size}getNode(e){let t=this.map.get(e);if(t&&t!==this.newest){let{older:e,newer:r}=t;r&&(r.older=e),e&&(e.newer=r),t.older=this.newest,t.older.newer=t,t.newer=null,this.newest=t,t===this.oldest&&(this.oldest=r)}return t}set(e,t){let r=this.getNode(e);return r?r.value=t:(r={key:e,value:t,newer:null,older:this.newest},this.newest&&(this.newest.newer=r),this.newest=r,this.oldest=this.oldest||r,this.map.set(e,r),r.value)}clean(){for(;this.oldest&&this.map.size>this.max;)this.delete(this.oldest.key)}delete(e){let t=this.map.get(e);return!!t&&(t===this.newest&&(this.newest=t.older),t===this.oldest&&(this.oldest=t.newer),t.newer&&(t.newer.older=t.older),t.older&&(t.older.newer=t.newer),this.map.delete(e),this.dispose(t.value,e),!0)}}e.s(["StrongCache",0,a],372602);var l=new WeakSet;function u(e){!(e.size<=(e.max||-1))&&(l.has(e)||(l.add(e),setTimeout(function(){e.clean(),l.delete(e)},100)))}e.s(["AutoCleanedStrongCache",0,function(e,t){var r=new a(e,t);return r.set=function(e,t){var r=a.prototype.set.call(this,e,t);return u(this),r},r},"AutoCleanedWeakCache",0,function(e,t){var r=new o(e,t);return r.set=function(e,t){var r=o.prototype.set.call(this,e,t);return u(this),r},r}],98383);var c=e.i(824627);e.i(866593);var d=e.i(295624),d=d,p=Symbol.for("apollo.cacheSize"),f=(0,c.__assign)({},d.default[p]);e.s(["cacheSizes",0,f],727678);var h={},g=!1!==globalThis.__DEV__?function(){var e,t,r,i,n;if(!1===globalThis.__DEV__)throw Error("only supported in development mode");return{limits:Object.fromEntries(Object.entries({parser:1e3,canonicalStringify:1e3,print:2e3,"documentTransform.cache":2e3,"queryManager.getDocumentInfo":2e3,"PersistedQueryLink.persistedQueryHashes":2e3,"fragmentRegistry.transform":2e3,"fragmentRegistry.lookup":1e3,"fragmentRegistry.findFragmentSpreads":4e3,"cache.fragmentQueryDocuments":1e3,"removeTypenameFromVariables.getVariableDefinitions":2e3,"inMemoryCache.maybeBroadcastWatch":5e3,"inMemoryCache.executeSelectionSet":5e4,"inMemoryCache.executeSubSelectedArray":1e4}).map(function(e){var t=e[0],r=e[1];return[t,f[t]||r]})),sizes:(0,c.__assign)({print:null==(e=h.print)?void 0:e.call(h),parser:null==(t=h.parser)?void 0:t.call(h),canonicalStringify:null==(r=h.canonicalStringify)?void 0:r.call(h),links:function e(t){var r;return t?(0,c.__spreadArray)((0,c.__spreadArray)([null==(r=null==t?void 0:t.getMemoryInternals)?void 0:r.call(t)],e(null==t?void 0:t.left),!0),e(null==t?void 0:t.right),!0).filter(E):[]}(this.link),queryManager:{getDocumentInfo:this.queryManager.transformCache.size,documentTransforms:k(this.queryManager.documentTransform)}},null==(n=(i=this.cache).getMemoryInternals)?void 0:n.call(i))}}:void 0,m=!1!==globalThis.__DEV__?function(){var e=this.config.fragments;return(0,c.__assign)((0,c.__assign)({},y.apply(this)),{addTypenameDocumentTransform:k(this.addTypenameTransform),inMemoryCache:{executeSelectionSet:v(this.storeReader.executeSelectionSet),executeSubSelectedArray:v(this.storeReader.executeSubSelectedArray),maybeBroadcastWatch:v(this.maybeBroadcastWatch)},fragmentRegistry:{findFragmentSpreads:v(null==e?void 0:e.findFragmentSpreads),lookup:v(null==e?void 0:e.lookup),transform:v(null==e?void 0:e.transform)}})}:void 0,I=!1!==globalThis.__DEV__?y:void 0;function y(){return{cache:{fragmentQueryDocuments:v(this.getFragmentDoc)}}}function v(e){return e&&"dirtyKey"in e?e.size:void 0}function E(e){return null!=e}function k(e){return(function e(t){return t?(0,c.__spreadArray)((0,c.__spreadArray)([v(null==t?void 0:t.performWork)],e(null==t?void 0:t.left),!0),e(null==t?void 0:t.right),!0).filter(E):[]})(e).map(function(e){return{cache:e}})}e.s(["getApolloCacheMemoryInternals",0,I,"getApolloClientMemoryInternals",0,g,"getInMemoryCacheMemoryInternals",0,m,"registerGlobalCache",0,function(e,t){h[e]=t}],744670)},867200,570894,745645,e=>{"use strict";e.i(866593);var t,r=e.i(440296),i=e.i(576690),n=e.i(679889),o=e.i(98383),s=e.i(727678),a=e.i(744670),l=Object.assign(function(e){return JSON.stringify(e,u)},{reset:function(){t=new o.AutoCleanedStrongCache(s.cacheSizes.canonicalStringify||1e3)}});function u(e,r){if(r&&"object"==typeof r){var i=Object.getPrototypeOf(r);if(i===Object.prototype||null===i){var n=Object.keys(r);if(n.every(c))return r;var o=JSON.stringify(n),s=t.get(o);if(!s){n.sort();var a=JSON.stringify(n);s=t.get(a)||n,t.set(o,s),t.set(a,s)}var l=Object.create(i);return s.forEach(function(e){l[e]=r[e]}),l}}return r}function c(e,t,r){return 0===t||r[t-1]<=e}function d(e,t,i,n){if("IntValue"===i.kind||"FloatValue"===i.kind)e[t.value]=Number(i.value);else if("BooleanValue"===i.kind||"StringValue"===i.kind)e[t.value]=i.value;else if("ObjectValue"===i.kind){var o={};i.fields.map(function(e){return d(o,e.name,e.value,n)}),e[t.value]=o}else if("Variable"===i.kind){var s=(n||{})[i.name.value];e[t.value]=s}else if("ListValue"===i.kind)e[t.value]=i.values.map(function(e){var r={};return d(r,t,e,n),r[t.value]});else if("EnumValue"===i.kind)e[t.value]=i.value;else if("NullValue"===i.kind)e[t.value]=null;else throw(0,r.newInvariantError)(96,t.value,i.kind)}!1!==globalThis.__DEV__&&(0,a.registerGlobalCache)("canonicalStringify",function(){return t.size}),l.reset(),e.s(["canonicalStringify",0,l],570894);var p=["connection","include","skip","client","rest","export","nonreactive"],f=l,h=Object.assign(function(e,t,r){if(t&&r&&r.connection&&r.connection.key)if(!r.connection.filter||!(r.connection.filter.length>0))return r.connection.key;else{var i=r.connection.filter?r.connection.filter:[];i.sort();var n={};return i.forEach(function(e){n[e]=t[e]}),"".concat(r.connection.key,"(").concat(f(n),")")}var o=e;if(t){var s=f(t);o+="(".concat(s,")")}return r&&Object.keys(r).forEach(function(e){-1===p.indexOf(e)&&(r[e]&&Object.keys(r[e]).length?o+="@".concat(e,"(").concat(f(r[e]),")"):o+="@".concat(e))}),o},{setStringify:function(e){var t=f;return f=e,t}});function g(e){return e.alias?e.alias.value:e.name.value}function m(e){return"Field"===e.kind}function I(e){(0,r.invariant)(e&&"Document"===e.kind,88);var t=e.definitions.filter(function(e){return"FragmentDefinition"!==e.kind}).map(function(e){if("OperationDefinition"!==e.kind)throw(0,r.newInvariantError)(89,e.kind);return e});return(0,r.invariant)(t.length<=1,90,t.length),e}function y(e){return I(e),e.definitions.filter(function(e){return"OperationDefinition"===e.kind})[0]}e.s(["argumentsObjectFromField",0,function(e,t){if(e.arguments&&e.arguments.length){var r={};return e.arguments.forEach(function(e){return d(r,e.name,e.value,t)}),r}return null},"getStoreKeyName",0,h,"getTypenameFromResult",0,function e(t,r,i){for(var o,s=0,a=r.selections;s<a.length;s++){var l=a[s];if(m(l)){if("__typename"===l.name.value)return t[g(l)]}else o?o.push(l):o=[l]}if("string"==typeof t.__typename)return t.__typename;if(o)for(var u=0,c=o;u<c.length;u++){var l=c[u],d=e(t,(0,n.getFragmentFromSelection)(l,i).selectionSet,i);if("string"==typeof d)return d}},"isDocumentNode",0,function(e){return(0,i.isNonNullObject)(e)&&"Document"===e.kind&&Array.isArray(e.definitions)},"isField",0,m,"isInlineFragment",0,function(e){return"InlineFragment"===e.kind},"isReference",0,function(e){return!!(e&&"object"==typeof e&&"string"==typeof e.__ref)},"makeReference",0,function(e){return{__ref:String(e)}},"resultKeyNameFromField",0,g,"storeKeyNameFromField",0,function(e,t){var r=null;e.directives&&(r={},e.directives.forEach(function(e){r[e.name.value]={},e.arguments&&e.arguments.forEach(function(i){var n=i.name,o=i.value;return d(r[e.name.value],n,o,t)})}));var i=null;return e.arguments&&e.arguments.length&&(i={},e.arguments.forEach(function(e){var r=e.name,n=e.value;return d(i,r,n,t)})),h(e.name.value,i,r)},"valueToObjectRepresentation",0,d],745645),e.s(["checkDocument",0,I,"getDefaultValues",0,function(e){var t=Object.create(null),r=e&&e.variableDefinitions;return r&&r.length&&r.forEach(function(e){e.defaultValue&&d(t,e.variable.name,e.defaultValue)}),t},"getFragmentDefinition",0,function(e){(0,r.invariant)("Document"===e.kind,92),(0,r.invariant)(e.definitions.length<=1,93);var t=e.definitions[0];return(0,r.invariant)("FragmentDefinition"===t.kind,94),t},"getFragmentDefinitions",0,function(e){return e.definitions.filter(function(e){return"FragmentDefinition"===e.kind})},"getMainDefinition",0,function(e){I(e);for(var t,i=0,n=e.definitions;i<n.length;i++){var o=n[i];if("OperationDefinition"===o.kind){var s=o.operation;if("query"===s||"mutation"===s||"subscription"===s)return o}"FragmentDefinition"!==o.kind||t||(t=o)}if(t)return t;throw(0,r.newInvariantError)(95)},"getOperationDefinition",0,y,"getOperationName",0,function(e){return e.definitions.filter(function(e){return"OperationDefinition"===e.kind&&!!e.name}).map(function(e){return e.name.value})[0]||null},"getQueryDefinition",0,function(e){var t=y(e);return(0,r.invariant)(t&&"query"===t.operation,91),t}],867200)},988484,e=>{"use strict";e.i(866593);var t=e.i(440296),r=e.i(788868),i=e.i(633773);function n(e,t,i){var n=new Set(e),o=n.size;return(0,r.visit)(t,{Directive:function(e){if(n.delete(e.name.value)&&(!i||!n.size))return r.BREAK}}),i?!n.size:n.size<o}function o(e){var r=[];return e&&e.length&&e.forEach(function(e){if("skip"===(i=e.name.value)||"include"===i){var i,n=e.arguments,o=e.name.value;(0,t.invariant)(n&&1===n.length,79,o);var s=n[0];(0,t.invariant)(s.name&&"if"===s.name.value,80,o);var a=s.value;(0,t.invariant)(a&&("Variable"===a.kind||"BooleanValue"===a.kind),81,o),r.push({directive:e,ifArgument:s})}}),r}e.s(["getDirectiveNames",0,function(e){var t=[];return(0,r.visit)(e,{Directive:function(e){t.push(e.name.value)}}),t},"getFragmentMaskMode",0,function(e){var r,n,o=null==(r=e.directives)?void 0:r.find(function(e){return"unmask"===e.name.value});if(!o)return"mask";var s=null==(n=o.arguments)?void 0:n.find(function(e){return"mode"===e.name.value});return(!1!==globalThis.__DEV__&&s&&(s.value.kind===i.Kind.VARIABLE?!1!==globalThis.__DEV__&&t.invariant.warn(82):s.value.kind!==i.Kind.STRING?!1!==globalThis.__DEV__&&t.invariant.warn(83):"migrate"!==s.value.value&&!1!==globalThis.__DEV__&&t.invariant.warn(84,s.value.value)),s&&"value"in s.value&&"migrate"===s.value.value)?"migrate":"unmask"},"getInclusionDirectives",0,o,"hasAllDirectives",0,function(e,t){return n(e,t,!0)},"hasAnyDirectives",0,function(e,t){return n(e,t,!1)},"hasClientExports",0,function(e){return e&&n(["client","export"],e,!0)},"hasDirectives",0,n,"shouldInclude",0,function(e,r){var i=e.directives;return!i||!i.length||o(i).every(function(e){var i=e.directive,n=e.ifArgument,o=!1;return"Variable"===n.value.kind?(o=r&&r[n.value.name.value],(0,t.invariant)(void 0!==o,78,i.name.value)):o=n.value.value,"skip"===i.name.value?!o:o})}])},756953,e=>{"use strict";e.i(866593);var t=e.i(814931),r="ReactNative"==(0,t.maybe)(function(){return navigator.product}),i="function"==typeof WeakMap&&!(r&&!e.g.HermesInternal),n="function"==typeof WeakSet,o="function"==typeof Symbol&&"function"==typeof Symbol.for,s=o&&Symbol.asyncIterator,a="function"==typeof(0,t.maybe)(function(){return window.document.createElement}),l=(0,t.maybe)(function(){return navigator.userAgent.indexOf("jsdom")>=0})||!1,u=(a||r)&&!l;e.s(["canUseAsyncIteratorSymbol",0,s,"canUseDOM",0,a,"canUseLayoutEffect",0,u,"canUseSymbol",0,o,"canUseWeakMap",0,i,"canUseWeakSet",0,n])},955732,e=>{"use strict";var t=e.i(824627);e.i(866593);var r=e.i(576690),i=Symbol(),n=function(e){var i=(0,t.__spreadArray)((0,t.__spreadArray)((0,t.__spreadArray)([],e.graphQLErrors,!0),e.clientErrors,!0),e.protocolErrors,!0);return e.networkError&&i.push(e.networkError),i.map(function(e){return(0,r.isNonNullObject)(e)&&e.message||"Error message not found."}).join("\n")},o=function(e){function r(i){var o=i.graphQLErrors,s=i.protocolErrors,a=i.clientErrors,l=i.networkError,u=i.errorMessage,c=i.extraInfo,d=e.call(this,u)||this;return d.name="ApolloError",d.graphQLErrors=o||[],d.protocolErrors=s||[],d.clientErrors=a||[],d.networkError=l||null,d.message=u||n(d),d.extraInfo=c,d.cause=(0,t.__spreadArray)((0,t.__spreadArray)((0,t.__spreadArray)([l],o||[],!0),s||[],!0),a||[],!0).find(function(e){return!!e})||null,d.__proto__=r.prototype,d}return(0,t.__extends)(r,e),r}(Error);e.s(["ApolloError",0,o,"PROTOCOL_ERRORS_SYMBOL",0,i,"graphQLResultHasProtocolErrors",0,function(e){return!!e.extensions&&Array.isArray(e.extensions[i])},"isApolloError",0,function(e){return e.hasOwnProperty("graphQLErrors")}])},8993,e=>{"use strict";var t=Array.isArray;e.s(["isArray",0,t,"isNonEmptyArray",0,function(e){return Array.isArray(e)&&e.length>0}])},203853,611351,e=>{"use strict";function t(e){return 9===e||32===e}function r(e){return e>=48&&e<=57}function i(e){return e>=97&&e<=122||e>=65&&e<=90}e.s(["isDigit",0,r,"isNameContinue",0,function(e){return i(e)||r(e)||95===e},"isNameStart",0,function(e){return i(e)||95===e},"isWhiteSpace",0,t],611351),e.s(["dedentBlockStringLines",0,function(e){var r,i;let n=Number.MAX_SAFE_INTEGER,o=null,s=-1;for(let r=0;r<e.length;++r){let a=e[r],l=function(e){let r=0;for(;r<e.length&&t(e.charCodeAt(r));)++r;return r}(a);l!==a.length&&(o=null!=(i=o)?i:r,s=r,0!==r&&l<n&&(n=l))}return e.map((e,t)=>0===t?e:e.slice(n)).slice(null!=(r=o)?r:0,s+1)},"isPrintableAsBlockString",0,function(e){if(""===e)return!0;let t=!0,r=!1,i=!0,n=!1;for(let o=0;o<e.length;++o)switch(e.codePointAt(o)){case 0:case 1:case 2:case 3:case 4:case 5:case 6:case 7:case 8:case 11:case 12:case 14:case 15:case 13:return!1;case 10:if(t&&!n)return!1;n=!0,t=!0,r=!1;break;case 9:case 32:r||(r=t);break;default:i&&(i=r),t=!1}return!t&&(!i||!n)},"printBlockString",0,function(e,r){let i=e.replace(/"""/g,'\\"""'),n=i.split(/\r\n|[\n\r]/g),o=1===n.length,s=n.length>1&&n.slice(1).every(e=>0===e.length||t(e.charCodeAt(0))),a=i.endsWith('\\"""'),l=e.endsWith('"')&&!a,u=e.endsWith("\\"),c=l||u,d=!(null!=r&&r.minimize)&&(!o||e.length>70||c||s||a),p="",f=o&&t(e.charCodeAt(0));return(d&&!f||s)&&(p+="\n"),p+=i,(d||c)&&(p+="\n"),'"""'+p+'"""'}],203853)},825821,696085,e=>{"use strict";e.s(["iterateObserversSafely",0,function(e,t,r){var i=[];e.forEach(function(e){return e[t]&&i.push(e)}),i.forEach(function(e){return e[t](r)})}],825821);var t=e.i(610499),r=e.i(756953);e.s(["fixObservableSubclass",0,function(e){function i(r){Object.defineProperty(e,r,{value:t.Observable})}return r.canUseSymbol&&Symbol.species&&i(Symbol.species),i("@@species"),e}],696085)},878823,336419,908800,290300,e=>{"use strict";let t,r=()=>Object.create(null),{forEach:i,slice:n}=Array.prototype,{hasOwnProperty:o}=Object.prototype;class s{constructor(e=!0,t=r){this.weakness=e,this.makeData=t}lookup(){return this.lookupArray(arguments)}lookupArray(e){let t=this;return i.call(e,e=>t=t.getChildTrie(e)),o.call(t,"data")?t.data:t.data=this.makeData(n.call(e))}peek(){return this.peekArray(arguments)}peekArray(e){let t=this;for(let r=0,i=e.length;t&&r<i;++r){let i=t.mapFor(e[r],!1);t=i&&i.get(e[r])}return t&&t.data}remove(){return this.removeArray(arguments)}removeArray(e){let t;if(e.length){let r=e[0],i=this.mapFor(r,!1),o=i&&i.get(r);o&&(t=o.removeArray(n.call(e,1)),o.data||o.weak||o.strong&&o.strong.size||i.delete(r))}else t=this.data,delete this.data;return t}getChildTrie(e){let t=this.mapFor(e,!0),r=t.get(e);return r||t.set(e,r=new s(this.weakness,this.makeData)),r}mapFor(e,t){return this.weakness&&function(e){switch(typeof e){case"object":if(null===e)break;case"function":return!0}return!1}(e)?this.weak||(t?this.weak=new WeakMap:void 0):this.strong||(t?this.strong=new Map:void 0)}}e.s(["Trie",0,s],336419);var a=e.i(372602);let l=null,u={},c=1;function d(e){try{return e()}catch(e){}}let p="@wry/context:Slot",f=d(()=>globalThis)||d(()=>e.g)||Object.create(null),h=f[p]||Array[p]||function(e){try{Object.defineProperty(f,p,{value:e,enumerable:!1,writable:!1,configurable:!0})}finally{return e}}(class{constructor(){this.id=["slot",c++,Date.now(),Math.random().toString(36).slice(2)].join(":")}hasValue(){for(let e=l;e;e=e.parent)if(this.id in e.slots){let t=e.slots[this.id];if(t===u)break;return e!==l&&(l.slots[this.id]=t),!0}return l&&(l.slots[this.id]=u),!1}getValue(){if(this.hasValue())return l.slots[this.id]}withValue(e,t,r,i){let n={__proto__:null,[this.id]:e},o=l;l={parent:o,slots:n};try{return t.apply(i,r)}finally{l=o}}static bind(e){let t=l;return function(){let r=l;try{return l=t,e.apply(this,arguments)}finally{l=r}}}static noContext(e,t,r){if(!l)return e.apply(r,t);{let i=l;try{return l=null,e.apply(r,t)}finally{l=i}}}});e.s(["Slot",0,h],908800);let{bind:g,noContext:m}=h,I=new h,{hasOwnProperty:y}=Object.prototype,v=Array.from||function(e){let t=[];return e.forEach(e=>t.push(e)),t};function E(e){let{unsubscribe:t}=e;"function"==typeof t&&(e.unsubscribe=void 0,t())}let k=[];function w(e,t){if(!e)throw Error(t||"assertion failure")}function T(e,t){let r=e.length;return r>0&&r===t.length&&e[r-1]===t[r-1]}function b(e){switch(e.length){case 0:throw Error("unknown value");case 1:return e[0];case 2:throw e[1]}}class S{constructor(e){this.fn=e,this.parents=new Set,this.childValues=new Map,this.dirtyChildren=null,this.dirty=!0,this.recomputing=!1,this.value=[],this.deps=null,++S.count}peek(){if(1===this.value.length&&!A(this))return _(this),this.value[0]}recompute(e){var t,r,i;return w(!this.recomputing,"already recomputing"),_(this),A(this)?(t=this,r=e,F(t),I.withValue(t,D,[t,r]),function(e,t){if("function"==typeof e.subscribe)try{E(e),e.unsubscribe=e.subscribe.apply(null,t)}catch(t){return e.setDirty(),!1}return!0}(t,r)&&((i=t).dirty=!1,A(i)||function(e){N(e,C)}(i)),b(t.value)):b(this.value)}setDirty(){var e;this.dirty||(this.dirty=!0,e=this,N(e,O),E(this))}dispose(){this.setDirty(),F(this),N(this,(e,t)=>{e.setDirty(),R(e,this)})}forget(){this.dispose()}dependOn(e){e.add(this),this.deps||(this.deps=k.pop()||new Set),this.deps.add(e)}forgetDeps(){this.deps&&(v(this.deps).forEach(e=>e.delete(this)),this.deps.clear(),k.push(this.deps),this.deps=null)}}function _(e){let t=I.getValue();if(t)return e.parents.add(t),t.childValues.has(e)||t.childValues.set(e,[]),A(e)?O(t,e):C(t,e),t}function D(e,t){let r;e.recomputing=!0;let{normalizeResult:i}=e;i&&1===e.value.length&&(r=e.value.slice(0)),e.value.length=0;try{if(e.value[0]=e.fn.apply(null,t),i&&r&&!T(r,e.value))try{e.value[0]=i(e.value[0],r[0])}catch(e){}}catch(t){e.value[1]=t}e.recomputing=!1}function A(e){return e.dirty||!!(e.dirtyChildren&&e.dirtyChildren.size)}S.count=0;function N(e,t){let r=e.parents.size;if(r){let i=v(e.parents);for(let n=0;n<r;++n)t(i[n],e)}}function O(e,t){w(e.childValues.has(t)),w(A(t));let r=!A(e);if(e.dirtyChildren){if(e.dirtyChildren.has(t))return}else e.dirtyChildren=k.pop()||new Set;e.dirtyChildren.add(t),r&&N(e,O)}function C(e,t){w(e.childValues.has(t)),w(!A(t));let r=e.childValues.get(t);0===r.length?e.childValues.set(t,t.value.slice(0)):T(r,t.value)||e.setDirty(),$(e,t),A(e)||N(e,C)}function $(e,t){let r=e.dirtyChildren;r&&(r.delete(t),0===r.size&&(k.length<100&&k.push(r),e.dirtyChildren=null))}function F(e){e.childValues.size>0&&e.childValues.forEach((t,r)=>{R(e,r)}),e.forgetDeps(),w(null===e.dirtyChildren)}function R(e,t){t.parents.delete(e),e.childValues.delete(t),$(e,t)}let P={setDirty:!0,dispose:!0,forget:!0};function U(...e){return(t||(t=new s("function"==typeof WeakMap))).lookupArray(e)}e.s(["dep",0,function(e){let t=new Map,r=e&&e.subscribe;function i(e){let i=I.getValue();if(i){let n=t.get(e);n||t.set(e,n=new Set),i.dependOn(n),"function"==typeof r&&(E(n),n.unsubscribe=r(e))}}return i.dirty=function(e,r){let i=t.get(e);if(i){let n=r&&y.call(P,r)?r:"setDirty";v(i).forEach(e=>e[n]()),t.delete(e),E(i)}},i}],290300);let L=new Set;e.s(["wrap",0,function(e,{max:t=65536,keyArgs:r,makeCacheKey:i=U,normalizeResult:n,subscribe:o,cache:s=a.StrongCache}=Object.create(null)){let l="function"==typeof s?new s(t,e=>e.dispose()):s,u=function(){let t=i.apply(null,r?r.apply(null,arguments):arguments);if(void 0===t)return e.apply(null,arguments);let s=l.get(t);s||(l.set(t,s=new S(e)),s.normalizeResult=n,s.subscribe=o,s.forget=()=>l.delete(t));let a=s.recompute(Array.prototype.slice.call(arguments));return l.set(t,s),L.add(l),I.hasValue()||(L.forEach(e=>e.clean()),L.clear()),a};function c(e){let t=e&&l.get(e);t&&t.setDirty()}function d(e){let t=e&&l.get(e);if(t)return t.peek()}function p(e){return!!e&&l.delete(e)}return Object.defineProperty(u,"size",{get:()=>l.size,configurable:!1,enumerable:!1}),Object.freeze(u.options={max:t,keyArgs:r,makeCacheKey:i,normalizeResult:n,subscribe:o,cache:l}),u.dirtyKey=c,u.dirty=function(){c(i.apply(null,arguments))},u.peekKey=d,u.peek=function(){return d(i.apply(null,arguments))},u.forgetKey=p,u.forget=function(){return p(i.apply(null,arguments))},u.makeCacheKey=i,u.getKey=r?function(){return i.apply(null,r.apply(null,arguments))}:i,Object.freeze(u)}],878823)},130074,e=>{"use strict";var t=Object.prototype.toString;e.s(["cloneDeep",0,function(e){return function e(r,i){switch(t.call(r)){case"[object Array]":if((i=i||new Map).has(r))return i.get(r);var n=r.slice(0);return i.set(r,n),n.forEach(function(t,r){n[r]=e(t,i)}),n;case"[object Object]":if((i=i||new Map).has(r))return i.get(r);var o=Object.create(Object.getPrototypeOf(r));return i.set(r,o),Object.keys(r).forEach(function(t){o[t]=e(r[t],i)}),o;default:return r}}(e)}])},919901,e=>{"use strict";e.s(["compact",0,function(){for(var e=[],t=0;t<arguments.length;t++)e[t]=arguments[t];var r=Object.create(null);return e.forEach(function(e){e&&Object.keys(e).forEach(function(t){var i=e[t];void 0!==i&&(r[t]=i)})}),r}])},736647,e=>{"use strict";e.s(["preventUnhandledRejection",0,function(e){return e.catch(function(){}),e}])},310540,5382,95171,671101,e=>{"use strict";let{toString:t,hasOwnProperty:r}=Object.prototype,i=Function.prototype.toString,n=new Map;function o(e,o){try{return function e(n,o){if(n===o)return!0;let a=t.call(n);if(a!==t.call(o))return!1;switch(a){case"[object Array]":if(n.length!==o.length)break;case"[object Object]":{if(u(n,o))return!0;let t=s(n),i=s(o),a=t.length;if(a!==i.length)return!1;for(let e=0;e<a;++e)if(!r.call(o,t[e]))return!1;for(let r=0;r<a;++r){let i=t[r];if(!e(n[i],o[i]))return!1}return!0}case"[object Error]":return n.name===o.name&&n.message===o.message;case"[object Number]":if(n!=n)return o!=o;case"[object Boolean]":case"[object Date]":return+n==+o;case"[object RegExp]":case"[object String]":return n==`${o}`;case"[object Map]":case"[object Set]":{if(n.size!==o.size)return!1;if(u(n,o))return!0;let t=n.entries(),r="[object Map]"===a;for(;;){let i=t.next();if(i.done)break;let[n,s]=i.value;if(!o.has(n)||r&&!e(s,o.get(n)))return!1}return!0}case"[object Uint16Array]":case"[object Uint8Array]":case"[object Uint32Array]":case"[object Int32Array]":case"[object Int8Array]":case"[object Int16Array]":case"[object ArrayBuffer]":n=new Uint8Array(n),o=new Uint8Array(o);case"[object DataView]":{let e=n.byteLength;if(e===o.byteLength)for(;e--&&n[e]===o[e];);return -1===e}case"[object AsyncFunction]":case"[object GeneratorFunction]":case"[object AsyncGeneratorFunction]":case"[object Function]":{var c,d;let e,t=i.call(n);if(t!==i.call(o))return!1;return c=t,d=l,!((e=c.length-d.length)>=0)||c.indexOf(d,e)!==e}}return!1}(e,o)}finally{n.clear()}}function s(e){return Object.keys(e).filter(a,e)}function a(e){return void 0!==this[e]}let l="{ [native code] }";function u(e,t){let r=n.get(e);if(r){if(r.has(t))return!0}else n.set(e,r=new Set);return r.add(t),!1}e.s(["default",0,o,"equal",0,o],310540);var c,d,p=e.i(824627);e.i(866593);var f=e.i(440296);function h(e){return!!e&&e<7}(c=d||(d={}))[c.loading=1]="loading",c[c.setVariables=2]="setVariables",c[c.fetchMore=3]="fetchMore",c[c.refetch=4]="refetch",c[c.poll=6]="poll",c[c.ready=7]="ready",c[c.error=8]="error",e.s(["NetworkStatus",0,d,"isNetworkRequestInFlight",0,h,"isNetworkRequestSettled",0,function(e){return 7===e||8===e}],5382);var g=e.i(130074),m=e.i(919901),I=e.i(867200),y=e.i(610499),v=e.i(825821),E=e.i(696085),k=e.i(736647),w=e.i(955732),T=e.i(679889),b=e.i(745645),S=e.i(988484);function _(e,t,r,i){var n=t.data,s=(0,p.__rest)(t,["data"]),a=r.data;return o(s,(0,p.__rest)(r,["data"]))&&function e(t,r,i,n){if(r===i)return!0;var s=new Set;return t.selections.every(function(t){if(s.has(t)||(s.add(t),!(0,S.shouldInclude)(t,n.variables)||D(t)))return!0;if((0,b.isField)(t)){var a=(0,b.resultKeyNameFromField)(t),l=r&&r[a],u=i&&i[a],c=t.selectionSet;if(!c)return o(l,u);var d=Array.isArray(l),p=Array.isArray(u);if(d!==p)return!1;if(d&&p){var f=l.length;if(u.length!==f)return!1;for(var h=0;h<f;++h)if(!e(c,l[h],u[h],n))return!1;return!0}return e(c,l,u,n)}var g=(0,T.getFragmentFromSelection)(t,n.fragmentMap);if(g)return!!D(g)||e(g.selectionSet,r,i,n)})}((0,I.getMainDefinition)(e).selectionSet,n,a,{fragmentMap:(0,T.createFragmentMap)((0,I.getFragmentDefinitions)(e)),variables:i})}function D(e){return!!e.directives&&e.directives.some(A)}function A(e){return"nonreactive"===e.name.value}e.s(["equalByQuery",0,_],95171),e.i(878823);var N=e.i(908800),O=Object.assign,C=Object.hasOwnProperty,$=function(e){function t(r){var i=r.queryManager,n=r.queryInfo,o=r.options,s=this,a=t.inactiveOnCreation.getValue();(s=e.call(this,function(e){a&&(i.queries.set(s.queryId,n),a=!1);try{var t=e._subscription._observer;t&&!t.error&&(t.error=F)}catch(e){}var r=!s.observers.size;s.observers.add(e);var o=s.last;return o&&o.error?e.error&&e.error(o.error):o&&o.result&&e.next&&e.next(s.maskResult(o.result)),r&&s.reobserve().catch(function(){}),function(){s.observers.delete(e)&&!s.observers.size&&s.tearDownQuery()}})||this).observers=new Set,s.subscriptions=new Set,s.dirty=!1,s.queryInfo=n,s.queryManager=i,s.waitForOwnResult=P(o.fetchPolicy),s.isTornDown=!1,s.subscribeToMore=s.subscribeToMore.bind(s),s.maskResult=s.maskResult.bind(s);var l=i.defaultOptions.watchQuery,u=(void 0===l?{}:l).fetchPolicy,c=void 0===u?"cache-first":u,d=o.fetchPolicy,f=void 0===d?c:d,h=o.initialFetchPolicy,g=void 0===h?"standby"===f?c:f:h;s.options=(0,p.__assign)((0,p.__assign)({},o),{initialFetchPolicy:g,fetchPolicy:f}),s.queryId=n.queryId||i.generateQueryId();var m=(0,I.getOperationDefinition)(s.query);return s.queryName=m&&m.name&&m.name.value,s}return(0,p.__extends)(t,e),Object.defineProperty(t.prototype,"query",{get:function(){return this.lastQuery||this.options.query},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"variables",{get:function(){return this.options.variables},enumerable:!1,configurable:!0}),t.prototype.result=function(){var e=this;return new Promise(function(t,r){var i={next:function(r){t(r),e.observers.delete(i),e.observers.size||e.queryManager.removeQuery(e.queryId),setTimeout(function(){n.unsubscribe()},0)},error:r},n=e.subscribe(i)})},t.prototype.resetDiff=function(){this.queryInfo.resetDiff()},t.prototype.getCurrentFullResult=function(e){void 0===e&&(e=!0);var t=this.getLastResult(!0),r=this.queryInfo.networkStatus||t&&t.networkStatus||d.ready,i=(0,p.__assign)((0,p.__assign)({},t),{loading:h(r),networkStatus:r}),n=this.options.fetchPolicy,s=void 0===n?"cache-first":n;if(P(s)||this.queryManager.getDocumentInfo(this.query).hasForcedResolvers);else if(this.waitForOwnResult)this.queryInfo.updateWatch();else{var a=this.queryInfo.getDiff();(a.complete||this.options.returnPartialData)&&(i.data=a.result),o(i.data,{})&&(i.data=void 0),a.complete?(delete i.partial,a.complete&&i.networkStatus===d.loading&&("cache-first"===s||"cache-only"===s)&&(i.networkStatus=d.ready,i.loading=!1)):i.partial=!0,i.networkStatus===d.ready&&(i.error||i.errors)&&(i.networkStatus=d.error),!1===globalThis.__DEV__||a.complete||this.options.partialRefetch||i.loading||i.data||i.error||R(a.missing)}return e&&this.updateLastResult(i),i},t.prototype.getCurrentResult=function(e){return void 0===e&&(e=!0),this.maskResult(this.getCurrentFullResult(e))},t.prototype.isDifferentFromLastResult=function(e,t){if(!this.last)return!0;var r=this.queryManager.getDocumentInfo(this.query),i=this.queryManager.dataMasking,n=i?r.nonReactiveQuery:this.query;return(i||r.hasNonreactiveDirective?!_(n,this.last.result,e,this.variables):!o(this.last.result,e))||t&&!o(this.last.variables,t)},t.prototype.getLast=function(e,t){var r=this.last;if(r&&r[e]&&(!t||o(r.variables,this.variables)))return r[e]},t.prototype.getLastResult=function(e){return this.getLast("result",e)},t.prototype.getLastError=function(e){return this.getLast("error",e)},t.prototype.resetLastResults=function(){delete this.last,this.isTornDown=!1},t.prototype.resetQueryStoreErrors=function(){this.queryManager.resetErrors(this.queryId)},t.prototype.refetch=function(e){var t,r={pollInterval:0};if("no-cache"===this.options.fetchPolicy?r.fetchPolicy="no-cache":r.fetchPolicy="network-only",!1!==globalThis.__DEV__&&e&&C.call(e,"variables")){var i=(0,I.getQueryDefinition)(this.query),n=i.variableDefinitions;n&&n.some(function(e){return"variables"===e.variable.name.value})||!1===globalThis.__DEV__||f.invariant.warn(21,e,(null==(t=i.name)?void 0:t.value)||i)}return e&&!o(this.options.variables,e)&&(r.variables=this.options.variables=(0,p.__assign)((0,p.__assign)({},this.options.variables),e)),this.queryInfo.resetLastWrite(),this.reobserve(r,d.refetch)},t.prototype.fetchMore=function(e){var t=this,r=(0,p.__assign)((0,p.__assign)({},e.query?e:(0,p.__assign)((0,p.__assign)((0,p.__assign)((0,p.__assign)({},this.options),{query:this.options.query}),e),{variables:(0,p.__assign)((0,p.__assign)({},this.options.variables),e.variables)})),{fetchPolicy:"no-cache"});r.query=this.transformDocument(r.query);var i=this.queryManager.generateQueryId();this.lastQuery=e.query?this.transformDocument(this.options.query):r.query;var n=this.queryInfo,o=n.networkStatus;n.networkStatus=d.fetchMore,r.notifyOnNetworkStatusChange&&this.observe();var s=new Set,a=null==e?void 0:e.updateQuery,l="no-cache"!==this.options.fetchPolicy;return l||(0,f.invariant)(a,22),this.queryManager.fetchQuery(i,r,d.fetchMore).then(function(u){if(t.queryManager.removeQuery(i),n.networkStatus===d.fetchMore&&(n.networkStatus=o),l)t.queryManager.cache.batch({update:function(i){var n=e.updateQuery;n?i.updateQuery({query:t.query,variables:t.variables,returnPartialData:!0,optimistic:!1},function(e){return n(e,{fetchMoreResult:u.data,variables:r.variables})}):i.writeQuery({query:r.query,variables:r.variables,data:u.data})},onWatchUpdated:function(e){s.add(e.query)}});else{var c=t.getLast("result"),f=a(c.data,{fetchMoreResult:u.data,variables:r.variables});t.reportResult((0,p.__assign)((0,p.__assign)({},c),{networkStatus:o,loading:h(o),data:f}),t.variables)}return t.maskResult(u)}).finally(function(){l&&!s.has(t.query)&&t.reobserveCacheFirst()})},t.prototype.subscribeToMore=function(e){var t=this,r=this.queryManager.startGraphQLSubscription({query:e.document,variables:e.variables,context:e.context}).subscribe({next:function(r){var i=e.updateQuery;i&&t.updateQuery(function(e,t){return i(e,(0,p.__assign)({subscriptionData:r},t))})},error:function(t){e.onError?e.onError(t):!1!==globalThis.__DEV__&&f.invariant.error(23,t)}});return this.subscriptions.add(r),function(){t.subscriptions.delete(r)&&r.unsubscribe()}},t.prototype.setOptions=function(e){return this.reobserve(e)},t.prototype.silentSetOptions=function(e){var t=(0,m.compact)(this.options,e||{});O(this.options,t)},t.prototype.setVariables=function(e){return o(this.variables,e)?this.observers.size?this.result():Promise.resolve():(this.options.variables=e,this.observers.size)?this.reobserve({fetchPolicy:this.options.initialFetchPolicy,variables:e},d.setVariables):Promise.resolve()},t.prototype.updateQuery=function(e){var t=this.queryManager,r=t.cache.diff({query:this.options.query,variables:this.variables,returnPartialData:!0,optimistic:!1}),i=r.result,n=r.complete,o=e(i,{variables:this.variables,complete:!!n,previousData:i});o&&(t.cache.writeQuery({query:this.options.query,data:o,variables:this.variables}),t.broadcastQueries())},t.prototype.startPolling=function(e){this.options.pollInterval=e,this.updatePolling()},t.prototype.stopPolling=function(){this.options.pollInterval=0,this.updatePolling()},t.prototype.applyNextFetchPolicy=function(e,t){if(t.nextFetchPolicy){var r=t.fetchPolicy,i=void 0===r?"cache-first":r,n=t.initialFetchPolicy,o=void 0===n?i:n;"standby"===i||("function"==typeof t.nextFetchPolicy?t.fetchPolicy=t.nextFetchPolicy(i,{reason:e,options:t,observable:this,initialFetchPolicy:o}):"variables-changed"===e?t.fetchPolicy=o:t.fetchPolicy=t.nextFetchPolicy)}return t.fetchPolicy},t.prototype.fetch=function(e,t,r){var i=this.queryManager.getOrCreateQuery(this.queryId);return i.setObservableQuery(this),this.queryManager.fetchConcastWithInfo(i,e,t,r)},t.prototype.updatePolling=function(){var e=this;if(!this.queryManager.ssrMode){var t=this.pollingInfo,r=this.options.pollInterval;if(!r||!this.hasObservers()){t&&(clearTimeout(t.timeout),delete this.pollingInfo);return}if(!t||t.interval!==r){(0,f.invariant)(r,24),(t||(this.pollingInfo={})).interval=r;var i=function(){var t,r;e.pollingInfo&&(h(e.queryInfo.networkStatus)||(null==(r=(t=e.options).skipPollAttempt)?void 0:r.call(t))?n():e.reobserve({fetchPolicy:"no-cache"===e.options.initialFetchPolicy?"no-cache":"network-only"},d.poll).then(n,n))},n=function(){var t=e.pollingInfo;t&&(clearTimeout(t.timeout),t.timeout=setTimeout(i,t.interval))};n()}}},t.prototype.updateLastResult=function(e,t){void 0===t&&(t=this.variables);var r=this.getLastError();return r&&this.last&&!o(t,this.last.variables)&&(r=void 0),this.last=(0,p.__assign)({result:this.queryManager.assumeImmutableResults?e:(0,g.cloneDeep)(e),variables:t},r?{error:r}:null)},t.prototype.reobserveAsConcast=function(e,t){var r=this;this.isTornDown=!1;var i=t===d.refetch||t===d.fetchMore||t===d.poll,n=this.options.variables,s=this.options.fetchPolicy,a=(0,m.compact)(this.options,e||{}),l=i?a:O(this.options,a),u=this.transformDocument(l.query);this.lastQuery=u,!i&&(this.updatePolling(),e&&e.variables&&!o(e.variables,n)&&"standby"!==l.fetchPolicy&&(l.fetchPolicy===s||"function"==typeof l.nextFetchPolicy)&&(this.applyNextFetchPolicy("variables-changed",l),void 0===t&&(t=d.setVariables))),this.waitForOwnResult&&(this.waitForOwnResult=P(l.fetchPolicy));var c=function(){r.concast===g&&(r.waitForOwnResult=!1)},f=l.variables&&(0,p.__assign)({},l.variables),h=this.fetch(l,t,u),g=h.concast,I=h.fromLink,y={next:function(e){o(r.variables,f)&&(c(),r.reportResult(e,f))},error:function(e){o(r.variables,f)&&((0,w.isApolloError)(e)||(e=new w.ApolloError({networkError:e})),c(),r.reportError(e,f))}};return i||!I&&this.concast||(this.concast&&this.observer&&this.concast.removeObserver(this.observer),this.concast=g,this.observer=y),g.addObserver(y),g},t.prototype.reobserve=function(e,t){return(0,k.preventUnhandledRejection)(this.reobserveAsConcast(e,t).promise.then(this.maskResult))},t.prototype.resubscribeAfterError=function(){for(var e=[],t=0;t<arguments.length;t++)e[t]=arguments[t];var r=this.last;this.resetLastResults();var i=this.subscribe.apply(this,e);return this.last=r,i},t.prototype.observe=function(){this.reportResult(this.getCurrentFullResult(!1),this.variables)},t.prototype.reportResult=function(e,t){var r=this.getLastError(),i=this.isDifferentFromLastResult(e,t);(r||!e.partial||this.options.returnPartialData)&&this.updateLastResult(e,t),(r||i)&&(0,v.iterateObserversSafely)(this.observers,"next",this.maskResult(e))},t.prototype.reportError=function(e,t){var r=(0,p.__assign)((0,p.__assign)({},this.getLastResult()),{error:e,errors:e.graphQLErrors,networkStatus:d.error,loading:!1});this.updateLastResult(r,t),(0,v.iterateObserversSafely)(this.observers,"error",this.last.error=e)},t.prototype.hasObservers=function(){return this.observers.size>0},t.prototype.tearDownQuery=function(){this.isTornDown||(this.concast&&this.observer&&(this.concast.removeObserver(this.observer),delete this.concast,delete this.observer),this.stopPolling(),this.subscriptions.forEach(function(e){return e.unsubscribe()}),this.subscriptions.clear(),this.queryManager.stopQuery(this.queryId),this.observers.clear(),this.isTornDown=!0)},t.prototype.transformDocument=function(e){return this.queryManager.transform(e)},t.prototype.maskResult=function(e){return e&&"data"in e?(0,p.__assign)((0,p.__assign)({},e),{data:this.queryManager.maskOperation({document:this.query,data:e.data,fetchPolicy:this.options.fetchPolicy,id:this.queryId})}):e},t.prototype.resetNotifications=function(){this.cancelNotifyTimeout(),this.dirty=!1},t.prototype.cancelNotifyTimeout=function(){this.notifyTimeout&&(clearTimeout(this.notifyTimeout),this.notifyTimeout=void 0)},t.prototype.scheduleNotify=function(){var e=this;!this.dirty&&(this.dirty=!0,this.notifyTimeout||(this.notifyTimeout=setTimeout(function(){return e.notify()},0)))},t.prototype.notify=function(){this.cancelNotifyTimeout(),this.dirty&&("cache-only"==this.options.fetchPolicy||"cache-and-network"==this.options.fetchPolicy||!h(this.queryInfo.networkStatus))&&(this.queryInfo.getDiff().fromOptimisticTransaction?this.observe():this.reobserveCacheFirst()),this.dirty=!1},t.prototype.reobserveCacheFirst=function(){var e=this.options,t=e.fetchPolicy,r=e.nextFetchPolicy;return"cache-and-network"===t||"network-only"===t?this.reobserve({fetchPolicy:"cache-first",nextFetchPolicy:function(e,i){return(this.nextFetchPolicy=r,"function"==typeof this.nextFetchPolicy)?this.nextFetchPolicy(e,i):t}}):this.reobserve()},t.inactiveOnCreation=new N.Slot,t}(y.Observable);function F(e){!1!==globalThis.__DEV__&&f.invariant.error(25,e.message,e.stack)}function R(e){!1!==globalThis.__DEV__&&e&&!1!==globalThis.__DEV__&&f.invariant.debug(26,e)}function P(e){return"network-only"===e||"no-cache"===e||"standby"===e}(0,E.fixObservableSubclass)($),e.s(["ObservableQuery",0,$,"logMissingFieldErrors",0,R],671101)},966201,e=>{"use strict";var t=e.i(576690);e.s(["maybeDeepFreeze",0,function(e){var r;return!1!==globalThis.__DEV__&&(r=new Set([e])).forEach(function(e){(0,t.isNonNullObject)(e)&&function(e){if(!1!==globalThis.__DEV__&&!Object.isFrozen(e))try{Object.freeze(e)}catch(e){if(e instanceof TypeError)return null;throw e}return e}(e)===e&&Object.getOwnPropertyNames(e).forEach(function(i){(0,t.isNonNullObject)(e[i])&&r.add(e[i])})}),e}])},254947,e=>{"use strict";var t=e.i(824627),r=e.i(919901);e.s(["mergeOptions",0,function(e,i){return(0,r.compact)(e,i,i.variables&&{variables:(0,r.compact)((0,t.__assign)((0,t.__assign)({},e&&e.variables),i.variables))})}])},700557,(e,t,r)=>{"use strict";t.exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED=void 0,t.exports.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE=void 0,t.exports.__SERVER_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE=void 0,Object.assign(t.exports,e.r(966143))},862026,e=>{"use strict";var t=e.i(700557),r=e.i(756953);e.i(866593);var i=e.i(440296),n=r.canUseSymbol?Symbol.for("__APOLLO_CONTEXT__"):"__APOLLO_CONTEXT__";e.s(["getApolloContext",0,function(){(0,i.invariant)("createContext"in t,54);var e=t.createContext[n];return e||(Object.defineProperty(t.createContext,n,{value:e=t.createContext({}),enumerable:!1,writable:!1,configurable:!0}),e.displayName="ApolloContext"),e}])},178492,569085,326037,975593,657266,886542,12823,565532,343637,79477,514091,954257,e=>{"use strict";function t(e){return"object"==typeof e&&null!==e}function r(e,t){if(!e)throw Error(null!=t?t:"Unexpected invariant triggered.")}e.s(["isObjectLike",0,t],569085),e.s(["invariant",0,r],326037);let i=/\r\n|[\n\r]/g;function n(e,t){let n=0,o=1;for(let s of e.body.matchAll(i)){if("number"==typeof s.index||r(!1),s.index>=t)break;n=s.index+s[0].length,o+=1}return{line:o,column:t+1-n}}function o(e){return s(e.source,n(e.source,e.start))}function s(e,t){let r=e.locationOffset.column-1,i="".padStart(r)+e.body,n=t.line-1,o=e.locationOffset.line-1,s=t.line+o,l=1===t.line?r:0,u=t.column+l,c=`${e.name}:${s}:${u}
+`,d=i.split(/\r\n|[\n\r]/g),p=d[n];if(p.length>120){let e=Math.floor(u/80),t=[];for(let e=0;e<p.length;e+=80)t.push(p.slice(e,e+80));return c+a([[`${s} |`,t[0]],...t.slice(1,e+1).map(e=>["|",e]),["|","^".padStart(u%80)],["|",t[e+1]]])}return c+a([[`${s-1} |`,d[n-1]],[`${s} |`,p],["|","^".padStart(u)],[`${s+1} |`,d[n+1]]])}function a(e){let t=e.filter(([e,t])=>void 0!==t),r=Math.max(...t.map(([e])=>e.length));return t.map(([e,t])=>e.padStart(r)+(t?" "+t:"")).join("\n")}e.s(["getLocation",0,n],975593),e.s(["printLocation",0,o,"printSourceLocation",0,s],657266);class l extends Error{constructor(e,...r){var i,o,s;const{nodes:a,source:c,positions:d,path:p,originalError:f,extensions:h}=function(e){let t=e[0];return null==t||"kind"in t||"length"in t?{nodes:t,source:e[1],positions:e[2],path:e[3],originalError:e[4],extensions:e[5]}:t}(r);super(e),this.name="GraphQLError",this.path=null!=p?p:void 0,this.originalError=null!=f?f:void 0,this.nodes=u(Array.isArray(a)?a:a?[a]:void 0);const g=u(null==(i=this.nodes)?void 0:i.map(e=>e.loc).filter(e=>null!=e));this.source=null!=c?c:null==g||null==(o=g[0])?void 0:o.source,this.positions=null!=d?d:null==g?void 0:g.map(e=>e.start),this.locations=d&&c?d.map(e=>n(c,e)):null==g?void 0:g.map(e=>n(e.source,e.start));const m=t(null==f?void 0:f.extensions)?null==f?void 0:f.extensions:void 0;this.extensions=null!=(s=null!=h?h:m)?s:Object.create(null),Object.defineProperties(this,{message:{writable:!0,enumerable:!0},name:{enumerable:!1},nodes:{enumerable:!1},source:{enumerable:!1},positions:{enumerable:!1},originalError:{enumerable:!1}}),null!=f&&f.stack?Object.defineProperty(this,"stack",{value:f.stack,writable:!0,configurable:!0}):Error.captureStackTrace?Error.captureStackTrace(this,l):Object.defineProperty(this,"stack",{value:Error().stack,writable:!0,configurable:!0})}get[Symbol.toStringTag](){return"GraphQLError"}toString(){let e=this.message;if(this.nodes)for(let t of this.nodes)t.loc&&(e+="\n\n"+o(t.loc));else if(this.source&&this.locations)for(let t of this.locations)e+="\n\n"+s(this.source,t);return e}toJSON(){let e={message:this.message};return null!=this.locations&&(e.locations=this.locations),null!=this.path&&(e.path=this.path),null!=this.extensions&&Object.keys(this.extensions).length>0&&(e.extensions=this.extensions),e}}function u(e){return void 0===e||0===e.length?void 0:e}function c(e,t,r){return new l(`Syntax Error: ${r}`,{source:e,positions:[t]})}e.s(["GraphQLError",0,l,"formatError",0,function(e){return e.toJSON()},"printError",0,function(e){return e.toString()}],886542),e.s(["syntaxError",0,c],12823);var d,p,f,h,g=e.i(809417);(d=f||(f={})).QUERY="QUERY",d.MUTATION="MUTATION",d.SUBSCRIPTION="SUBSCRIPTION",d.FIELD="FIELD",d.FRAGMENT_DEFINITION="FRAGMENT_DEFINITION",d.FRAGMENT_SPREAD="FRAGMENT_SPREAD",d.INLINE_FRAGMENT="INLINE_FRAGMENT",d.VARIABLE_DEFINITION="VARIABLE_DEFINITION",d.SCHEMA="SCHEMA",d.SCALAR="SCALAR",d.OBJECT="OBJECT",d.FIELD_DEFINITION="FIELD_DEFINITION",d.ARGUMENT_DEFINITION="ARGUMENT_DEFINITION",d.INTERFACE="INTERFACE",d.UNION="UNION",d.ENUM="ENUM",d.ENUM_VALUE="ENUM_VALUE",d.INPUT_OBJECT="INPUT_OBJECT",d.INPUT_FIELD_DEFINITION="INPUT_FIELD_DEFINITION",e.s(["DirectiveLocation",0,f],565532);var m=e.i(633773),I=e.i(203853),y=e.i(611351);(p=h||(h={})).SOF="<SOF>",p.EOF="<EOF>",p.BANG="!",p.DOLLAR="$",p.AMP="&",p.PAREN_L="(",p.PAREN_R=")",p.SPREAD="...",p.COLON=":",p.EQUALS="=",p.AT="@",p.BRACKET_L="[",p.BRACKET_R="]",p.BRACE_L="{",p.PIPE="|",p.BRACE_R="}",p.NAME="Name",p.INT="Int",p.FLOAT="Float",p.STRING="String",p.BLOCK_STRING="BlockString",p.COMMENT="Comment",e.s(["TokenKind",0,h],343637);class v{constructor(e){const t=new g.Token(h.SOF,0,0,0,0);this.source=e,this.lastToken=t,this.token=t,this.line=1,this.lineStart=0}get[Symbol.toStringTag](){return"Lexer"}advance(){return this.lastToken=this.token,this.token=this.lookahead()}lookahead(){let e=this.token;if(e.kind!==h.EOF)do if(e.next)e=e.next;else{let t=function(e,t){let r=e.source.body,i=r.length,n=t;for(;n<i;){let t=r.charCodeAt(n);switch(t){case 65279:case 9:case 32:case 44:++n;continue;case 10:++n,++e.line,e.lineStart=n;continue;case 13:10===r.charCodeAt(n+1)?n+=2:++n,++e.line,e.lineStart=n;continue;case 35:return function(e,t){let r=e.source.body,i=r.length,n=t+1;for(;n<i;){let e=r.charCodeAt(n);if(10===e||13===e)break;if(k(e))++n;else if(w(r,n))n+=2;else break}return _(e,h.COMMENT,t,n,r.slice(t+1,n))}(e,n);case 33:return _(e,h.BANG,n,n+1);case 36:return _(e,h.DOLLAR,n,n+1);case 38:return _(e,h.AMP,n,n+1);case 40:return _(e,h.PAREN_L,n,n+1);case 41:return _(e,h.PAREN_R,n,n+1);case 46:if(46===r.charCodeAt(n+1)&&46===r.charCodeAt(n+2))return _(e,h.SPREAD,n,n+3);break;case 58:return _(e,h.COLON,n,n+1);case 61:return _(e,h.EQUALS,n,n+1);case 64:return _(e,h.AT,n,n+1);case 91:return _(e,h.BRACKET_L,n,n+1);case 93:return _(e,h.BRACKET_R,n,n+1);case 123:return _(e,h.BRACE_L,n,n+1);case 124:return _(e,h.PIPE,n,n+1);case 125:return _(e,h.BRACE_R,n,n+1);case 34:if(34===r.charCodeAt(n+1)&&34===r.charCodeAt(n+2))return function(e,t){let r=e.source.body,i=r.length,n=e.lineStart,o=t+3,s=o,a="",l=[];for(;o<i;){let i=r.charCodeAt(o);if(34===i&&34===r.charCodeAt(o+1)&&34===r.charCodeAt(o+2)){a+=r.slice(s,o),l.push(a);let i=_(e,h.BLOCK_STRING,t,o+3,(0,I.dedentBlockStringLines)(l).join("\n"));return e.line+=l.length-1,e.lineStart=n,i}if(92===i&&34===r.charCodeAt(o+1)&&34===r.charCodeAt(o+2)&&34===r.charCodeAt(o+3)){a+=r.slice(s,o),s=o+1,o+=4;continue}if(10===i||13===i){a+=r.slice(s,o),l.push(a),13===i&&10===r.charCodeAt(o+1)?o+=2:++o,a="",s=o,n=o;continue}if(k(i))++o;else if(w(r,o))o+=2;else throw c(e.source,o,`Invalid character within String: ${S(e,o)}.`)}throw c(e.source,o,"Unterminated string.")}(e,n);return function(e,t){let r=e.source.body,i=r.length,n=t+1,o=n,s="";for(;n<i;){let i=r.charCodeAt(n);if(34===i)return s+=r.slice(o,n),_(e,h.STRING,t,n+1,s);if(92===i){s+=r.slice(o,n);let t=117===r.charCodeAt(n+1)?123===r.charCodeAt(n+2)?function(e,t){let r=e.source.body,i=0,n=3;for(;n<12;){let e=r.charCodeAt(t+n++);if(125===e){if(n<5||!k(i))break;return{value:String.fromCodePoint(i),size:n}}if((i=i<<4|N(e))<0)break}throw c(e.source,t,`Invalid Unicode escape sequence: "${r.slice(t,t+n)}".`)}(e,n):function(e,t){let r=e.source.body,i=A(r,t+2);if(k(i))return{value:String.fromCodePoint(i),size:6};if(T(i)&&92===r.charCodeAt(t+6)&&117===r.charCodeAt(t+7)){let e=A(r,t+8);if(b(e))return{value:String.fromCodePoint(i,e),size:12}}throw c(e.source,t,`Invalid Unicode escape sequence: "${r.slice(t,t+6)}".`)}(e,n):function(e,t){let r=e.source.body;switch(r.charCodeAt(t+1)){case 34:return{value:'"',size:2};case 92:return{value:"\\",size:2};case 47:return{value:"/",size:2};case 98:return{value:"\b",size:2};case 102:return{value:"\f",size:2};case 110:return{value:"\n",size:2};case 114:return{value:"\r",size:2};case 116:return{value:"	",size:2}}throw c(e.source,t,`Invalid character escape sequence: "${r.slice(t,t+2)}".`)}(e,n);s+=t.value,n+=t.size,o=n;continue}if(10===i||13===i)break;if(k(i))++n;else if(w(r,n))n+=2;else throw c(e.source,n,`Invalid character within String: ${S(e,n)}.`)}throw c(e.source,n,"Unterminated string.")}(e,n)}if((0,y.isDigit)(t)||45===t)return function(e,t,r){let i=e.source.body,n=t,o=r,s=!1;if(45===o&&(o=i.charCodeAt(++n)),48===o){if(o=i.charCodeAt(++n),(0,y.isDigit)(o))throw c(e.source,n,`Invalid number, unexpected digit after 0: ${S(e,n)}.`)}else n=D(e,n,o),o=i.charCodeAt(n);if(46===o&&(s=!0,o=i.charCodeAt(++n),n=D(e,n,o),o=i.charCodeAt(n)),(69===o||101===o)&&(s=!0,(43===(o=i.charCodeAt(++n))||45===o)&&(o=i.charCodeAt(++n)),n=D(e,n,o),o=i.charCodeAt(n)),46===o||(0,y.isNameStart)(o))throw c(e.source,n,`Invalid number, expected digit but got: ${S(e,n)}.`);return _(e,s?h.FLOAT:h.INT,t,n,i.slice(t,n))}(e,n,t);if((0,y.isNameStart)(t))return function(e,t){let r=e.source.body,i=r.length,n=t+1;for(;n<i;){let e=r.charCodeAt(n);if((0,y.isNameContinue)(e))++n;else break}return _(e,h.NAME,t,n,r.slice(t,n))}(e,n);throw c(e.source,n,39===t?"Unexpected single quote character ('), did you mean to use a double quote (\")?":k(t)||w(r,n)?`Unexpected character: ${S(e,n)}.`:`Invalid character: ${S(e,n)}.`)}return _(e,h.EOF,i,i)}(this,e.end);e.next=t,t.prev=e,e=t}while(e.kind===h.COMMENT)return e}}function E(e){return e===h.BANG||e===h.DOLLAR||e===h.AMP||e===h.PAREN_L||e===h.PAREN_R||e===h.SPREAD||e===h.COLON||e===h.EQUALS||e===h.AT||e===h.BRACKET_L||e===h.BRACKET_R||e===h.BRACE_L||e===h.PIPE||e===h.BRACE_R}function k(e){return e>=0&&e<=55295||e>=57344&&e<=1114111}function w(e,t){return T(e.charCodeAt(t))&&b(e.charCodeAt(t+1))}function T(e){return e>=55296&&e<=56319}function b(e){return e>=56320&&e<=57343}function S(e,t){let r=e.source.body.codePointAt(t);if(void 0===r)return h.EOF;if(r>=32&&r<=126){let e=String.fromCodePoint(r);return'"'===e?"'\"'":`"${e}"`}return"U+"+r.toString(16).toUpperCase().padStart(4,"0")}function _(e,t,r,i,n){let o=e.line,s=1+r-e.lineStart;return new g.Token(t,r,i,o,s,n)}function D(e,t,r){if(!(0,y.isDigit)(r))throw c(e.source,t,`Invalid number, expected digit but got: ${S(e,t)}.`);let i=e.source.body,n=t+1;for(;(0,y.isDigit)(i.charCodeAt(n));)++n;return n}function A(e,t){return N(e.charCodeAt(t))<<12|N(e.charCodeAt(t+1))<<8|N(e.charCodeAt(t+2))<<4|N(e.charCodeAt(t+3))}function N(e){return e>=48&&e<=57?e-48:e>=65&&e<=70?e-55:e>=97&&e<=102?e-87:-1}e.s(["Lexer",0,v,"isPunctuatorTokenKind",0,E],79477);var O=e.i(291487),C=e.i(596806);e.i(851269);let $=globalThis.process&&1?function(e,t){return e instanceof t}:function(e,t){if(e instanceof t)return!0;if("object"==typeof e&&null!==e){var r;let i=t.prototype[Symbol.toStringTag];if(i===(Symbol.toStringTag in e?e[Symbol.toStringTag]:null==(r=e.constructor)?void 0:r.name)){let t=(0,C.inspect)(e);throw Error(`Cannot use ${i} "${t}" from another module or realm.
+
+Ensure that there is only one instance of "graphql" in the node_modules
+directory. If different versions of "graphql" are the dependencies of other
+relied on modules, use "resolutions" to ensure only one version is installed.
+
+https://yarnpkg.com/en/docs/selective-version-resolutions
+
+Duplicate "graphql" modules cannot be used at the same time since different
+versions may have different capabilities and behavior. The data from one
+version used in the function from another could produce confusing and
+spurious results.`)}}return!1};e.s(["instanceOf",0,$],514091);class F{constructor(e,t="GraphQL request",r={line:1,column:1}){"string"==typeof e||(0,O.devAssert)(!1,`Body must be a string. Received: ${(0,C.inspect)(e)}.`),this.body=e,this.name=t,this.locationOffset=r,this.locationOffset.line>0||(0,O.devAssert)(!1,"line in locationOffset is 1-indexed and must be positive."),this.locationOffset.column>0||(0,O.devAssert)(!1,"column in locationOffset is 1-indexed and must be positive.")}get[Symbol.toStringTag](){return"Source"}}function R(e){return $(e,F)}e.s(["Source",0,F,"isSource",0,R],954257);class P{constructor(e,t={}){const r=R(e)?e:new F(e);this._lexer=new v(r),this._options=t,this._tokenCounter=0}parseName(){let e=this.expectToken(h.NAME);return this.node(e,{kind:m.Kind.NAME,value:e.value})}parseDocument(){return this.node(this._lexer.token,{kind:m.Kind.DOCUMENT,definitions:this.many(h.SOF,this.parseDefinition,h.EOF)})}parseDefinition(){if(this.peek(h.BRACE_L))return this.parseOperationDefinition();let e=this.peekDescription(),t=e?this._lexer.lookahead():this._lexer.token;if(t.kind===h.NAME){switch(t.value){case"schema":return this.parseSchemaDefinition();case"scalar":return this.parseScalarTypeDefinition();case"type":return this.parseObjectTypeDefinition();case"interface":return this.parseInterfaceTypeDefinition();case"union":return this.parseUnionTypeDefinition();case"enum":return this.parseEnumTypeDefinition();case"input":return this.parseInputObjectTypeDefinition();case"directive":return this.parseDirectiveDefinition()}if(e)throw c(this._lexer.source,this._lexer.token.start,"Unexpected description, descriptions are supported only on type definitions.");switch(t.value){case"query":case"mutation":case"subscription":return this.parseOperationDefinition();case"fragment":return this.parseFragmentDefinition();case"extend":return this.parseTypeSystemExtension()}}throw this.unexpected(t)}parseOperationDefinition(){let e,t=this._lexer.token;if(this.peek(h.BRACE_L))return this.node(t,{kind:m.Kind.OPERATION_DEFINITION,operation:g.OperationTypeNode.QUERY,name:void 0,variableDefinitions:[],directives:[],selectionSet:this.parseSelectionSet()});let r=this.parseOperationType();return this.peek(h.NAME)&&(e=this.parseName()),this.node(t,{kind:m.Kind.OPERATION_DEFINITION,operation:r,name:e,variableDefinitions:this.parseVariableDefinitions(),directives:this.parseDirectives(!1),selectionSet:this.parseSelectionSet()})}parseOperationType(){let e=this.expectToken(h.NAME);switch(e.value){case"query":return g.OperationTypeNode.QUERY;case"mutation":return g.OperationTypeNode.MUTATION;case"subscription":return g.OperationTypeNode.SUBSCRIPTION}throw this.unexpected(e)}parseVariableDefinitions(){return this.optionalMany(h.PAREN_L,this.parseVariableDefinition,h.PAREN_R)}parseVariableDefinition(){return this.node(this._lexer.token,{kind:m.Kind.VARIABLE_DEFINITION,variable:this.parseVariable(),type:(this.expectToken(h.COLON),this.parseTypeReference()),defaultValue:this.expectOptionalToken(h.EQUALS)?this.parseConstValueLiteral():void 0,directives:this.parseConstDirectives()})}parseVariable(){let e=this._lexer.token;return this.expectToken(h.DOLLAR),this.node(e,{kind:m.Kind.VARIABLE,name:this.parseName()})}parseSelectionSet(){return this.node(this._lexer.token,{kind:m.Kind.SELECTION_SET,selections:this.many(h.BRACE_L,this.parseSelection,h.BRACE_R)})}parseSelection(){return this.peek(h.SPREAD)?this.parseFragment():this.parseField()}parseField(){let e,t,r=this._lexer.token,i=this.parseName();return this.expectOptionalToken(h.COLON)?(e=i,t=this.parseName()):t=i,this.node(r,{kind:m.Kind.FIELD,alias:e,name:t,arguments:this.parseArguments(!1),directives:this.parseDirectives(!1),selectionSet:this.peek(h.BRACE_L)?this.parseSelectionSet():void 0})}parseArguments(e){let t=e?this.parseConstArgument:this.parseArgument;return this.optionalMany(h.PAREN_L,t,h.PAREN_R)}parseArgument(e=!1){let t=this._lexer.token,r=this.parseName();return this.expectToken(h.COLON),this.node(t,{kind:m.Kind.ARGUMENT,name:r,value:this.parseValueLiteral(e)})}parseConstArgument(){return this.parseArgument(!0)}parseFragment(){let e=this._lexer.token;this.expectToken(h.SPREAD);let t=this.expectOptionalKeyword("on");return!t&&this.peek(h.NAME)?this.node(e,{kind:m.Kind.FRAGMENT_SPREAD,name:this.parseFragmentName(),directives:this.parseDirectives(!1)}):this.node(e,{kind:m.Kind.INLINE_FRAGMENT,typeCondition:t?this.parseNamedType():void 0,directives:this.parseDirectives(!1),selectionSet:this.parseSelectionSet()})}parseFragmentDefinition(){let e=this._lexer.token;return(this.expectKeyword("fragment"),!0===this._options.allowLegacyFragmentVariables)?this.node(e,{kind:m.Kind.FRAGMENT_DEFINITION,name:this.parseFragmentName(),variableDefinitions:this.parseVariableDefinitions(),typeCondition:(this.expectKeyword("on"),this.parseNamedType()),directives:this.parseDirectives(!1),selectionSet:this.parseSelectionSet()}):this.node(e,{kind:m.Kind.FRAGMENT_DEFINITION,name:this.parseFragmentName(),typeCondition:(this.expectKeyword("on"),this.parseNamedType()),directives:this.parseDirectives(!1),selectionSet:this.parseSelectionSet()})}parseFragmentName(){if("on"===this._lexer.token.value)throw this.unexpected();return this.parseName()}parseValueLiteral(e){let t=this._lexer.token;switch(t.kind){case h.BRACKET_L:return this.parseList(e);case h.BRACE_L:return this.parseObject(e);case h.INT:return this.advanceLexer(),this.node(t,{kind:m.Kind.INT,value:t.value});case h.FLOAT:return this.advanceLexer(),this.node(t,{kind:m.Kind.FLOAT,value:t.value});case h.STRING:case h.BLOCK_STRING:return this.parseStringLiteral();case h.NAME:switch(this.advanceLexer(),t.value){case"true":return this.node(t,{kind:m.Kind.BOOLEAN,value:!0});case"false":return this.node(t,{kind:m.Kind.BOOLEAN,value:!1});case"null":return this.node(t,{kind:m.Kind.NULL});default:return this.node(t,{kind:m.Kind.ENUM,value:t.value})}case h.DOLLAR:if(e){if(this.expectToken(h.DOLLAR),this._lexer.token.kind===h.NAME){let e=this._lexer.token.value;throw c(this._lexer.source,t.start,`Unexpected variable "$${e}" in constant value.`)}throw this.unexpected(t)}return this.parseVariable();default:throw this.unexpected()}}parseConstValueLiteral(){return this.parseValueLiteral(!0)}parseStringLiteral(){let e=this._lexer.token;return this.advanceLexer(),this.node(e,{kind:m.Kind.STRING,value:e.value,block:e.kind===h.BLOCK_STRING})}parseList(e){let t=()=>this.parseValueLiteral(e);return this.node(this._lexer.token,{kind:m.Kind.LIST,values:this.any(h.BRACKET_L,t,h.BRACKET_R)})}parseObject(e){let t=()=>this.parseObjectField(e);return this.node(this._lexer.token,{kind:m.Kind.OBJECT,fields:this.any(h.BRACE_L,t,h.BRACE_R)})}parseObjectField(e){let t=this._lexer.token,r=this.parseName();return this.expectToken(h.COLON),this.node(t,{kind:m.Kind.OBJECT_FIELD,name:r,value:this.parseValueLiteral(e)})}parseDirectives(e){let t=[];for(;this.peek(h.AT);)t.push(this.parseDirective(e));return t}parseConstDirectives(){return this.parseDirectives(!0)}parseDirective(e){let t=this._lexer.token;return this.expectToken(h.AT),this.node(t,{kind:m.Kind.DIRECTIVE,name:this.parseName(),arguments:this.parseArguments(e)})}parseTypeReference(){let e,t=this._lexer.token;if(this.expectOptionalToken(h.BRACKET_L)){let r=this.parseTypeReference();this.expectToken(h.BRACKET_R),e=this.node(t,{kind:m.Kind.LIST_TYPE,type:r})}else e=this.parseNamedType();return this.expectOptionalToken(h.BANG)?this.node(t,{kind:m.Kind.NON_NULL_TYPE,type:e}):e}parseNamedType(){return this.node(this._lexer.token,{kind:m.Kind.NAMED_TYPE,name:this.parseName()})}peekDescription(){return this.peek(h.STRING)||this.peek(h.BLOCK_STRING)}parseDescription(){if(this.peekDescription())return this.parseStringLiteral()}parseSchemaDefinition(){let e=this._lexer.token,t=this.parseDescription();this.expectKeyword("schema");let r=this.parseConstDirectives(),i=this.many(h.BRACE_L,this.parseOperationTypeDefinition,h.BRACE_R);return this.node(e,{kind:m.Kind.SCHEMA_DEFINITION,description:t,directives:r,operationTypes:i})}parseOperationTypeDefinition(){let e=this._lexer.token,t=this.parseOperationType();this.expectToken(h.COLON);let r=this.parseNamedType();return this.node(e,{kind:m.Kind.OPERATION_TYPE_DEFINITION,operation:t,type:r})}parseScalarTypeDefinition(){let e=this._lexer.token,t=this.parseDescription();this.expectKeyword("scalar");let r=this.parseName(),i=this.parseConstDirectives();return this.node(e,{kind:m.Kind.SCALAR_TYPE_DEFINITION,description:t,name:r,directives:i})}parseObjectTypeDefinition(){let e=this._lexer.token,t=this.parseDescription();this.expectKeyword("type");let r=this.parseName(),i=this.parseImplementsInterfaces(),n=this.parseConstDirectives(),o=this.parseFieldsDefinition();return this.node(e,{kind:m.Kind.OBJECT_TYPE_DEFINITION,description:t,name:r,interfaces:i,directives:n,fields:o})}parseImplementsInterfaces(){return this.expectOptionalKeyword("implements")?this.delimitedMany(h.AMP,this.parseNamedType):[]}parseFieldsDefinition(){return this.optionalMany(h.BRACE_L,this.parseFieldDefinition,h.BRACE_R)}parseFieldDefinition(){let e=this._lexer.token,t=this.parseDescription(),r=this.parseName(),i=this.parseArgumentDefs();this.expectToken(h.COLON);let n=this.parseTypeReference(),o=this.parseConstDirectives();return this.node(e,{kind:m.Kind.FIELD_DEFINITION,description:t,name:r,arguments:i,type:n,directives:o})}parseArgumentDefs(){return this.optionalMany(h.PAREN_L,this.parseInputValueDef,h.PAREN_R)}parseInputValueDef(){let e,t=this._lexer.token,r=this.parseDescription(),i=this.parseName();this.expectToken(h.COLON);let n=this.parseTypeReference();this.expectOptionalToken(h.EQUALS)&&(e=this.parseConstValueLiteral());let o=this.parseConstDirectives();return this.node(t,{kind:m.Kind.INPUT_VALUE_DEFINITION,description:r,name:i,type:n,defaultValue:e,directives:o})}parseInterfaceTypeDefinition(){let e=this._lexer.token,t=this.parseDescription();this.expectKeyword("interface");let r=this.parseName(),i=this.parseImplementsInterfaces(),n=this.parseConstDirectives(),o=this.parseFieldsDefinition();return this.node(e,{kind:m.Kind.INTERFACE_TYPE_DEFINITION,description:t,name:r,interfaces:i,directives:n,fields:o})}parseUnionTypeDefinition(){let e=this._lexer.token,t=this.parseDescription();this.expectKeyword("union");let r=this.parseName(),i=this.parseConstDirectives(),n=this.parseUnionMemberTypes();return this.node(e,{kind:m.Kind.UNION_TYPE_DEFINITION,description:t,name:r,directives:i,types:n})}parseUnionMemberTypes(){return this.expectOptionalToken(h.EQUALS)?this.delimitedMany(h.PIPE,this.parseNamedType):[]}parseEnumTypeDefinition(){let e=this._lexer.token,t=this.parseDescription();this.expectKeyword("enum");let r=this.parseName(),i=this.parseConstDirectives(),n=this.parseEnumValuesDefinition();return this.node(e,{kind:m.Kind.ENUM_TYPE_DEFINITION,description:t,name:r,directives:i,values:n})}parseEnumValuesDefinition(){return this.optionalMany(h.BRACE_L,this.parseEnumValueDefinition,h.BRACE_R)}parseEnumValueDefinition(){let e=this._lexer.token,t=this.parseDescription(),r=this.parseEnumValueName(),i=this.parseConstDirectives();return this.node(e,{kind:m.Kind.ENUM_VALUE_DEFINITION,description:t,name:r,directives:i})}parseEnumValueName(){if("true"===this._lexer.token.value||"false"===this._lexer.token.value||"null"===this._lexer.token.value)throw c(this._lexer.source,this._lexer.token.start,`${U(this._lexer.token)} is reserved and cannot be used for an enum value.`);return this.parseName()}parseInputObjectTypeDefinition(){let e=this._lexer.token,t=this.parseDescription();this.expectKeyword("input");let r=this.parseName(),i=this.parseConstDirectives(),n=this.parseInputFieldsDefinition();return this.node(e,{kind:m.Kind.INPUT_OBJECT_TYPE_DEFINITION,description:t,name:r,directives:i,fields:n})}parseInputFieldsDefinition(){return this.optionalMany(h.BRACE_L,this.parseInputValueDef,h.BRACE_R)}parseTypeSystemExtension(){let e=this._lexer.lookahead();if(e.kind===h.NAME)switch(e.value){case"schema":return this.parseSchemaExtension();case"scalar":return this.parseScalarTypeExtension();case"type":return this.parseObjectTypeExtension();case"interface":return this.parseInterfaceTypeExtension();case"union":return this.parseUnionTypeExtension();case"enum":return this.parseEnumTypeExtension();case"input":return this.parseInputObjectTypeExtension()}throw this.unexpected(e)}parseSchemaExtension(){let e=this._lexer.token;this.expectKeyword("extend"),this.expectKeyword("schema");let t=this.parseConstDirectives(),r=this.optionalMany(h.BRACE_L,this.parseOperationTypeDefinition,h.BRACE_R);if(0===t.length&&0===r.length)throw this.unexpected();return this.node(e,{kind:m.Kind.SCHEMA_EXTENSION,directives:t,operationTypes:r})}parseScalarTypeExtension(){let e=this._lexer.token;this.expectKeyword("extend"),this.expectKeyword("scalar");let t=this.parseName(),r=this.parseConstDirectives();if(0===r.length)throw this.unexpected();return this.node(e,{kind:m.Kind.SCALAR_TYPE_EXTENSION,name:t,directives:r})}parseObjectTypeExtension(){let e=this._lexer.token;this.expectKeyword("extend"),this.expectKeyword("type");let t=this.parseName(),r=this.parseImplementsInterfaces(),i=this.parseConstDirectives(),n=this.parseFieldsDefinition();if(0===r.length&&0===i.length&&0===n.length)throw this.unexpected();return this.node(e,{kind:m.Kind.OBJECT_TYPE_EXTENSION,name:t,interfaces:r,directives:i,fields:n})}parseInterfaceTypeExtension(){let e=this._lexer.token;this.expectKeyword("extend"),this.expectKeyword("interface");let t=this.parseName(),r=this.parseImplementsInterfaces(),i=this.parseConstDirectives(),n=this.parseFieldsDefinition();if(0===r.length&&0===i.length&&0===n.length)throw this.unexpected();return this.node(e,{kind:m.Kind.INTERFACE_TYPE_EXTENSION,name:t,interfaces:r,directives:i,fields:n})}parseUnionTypeExtension(){let e=this._lexer.token;this.expectKeyword("extend"),this.expectKeyword("union");let t=this.parseName(),r=this.parseConstDirectives(),i=this.parseUnionMemberTypes();if(0===r.length&&0===i.length)throw this.unexpected();return this.node(e,{kind:m.Kind.UNION_TYPE_EXTENSION,name:t,directives:r,types:i})}parseEnumTypeExtension(){let e=this._lexer.token;this.expectKeyword("extend"),this.expectKeyword("enum");let t=this.parseName(),r=this.parseConstDirectives(),i=this.parseEnumValuesDefinition();if(0===r.length&&0===i.length)throw this.unexpected();return this.node(e,{kind:m.Kind.ENUM_TYPE_EXTENSION,name:t,directives:r,values:i})}parseInputObjectTypeExtension(){let e=this._lexer.token;this.expectKeyword("extend"),this.expectKeyword("input");let t=this.parseName(),r=this.parseConstDirectives(),i=this.parseInputFieldsDefinition();if(0===r.length&&0===i.length)throw this.unexpected();return this.node(e,{kind:m.Kind.INPUT_OBJECT_TYPE_EXTENSION,name:t,directives:r,fields:i})}parseDirectiveDefinition(){let e=this._lexer.token,t=this.parseDescription();this.expectKeyword("directive"),this.expectToken(h.AT);let r=this.parseName(),i=this.parseArgumentDefs(),n=this.expectOptionalKeyword("repeatable");this.expectKeyword("on");let o=this.parseDirectiveLocations();return this.node(e,{kind:m.Kind.DIRECTIVE_DEFINITION,description:t,name:r,arguments:i,repeatable:n,locations:o})}parseDirectiveLocations(){return this.delimitedMany(h.PIPE,this.parseDirectiveLocation)}parseDirectiveLocation(){let e=this._lexer.token,t=this.parseName();if(Object.prototype.hasOwnProperty.call(f,t.value))return t;throw this.unexpected(e)}node(e,t){return!0!==this._options.noLocation&&(t.loc=new g.Location(e,this._lexer.lastToken,this._lexer.source)),t}peek(e){return this._lexer.token.kind===e}expectToken(e){let t=this._lexer.token;if(t.kind===e)return this.advanceLexer(),t;throw c(this._lexer.source,t.start,`Expected ${L(e)}, found ${U(t)}.`)}expectOptionalToken(e){return this._lexer.token.kind===e&&(this.advanceLexer(),!0)}expectKeyword(e){let t=this._lexer.token;if(t.kind===h.NAME&&t.value===e)this.advanceLexer();else throw c(this._lexer.source,t.start,`Expected "${e}", found ${U(t)}.`)}expectOptionalKeyword(e){let t=this._lexer.token;return t.kind===h.NAME&&t.value===e&&(this.advanceLexer(),!0)}unexpected(e){let t=null!=e?e:this._lexer.token;return c(this._lexer.source,t.start,`Unexpected ${U(t)}.`)}any(e,t,r){this.expectToken(e);let i=[];for(;!this.expectOptionalToken(r);)i.push(t.call(this));return i}optionalMany(e,t,r){if(this.expectOptionalToken(e)){let e=[];do e.push(t.call(this));while(!this.expectOptionalToken(r))return e}return[]}many(e,t,r){this.expectToken(e);let i=[];do i.push(t.call(this));while(!this.expectOptionalToken(r))return i}delimitedMany(e,t){this.expectOptionalToken(e);let r=[];do r.push(t.call(this));while(this.expectOptionalToken(e))return r}advanceLexer(){let{maxTokens:e}=this._options,t=this._lexer.advance();if(void 0!==e&&t.kind!==h.EOF&&(++this._tokenCounter,this._tokenCounter>e))throw c(this._lexer.source,t.start,`Document contains more that ${e} tokens. Parsing aborted.`)}}function U(e){let t=e.value;return L(e.kind)+(null!=t?` "${t}"`:"")}function L(e){return E(e)?`"${e}"`:e}e.s(["parse",0,function(e,t){return new P(e,t).parseDocument()},"parseConstValue",0,function(e,t){let r=new P(e,t);r.expectToken(h.SOF);let i=r.parseConstValueLiteral();return r.expectToken(h.EOF),i},"parseType",0,function(e,t){let r=new P(e,t);r.expectToken(h.SOF);let i=r.parseTypeReference();return r.expectToken(h.EOF),i},"parseValue",0,function(e,t){let r=new P(e,t);r.expectToken(h.SOF);let i=r.parseValueLiteral(!1);return r.expectToken(h.EOF),i}],178492)},230708,e=>{"use strict";var t,r=e.i(824627),i=e.i(178492),n=new Map,o=new Map,s=!0,a=!1;function l(e){return e.replace(/[\s,]+/g," ").trim()}function u(e){for(var t=[],u=1;u<arguments.length;u++)t[u-1]=arguments[u];"string"==typeof e&&(e=[e]);var c=e[0];return t.forEach(function(t,r){t&&"Document"===t.kind?c+=t.loc.source.body:c+=t,c+=e[r+1]}),function(e){var t=l(e);if(!n.has(t)){var u,c,d,p,f,h=(0,i.parse)(e,{experimentalFragmentVariables:a,allowLegacyFragmentVariables:a});if(!h||"Document"!==h.kind)throw Error("Not a valid GraphQL document.");n.set(t,((p=new Set((u=new Set,c=[],h.definitions.forEach(function(e){if("FragmentDefinition"===e.kind){var t,r=e.name.value,i=l((t=e.loc).source.body.substring(t.start,t.end)),n=o.get(r);n&&!n.has(i)?s&&console.warn("Warning: fragment with name "+r+" already exists.\ngraphql-tag enforces all fragment names across your application to be unique; read more about\nthis in the docs: http://dev.apollodata.com/core/fragments.html#unique-names"):n||o.set(r,n=new Set),n.add(i),u.has(i)||(u.add(i),c.push(e))}else c.push(e)}),d=(0,r.__assign)((0,r.__assign)({},h),{definitions:c})).definitions)).forEach(function(e){e.loc&&delete e.loc,Object.keys(e).forEach(function(t){var r=e[t];r&&"object"==typeof r&&p.add(r)})}),(f=d.loc)&&(delete f.startToken,delete f.endToken),d))}return n.get(t)}(c)}function c(){n.clear(),o.clear()}function d(){s=!1}function p(){a=!0}function f(){a=!1}var h=u;(t=u||(u={})).gql=h,t.resetCaches=c,t.disableFragmentWarnings=d,t.enableExperimentalFragmentVariables=p,t.disableExperimentalFragmentVariables=f,u.default=u,e.s(["disableExperimentalFragmentVariables",0,f,"disableFragmentWarnings",0,d,"enableExperimentalFragmentVariables",0,p,"gql",0,u,"resetCaches",0,c])},715854,e=>{"use strict";function t(e){return"status"in e}e.s(["createFulfilledPromise",0,function(e){var t=Promise.resolve(e);return t.status="fulfilled",t.value=e,t},"createRejectedPromise",0,function(e){var t=Promise.reject(e);return t.catch(function(){}),t.status="rejected",t.reason=e,t},"isStatefulPromise",0,t,"wrapPromiseWithState",0,function(e){return t(e)||(e.status="pending",e.then(function(t){"pending"===e.status&&(e.status="fulfilled",e.value=t)},function(t){"pending"===e.status&&(e.status="rejected",e.reason=t)})),e}])},175212,e=>{"use strict";e.i(866593);var t,r,i,n=e.i(440296),o=e.i(98383),s=e.i(727678),a=e.i(744670);function l(e){var t;switch(e){case r.Query:t="Query";break;case r.Mutation:t="Mutation";break;case r.Subscription:t="Subscription"}return t}function u(e){i||(i=new o.AutoCleanedWeakCache(s.cacheSizes.parser||1e3));var t,a,l=i.get(e);if(l)return l;(0,n.invariant)(!!e&&!!e.kind,70,e);for(var u=[],c=[],d=[],p=[],f=0,h=e.definitions;f<h.length;f++){var g=h[f];if("FragmentDefinition"===g.kind){u.push(g);continue}if("OperationDefinition"===g.kind)switch(g.operation){case"query":c.push(g);break;case"mutation":d.push(g);break;case"subscription":p.push(g)}}(0,n.invariant)(!u.length||c.length||d.length||p.length,71),(0,n.invariant)(c.length+d.length+p.length<=1,72,e,c.length,p.length,d.length),a=c.length?r.Query:r.Mutation,c.length||d.length||(a=r.Subscription);var m=c.length?c:d.length?d:p;(0,n.invariant)(1===m.length,73,e,m.length);var I=m[0];t=I.variableDefinitions||[];var y={name:I.name&&"Name"===I.name.kind?I.name.value:"data",type:a,variables:t};return i.set(e,y),y}(t=r||(r={}))[t.Query=0]="Query",t[t.Mutation=1]="Mutation",t[t.Subscription=2]="Subscription",u.resetCache=function(){i=void 0},!1!==globalThis.__DEV__&&(0,a.registerGlobalCache)("parser",function(){return i?i.size:0}),e.s(["DocumentType",0,r,"verifyDocumentType",0,function(e,t){var r=u(e),i=l(t),o=l(r.type);(0,n.invariant)(r.type===t,74,i,i,o)}])},219758,e=>{"use strict";e.i(866593);var t=e.i(440296),r=e.i(700557),i=e.i(862026);e.s(["useApolloClient",0,function(e){var n=r.useContext((0,i.getApolloContext)()),o=e||n.client;return(0,t.invariant)(!!o,58),o}])},73570,974211,109807,e=>{"use strict";var t,r,i,n,o,s,a,l,u,c,d,p,f,h,g,m,I,y,v,E,k,w,T,b,S,_,D,A,N,O,C,$,F,R,P,U,L,x,W,q,M,B,G,V,j,K,Q,H,z,Y,X,J,Z,ee,et,er,ei,en,eo,es,ea,el,eu,ec,ed,ep,ef,eh,eg,em,eI,ey,ev,eE,ek,ew,eT,eb,eS,e_,eD,eA,eN=e.i(851269),eO=e.i(230708),eC=e.i(824627),e$=e.i(700557),eF=e.i(254947),eR=e.i(310540),eP=e.i(175212),eU=e.i(955732),eL=e.i(219758),ex=e.i(756953),eW=ex.canUseDOM?e$.useLayoutEffect:e$.useEffect;function eq(e,t){var r=(0,eL.useApolloClient)(null==t?void 0:t.client);(0,eP.verifyDocumentType)(e,eP.DocumentType.Mutation);var i=e$.useState({called:!1,loading:!1,client:r}),n=i[0],o=i[1],s=e$.useRef({result:n,mutationId:0,isMounted:!0,client:r,mutation:e,options:t});eW(function(){Object.assign(s.current,{client:r,options:t,mutation:e})});var a=e$.useCallback(function(e){void 0===e&&(e={});var t=s.current,r=t.options,i=t.mutation,n=(0,eC.__assign)((0,eC.__assign)({},r),{mutation:i}),a=e.client||s.current.client;s.current.result.loading||n.ignoreResults||!s.current.isMounted||o(s.current.result={loading:!0,error:void 0,data:void 0,called:!0,client:a});var l=++s.current.mutationId,u=(0,eF.mergeOptions)(n,e);return a.mutate(u).then(function(t){var r,i,n=t.data,c=t.errors,d=c&&c.length>0?new eU.ApolloError({graphQLErrors:c}):void 0,p=e.onError||(null==(r=s.current.options)?void 0:r.onError);if(d&&p&&p(d,u),l===s.current.mutationId&&!u.ignoreResults){var f={called:!0,loading:!1,data:n,error:d,client:a};s.current.isMounted&&!(0,eR.equal)(s.current.result,f)&&o(s.current.result=f)}var h=e.onCompleted||(null==(i=s.current.options)?void 0:i.onCompleted);return d||null==h||h(t.data,u),t},function(t){if(l===s.current.mutationId&&s.current.isMounted){var r,i={loading:!1,error:t,data:void 0,called:!0,client:a};(0,eR.equal)(s.current.result,i)||o(s.current.result=i)}var n=e.onError||(null==(r=s.current.options)?void 0:r.onError);if(n)return n(t,u),{data:void 0,errors:t};throw t})},[]),l=e$.useCallback(function(){if(s.current.isMounted){var e={called:!1,loading:!1,client:s.current.client};Object.assign(s.current,{mutationId:0,result:e}),o(e)}},[]);return e$.useEffect(function(){var e=s.current;return e.isMounted=!0,function(){e.isMounted=!1}},[]),[a,(0,eC.__assign)({reset:l},n)]}e.i(866593);var eM=e.i(440296),eB=!1,eG=e$.useSyncExternalStore||function(e,t,r){var i=t();!1===globalThis.__DEV__||eB||i===t()||(eB=!0,!1!==globalThis.__DEV__&&eM.invariant.error(68));var n=e$.useState({inst:{value:i,getSnapshot:t}}),o=n[0].inst,s=n[1];return ex.canUseLayoutEffect?e$.useLayoutEffect(function(){Object.assign(o,{value:i,getSnapshot:t}),eV(o)&&s({inst:o})},[e,i,t]):Object.assign(o,{value:i,getSnapshot:t}),e$.useEffect(function(){return eV(o)&&s({inst:o}),e(function(){eV(o)&&s({inst:o})})},[e]),i};function eV(e){var t=e.value,r=e.getSnapshot;try{return t!==r()}catch(e){return!0}}var ej=e.i(862026),eK=e.i(671101),eQ=e.i(5382),eH=e.i(919901),ez=e.i(8993),eY=e.i(966201),eX=Symbol.for("apollo.hook.wrappers"),eJ=Object.prototype.hasOwnProperty;function eZ(){}var e0=Symbol();function e1(e,t){var r,i,n,o;return void 0===t&&(t=Object.create(null)),(r=e2,(o=(n=(i=(0,eL.useApolloClient)(t&&t.client).queryManager)&&i[eX])&&n.useQuery)?o(r):r)(e,t)}function e2(e,t){var r=e3(e,t),i=r.result,n=r.obsQueryFields;return e$.useMemo(function(){return(0,eC.__assign)((0,eC.__assign)({},i),n)},[i,n])}function e3(e,t){var r,i,n,o,s,a,l,u,c,d,p,f,h,g,m,I,y,v,E,k,w,T,b=(0,eL.useApolloClient)(t.client),S=e$.useContext((0,ej.getApolloContext)()).renderPromises,_=!!S,D=b.disableNetworkFetches,A=!1!==t.ssr&&!t.skip,N=t.partialRefetch,O=e6(b,e,t,_),C=function(e,t,r,i,n){function o(o){var s;return(0,eP.verifyDocumentType)(t,eP.DocumentType.Query),{client:e,query:t,observable:i&&i.getSSRObservable(n())||eK.ObservableQuery.inactiveOnCreation.withValue(!i,function(){return e.watchQuery(e8(void 0,e,r,n()))}),resultData:{previousData:null==(s=null==o?void 0:o.resultData.current)?void 0:s.data}}}var s=e$.useState(o),a=s[0],l=s[1];function u(e){Object.assign(a.observable,((t={})[e0]=e,t));var t,r,i=a.resultData;l((0,eC.__assign)((0,eC.__assign)({},a),{query:e.query,resultData:Object.assign(i,{previousData:(null==(r=i.current)?void 0:r.data)||i.previousData,current:void 0})}))}if(e!==a.client||t!==a.query){var c=o(a);return l(c),[c,u]}return[a,u]}(b,e,t,S,O),$=C[0],F=$.observable,R=$.resultData,P=C[1],U=O(F);r=R,i=F,n=b,o=t,s=U,i[e0]&&!(0,eR.equal)(i[e0],s)&&(i.reobserve(e8(i,n,o,s)),r.previousData=(null==(a=r.current)?void 0:a.data)||r.previousData,r.current=void 0),i[e0]=s;var L=e$.useMemo(function(){var e;return{refetch:(e=F).refetch.bind(e),reobserve:e.reobserve.bind(e),fetchMore:e.fetchMore.bind(e),updateQuery:e.updateQuery.bind(e),startPolling:e.startPolling.bind(e),stopPolling:e.stopPolling.bind(e),subscribeToMore:e.subscribeToMore.bind(e)}},[F]);return l=F,u=S,c=A,u&&c&&(u.registerSSRObservable(l),l.getCurrentResult().loading&&u.addObservableQueryPromise(l)),{result:(d=R,p=F,f=b,h=t,g=U,m=D,I=N,y=_,v={onCompleted:t.onCompleted||eZ,onError:t.onError||eZ},E=e$.useRef(v),e$.useEffect(function(){E.current=v}),k=(y||m)&&!1===h.ssr&&!h.skip?te:h.skip||"standby"===g.fetchPolicy?tt:void 0,w=d.previousData,T=e$.useMemo(function(){return k&&e5(k,w,p,f)},[f,p,k,w]),eG(e$.useCallback(function(e){if(y)return function(){};var t=function(){var t=d.current,r=p.getCurrentResult();t&&t.loading===r.loading&&t.networkStatus===r.networkStatus&&(0,eR.equal)(t.data,r.data)||e9(r,d,p,f,I,e,E.current)},r=function(n){if(i.current.unsubscribe(),i.current=p.resubscribeAfterError(t,r),!eJ.call(n,"graphQLErrors"))throw n;var o=d.current;(!o||o&&o.loading||!(0,eR.equal)(n,o.error))&&e9({data:o&&o.data,error:n,loading:!1,networkStatus:eQ.NetworkStatus.error},d,p,f,I,e,E.current)},i={current:p.subscribe(t,r)};return function(){setTimeout(function(){return i.current.unsubscribe()})}},[m,y,p,d,I,f]),function(){return T||e4(d,p,E.current,I,f)},function(){return T||e4(d,p,E.current,I,f)})),obsQueryFields:L,observable:F,resultData:R,client:b,onQueryExecuted:P}}function e6(e,t,r,i){void 0===r&&(r={});var n=r.skip,o=(r.ssr,r.onCompleted,r.onError,r.defaultOptions),s=(0,eC.__rest)(r,["skip","ssr","onCompleted","onError","defaultOptions"]);return function(r){var a=Object.assign(s,{query:t});return i&&("network-only"===a.fetchPolicy||"cache-and-network"===a.fetchPolicy)&&(a.fetchPolicy="cache-first"),a.variables||(a.variables={}),n?(a.initialFetchPolicy=a.initialFetchPolicy||a.fetchPolicy||e7(o,e.defaultOptions),a.fetchPolicy="standby"):a.fetchPolicy||(a.fetchPolicy=(null==r?void 0:r.options.initialFetchPolicy)||e7(o,e.defaultOptions)),a}}function e8(e,t,r,i){var n=[],o=t.defaultOptions.watchQuery;return o&&n.push(o),r.defaultOptions&&n.push(r.defaultOptions),n.push((0,eH.compact)(e&&e.options,i)),n.reduce(eF.mergeOptions)}function e9(e,t,r,i,n,o,s){var a,l,u,c=t.current;c&&c.data&&(t.previousData=c.data),!e.error&&(0,ez.isNonEmptyArray)(e.errors)&&(e.error=new eU.ApolloError({graphQLErrors:e.errors})),t.current=e5((a=e,l=r,u=n,a.partial&&u&&!a.loading&&(!a.data||0===Object.keys(a.data).length)&&"cache-only"!==l.options.fetchPolicy?(l.refetch(),(0,eC.__assign)((0,eC.__assign)({},a),{loading:!0,networkStatus:eQ.NetworkStatus.refetch})):a),t.previousData,r,i),o(),function(e,t,r){if(!e.loading){var i,n=(i=e,(0,ez.isNonEmptyArray)(i.errors)?new eU.ApolloError({graphQLErrors:i.errors}):i.error);Promise.resolve().then(function(){n?r.onError(n):e.data&&t!==e.networkStatus&&e.networkStatus===eQ.NetworkStatus.ready&&r.onCompleted(e.data)}).catch(function(e){!1!==globalThis.__DEV__&&eM.invariant.warn(e)})}}(e,null==c?void 0:c.networkStatus,s)}function e4(e,t,r,i,n){return e.current||e9(t.getCurrentResult(),e,t,n,i,function(){},r),e.current}function e7(e,t){var r;return(null==e?void 0:e.fetchPolicy)||(null==(r=null==t?void 0:t.watchQuery)?void 0:r.fetchPolicy)||"cache-first"}function e5(e,t,r,i){var n=e.data,o=(e.partial,(0,eC.__rest)(e,["data","partial"]));return(0,eC.__assign)((0,eC.__assign)({data:n},o),{client:i,observable:r,variables:r.variables,called:e!==te&&e!==tt,previousData:t})}var te=(0,eY.maybeDeepFreeze)({loading:!0,data:void 0,error:void 0,networkStatus:eQ.NetworkStatus.loading}),tt=(0,eY.maybeDeepFreeze)({loading:!1,data:void 0,error:void 0,networkStatus:eQ.NetworkStatus.ready}),tr=["refetch","reobserve","fetchMore","updateQuery","startPolling","stopPolling","subscribeToMore"];e.s(["useLazyQuery",0,function(e,t){var r,i=e$.useRef(void 0),n=e$.useRef(void 0),o=e$.useRef(void 0),s=(0,eF.mergeOptions)(t,i.current||{}),a=null!=(r=null==s?void 0:s.query)?r:e;n.current=t,o.current=a;var l=(0,eC.__assign)((0,eC.__assign)({},s),{skip:!i.current}),u=e3(a,l),c=u.obsQueryFields,d=u.result,p=u.client,f=u.resultData,h=u.observable,g=u.onQueryExecuted,m=h.options.initialFetchPolicy||e7(l.defaultOptions,p.defaultOptions),I=e$.useReducer(function(e){return e+1},0)[1],y=e$.useMemo(function(){for(var e={},t=0;t<tr.length;t++)!function(t){var r=c[t];e[t]=function(){return i.current||(i.current=Object.create(null),I()),r.apply(this,arguments)}}(tr[t]);return e},[I,c]),v=!!i.current,E=e$.useMemo(function(){return(0,eC.__assign)((0,eC.__assign)((0,eC.__assign)({},d),y),{called:v})},[d,y,v]),k=e$.useCallback(function(e){i.current=e?(0,eC.__assign)((0,eC.__assign)({},e),{fetchPolicy:e.fetchPolicy||m}):{fetchPolicy:m};var t,r,s,l,u,c,d,I,v=(0,eF.mergeOptions)(n.current,(0,eC.__assign)({query:o.current},i.current)),E=(t=f,r=h,s=p,l=a,u=(0,eC.__assign)((0,eC.__assign)({},v),{skip:!1}),c=g,d=e6(s,u.query||l,u,!1)(r),I=r.reobserveAsConcast(e8(r,s,u,d)),c(d),new Promise(function(e){var i;I.subscribe({next:function(e){i=e},error:function(){e(e5(r.getCurrentResult(),t.previousData,r,s))},complete:function(){e(e5(r.maskResult(i),t.previousData,r,s))}})})).then(function(e){return Object.assign(e,y)});return E.catch(function(){}),E},[p,a,y,m,h,f,g]),w=e$.useRef(k);return eW(function(){w.current=k}),[e$.useCallback(function(){for(var e=[],t=0;t<arguments.length;t++)e[t]=arguments[t];return w.current.apply(w,e)},[]),E]}],974211),Symbol.for("apollo.skipToken");var ti=e.i(715854);e$.use;var tn=e.i(336419);Symbol.for("apollo.internal.queryRef"),Symbol.for("apollo.internal.refPromise");var to=["canonizeResults","context","errorPolicy","fetchPolicy","refetchWritePolicy","returnPartialData"],ts=function(){function e(e,t){var r=this;this.key={},this.listeners=new Set,this.references=0,this.softReferences=0,this.handleNext=this.handleNext.bind(this),this.handleError=this.handleError.bind(this),this.dispose=this.dispose.bind(this),this.observable=e,t.onDispose&&(this.onDispose=t.onDispose),this.setResult(),this.subscribeToQuery();var i=function(){var e;r.references||(r.autoDisposeTimeoutId=setTimeout(r.dispose,null!=(e=t.autoDisposeTimeoutMs)?e:3e4))};this.promise.then(i,i)}return Object.defineProperty(e.prototype,"disposed",{get:function(){return this.subscription.closed},enumerable:!1,configurable:!0}),Object.defineProperty(e.prototype,"watchQueryOptions",{get:function(){return this.observable.options},enumerable:!1,configurable:!0}),e.prototype.reinitialize=function(){var e=this.observable,t=this.watchQueryOptions.fetchPolicy,r="no-cache"===t||"standby"===t;try{if(r?e.silentSetOptions({fetchPolicy:"standby"}):(e.resetLastResults(),e.silentSetOptions({fetchPolicy:"cache-first"})),this.subscribeToQuery(),r)return;e.resetDiff(),this.setResult()}finally{e.silentSetOptions({fetchPolicy:t})}},e.prototype.retain=function(){var e=this;this.references++,clearTimeout(this.autoDisposeTimeoutId);var t=!1;return function(){t||(t=!0,e.references--,setTimeout(function(){e.references||e.dispose()}))}},e.prototype.softRetain=function(){var e=this;this.softReferences++;var t=!1;return function(){t||(t=!0,e.softReferences--,setTimeout(function(){e.softReferences||e.references||e.dispose()}))}},e.prototype.didChangeOptions=function(e){var t=this;return to.some(function(r){return r in e&&!(0,eR.equal)(t.watchQueryOptions[r],e[r])})},e.prototype.applyOptions=function(e){var t=this.watchQueryOptions,r=t.fetchPolicy,i=t.canonizeResults;return"standby"===r&&r!==e.fetchPolicy?this.initiateFetch(this.observable.reobserve(e)):(this.observable.silentSetOptions(e),i!==e.canonizeResults&&(this.result=(0,eC.__assign)((0,eC.__assign)({},this.result),this.observable.getCurrentResult()),this.promise=(0,ti.createFulfilledPromise)(this.result))),this.promise},e.prototype.listen=function(e){var t=this;return this.listeners.add(e),function(){t.listeners.delete(e)}},e.prototype.refetch=function(e){return this.initiateFetch(this.observable.refetch(e))},e.prototype.fetchMore=function(e){return this.initiateFetch(this.observable.fetchMore(e))},e.prototype.dispose=function(){this.subscription.unsubscribe(),this.onDispose()},e.prototype.onDispose=function(){},e.prototype.handleNext=function(e){var t;if("pending"===this.promise.status)void 0===e.data&&(e.data=this.result.data),this.result=e,null==(t=this.resolve)||t.call(this,e);else{if(e.data===this.result.data&&e.networkStatus===this.result.networkStatus)return;void 0===e.data&&(e.data=this.result.data),this.result=e,this.promise=(0,ti.createFulfilledPromise)(e),this.deliver(this.promise)}},e.prototype.handleError=function(e){var t;this.subscription.unsubscribe(),this.subscription=this.observable.resubscribeAfterError(this.handleNext,this.handleError),"pending"===this.promise.status?null==(t=this.reject)||t.call(this,e):(this.promise=(0,ti.createRejectedPromise)(e),this.deliver(this.promise))},e.prototype.deliver=function(e){this.listeners.forEach(function(t){return t(e)})},e.prototype.initiateFetch=function(e){var t=this;return this.promise=this.createPendingPromise(),this.promise.catch(function(){}),e.then(function(){setTimeout(function(){var e;"pending"===t.promise.status&&(t.result=t.observable.getCurrentResult(),null==(e=t.resolve)||e.call(t,t.result))})}).catch(function(e){var r;return null==(r=t.reject)?void 0:r.call(t,e)}),e},e.prototype.subscribeToQuery=function(){var e=this;this.subscription=this.observable.filter(function(t){return!(0,eR.equal)(t.data,{})&&!(0,eR.equal)(t,e.result)}).subscribe(this.handleNext,this.handleError)},e.prototype.setResult=function(){var e=this.observable.getCurrentResult(!1);(0,eR.equal)(e,this.result)||(this.result=e,this.promise=e.data&&(!e.partial||this.watchQueryOptions.returnPartialData)?(0,ti.createFulfilledPromise)(e):this.createPendingPromise())},e.prototype.createPendingPromise=function(){var e=this;return(0,ti.wrapPromiseWithState)(new Promise(function(t,r){e.resolve=t,e.reject=r}))},e}(),ta=function(){function e(e,t,r){var i=this;this.key={},this.listeners=new Set,this.references=0,this.dispose=this.dispose.bind(this),this.handleNext=this.handleNext.bind(this),this.handleError=this.handleError.bind(this),this.observable=e.watchFragment(t),r.onDispose&&(this.onDispose=r.onDispose);var n=this.getDiff(e,t),o=function(){var e;i.references||(i.autoDisposeTimeoutId=setTimeout(i.dispose,null!=(e=r.autoDisposeTimeoutMs)?e:3e4))};this.promise=n.complete?(0,ti.createFulfilledPromise)(n.result):this.createPendingPromise(),this.subscribeToFragment(),this.promise.then(o,o)}return e.prototype.listen=function(e){var t=this;return this.listeners.add(e),function(){t.listeners.delete(e)}},e.prototype.retain=function(){var e=this;this.references++,clearTimeout(this.autoDisposeTimeoutId);var t=!1;return function(){t||(t=!0,e.references--,setTimeout(function(){e.references||e.dispose()}))}},e.prototype.dispose=function(){this.subscription.unsubscribe(),this.onDispose()},e.prototype.onDispose=function(){},e.prototype.subscribeToFragment=function(){this.subscription=this.observable.subscribe(this.handleNext.bind(this),this.handleError.bind(this))},e.prototype.handleNext=function(e){var t;switch(this.promise.status){case"pending":if(e.complete)return null==(t=this.resolve)?void 0:t.call(this,e.data);this.deliver(this.promise);break;case"fulfilled":if((0,eR.equal)(this.promise.value,e.data))return;this.promise=e.complete?(0,ti.createFulfilledPromise)(e.data):this.createPendingPromise(),this.deliver(this.promise)}},e.prototype.handleError=function(e){var t;null==(t=this.reject)||t.call(this,e)},e.prototype.deliver=function(e){this.listeners.forEach(function(t){return t(e)})},e.prototype.createPendingPromise=function(){var e=this;return(0,ti.wrapPromiseWithState)(new Promise(function(t,r){e.resolve=t,e.reject=r}))},e.prototype.getDiff=function(e,t){var r=e.cache,i=t.from,n=t.fragment,o=t.fragmentName,s=r.diff((0,eC.__assign)((0,eC.__assign)({},t),{query:r.getFragmentDoc(n,o),returnPartialData:!0,id:i,optimistic:!0}));return(0,eC.__assign)((0,eC.__assign)({},s),{result:e.queryManager.maskFragment({fragment:n,fragmentName:o,data:s.result})})},e}();function tl(e){void 0===e&&(e=Object.create(null)),this.queryRefs=new tn.Trie(ex.canUseWeakMap),this.fragmentRefs=new tn.Trie(ex.canUseWeakMap),this.options=e}tl.prototype.getQueryRef=function(e,t){var r=this.queryRefs.lookupArray(e);return r.current||(r.current=new ts(t(),{autoDisposeTimeoutMs:this.options.autoDisposeTimeoutMs,onDispose:function(){delete r.current}})),r.current},tl.prototype.getFragmentRef=function(e,t,r){var i=this.fragmentRefs.lookupArray(e);return i.current||(i.current=new ta(t,r,{autoDisposeTimeoutMs:this.options.autoDisposeTimeoutMs,onDispose:function(){delete i.current}})),i.current},tl.prototype.add=function(e,t){this.queryRefs.lookupArray(e).current=t},Symbol.for("apollo.suspenseCache"),e.i(570894),e.i(610499);let tu={};var tc=((t={}).Active="ACTIVE",t.Canceled="CANCELED",t.NotStarted="NOT_STARTED",t.PastDue="PAST_DUE",t.PaymentRequired="PAYMENT_REQUIRED",t.PendingCancel="PENDING_CANCEL",t.Trialing="TRIALING",t);(r={}).Invalid="INVALID",r.Unknown="UNKNOWN",r.Valid="VALID",(i={}).Callout="CALLOUT",i.Heading="HEADING",i.Step="STEP";var td=((n={}).Cached="CACHED",n.Failed="FAILED",n.Generating="GENERATING",n.Ready="READY",n);(o={}).Description="DESCRIPTION",o.Title="TITLE",(s={}).Failed="FAILED",s.Processing="PROCESSING",s.Ready="READY",(a={}).AppName="APP_NAME",a.AutomatixStatus="AUTOMATIX_STATUS",a.ComputedRole="COMPUTED_ROLE",a.StepId="STEP_ID",a.WorkflowId="WORKFLOW_ID",(l={}).Llm="LLM",l.Manual="MANUAL",l.Platform="PLATFORM",(u={}).Fail="FAIL",u.Pass="PASS",(c={}).AppName="APP_NAME",c.AutomatixStatus="AUTOMATIX_STATUS",c.AxialCode="AXIAL_CODE",c.ComputedRole="COMPUTED_ROLE",c.CreatedAt="CREATED_AT",(d={}).Completed="COMPLETED",d.Failed="FAILED",d.Running="RUNNING",(p={}).Asc="ASC",p.Desc="DESC",(f={}).Development="DEVELOPMENT",f.Regression="REGRESSION",(h={}).AccessRequired="ACCESS_REQUIRED",h.DifferentDomain="DIFFERENT_DOMAIN",h.ElementHidden="ELEMENT_HIDDEN",h.ElementNotInteractive="ELEMENT_NOT_INTERACTIVE",h.ElementObstructed="ELEMENT_OBSTRUCTED",h.NeedsIntermediateAction="NEEDS_INTERMEDIATE_ACTION",h.NoElements="NO_ELEMENTS",h.NoTargetDetails="NO_TARGET_DETAILS",h.RequiresUserSelection="REQUIRES_USER_SELECTION",h.ScoreTooLow="SCORE_TOO_LOW",h.Success="SUCCESS",(g={}).Contains="CONTAINS",g.EndsWith="ENDS_WITH",g.StartsWith="STARTS_WITH",(m={}).CreditCard="CREDIT_CARD",m.Currency="CURRENCY",m.Email="EMAIL",m.Image="IMAGE",m.Name="NAME",m.PhoneNumber="PHONE_NUMBER",m.Ssn="SSN",m.Url="URL",(I={}).BuiltIn="BUILT_IN",I.String="STRING";var tp=((y={}).Custom="CUSTOM",y.Error="ERROR",y.Info="INFO",y.Success="SUCCESS",y.Warning="WARNING",y),tf=((v={}).Circle="CIRCLE",v.Square="SQUARE",v),th=((E={}).BranchPoint="BRANCH_POINT",E.Callout="CALLOUT",E.ExceptionResolution="EXCEPTION_RESOLUTION",E.FrequentlyAskedQuestions="FREQUENTLY_ASKED_QUESTIONS",E.Heading="HEADING",E.Step="STEP",E),tg=((k={}).Drafts="DRAFTS",k.Personal="PERSONAL",k.Team="TEAM",k);(w={}).Contains="CONTAINS",w.EndsWith="ENDS_WITH",w.StartsWith="STARTS_WITH",(T={}).BuiltIn="BUILT_IN",T.String="STRING",(b={}).Capture="CAPTURE",b.Guidance="GUIDANCE",(S={}).CreatedAt="CREATED_AT",S.StepIndex="STEP_INDEX",(_={}).Date="DATE",_.Numeric="NUMERIC",_.String="STRING",(D={}).Error="ERROR",D.Ok="OK",(A={}).Oidc="OIDC",A.Saml="SAML",(N={}).Append="APPEND",N.Prepend="PREPEND",N.Replace="REPLACE",N.Skip="SKIP",N.UserChoice="USER_CHOICE",(O={}).CreatedAtAsc="CREATED_AT_ASC",O.CreatedAtDesc="CREATED_AT_DESC",O.NameAsc="NAME_ASC",O.NameDesc="NAME_DESC",O.UpdatedAtAsc="UPDATED_AT_ASC",O.UpdatedAtDesc="UPDATED_AT_DESC",(C={}).CreatedAt="CREATED_AT",C.Email="EMAIL",C.FirstName="FIRST_NAME",C.LastName="LAST_NAME",($={}).CreatedAtAsc="CREATED_AT_ASC",$.CreatedAtDesc="CREATED_AT_DESC",$.NameAsc="NAME_ASC",$.NameDesc="NAME_DESC",$.UpdatedAtAsc="UPDATED_AT_ASC",$.UpdatedAtDesc="UPDATED_AT_DESC",(F={}).Off="OFF",F.Voice_1="VOICE_1",F.Voice_2="VOICE_2";var tm=((R={}).Voice_1="VOICE_1",R.Voice_2="VOICE_2",R);(P={}).NuggetCreate="NUGGET_CREATE",P.NuggetDisplay="NUGGET_DISPLAY",(U={}).OnboardingCompleted="ONBOARDING_COMPLETED",U.OnboardingExtensionInstalled="ONBOARDING_EXTENSION_INSTALLED",U.OnboardingFirstCaptureBypassed="ONBOARDING_FIRST_CAPTURE_BYPASSED",U.OnboardingFirstCaptureCompleted="ONBOARDING_FIRST_CAPTURE_COMPLETED",U.OnboardingFirstCaptureStarted="ONBOARDING_FIRST_CAPTURE_STARTED",U.OnboardingMidCloseShown="ONBOARDING_MID_CLOSE_SHOWN",U.OnboardingNonAuthorView="ONBOARDING_NON_AUTHOR_VIEW",U.OnboardingSecondCaptureCompleted="ONBOARDING_SECOND_CAPTURE_COMPLETED",U.OnboardingSecondCaptureStarted="ONBOARDING_SECOND_CAPTURE_STARTED",U.OnboardingShareIntentClicked="ONBOARDING_SHARE_INTENT_CLICKED",U.OnboardingSurveyCompleted="ONBOARDING_SURVEY_COMPLETED",U.OnboardingSurveyQuestionCompleted="ONBOARDING_SURVEY_QUESTION_COMPLETED",U.OnboardingSurveyQuestionSkipped="ONBOARDING_SURVEY_QUESTION_SKIPPED",U.OnboardingSurveyShown="ONBOARDING_SURVEY_SHOWN",(L={}).CreatedAt="CREATED_AT",L.Name="NAME",L.UpdatedAt="UPDATED_AT",(x={}).Account="ACCOUNT",x.Email="EMAIL",x.Link="LINK",x.User="USER",x.UserGroup="USER_GROUP",(W={}).Edit="EDIT",W.Owner="OWNER",W.View="VIEW",(q={}).PolicyAssertionOverride="POLICY_ASSERTION_OVERRIDE",q.PolicyAssertionScore="POLICY_ASSERTION_SCORE",q.PolicyScoreFeedback="POLICY_SCORE_FEEDBACK",q.ScorePolicyScore="SCORE_POLICY_SCORE",(M={}).Get="GET",M.Put="PUT",(B={}).Get="GET",B.Post="POST",(G={}).Approved="APPROVED",G.Pending="PENDING",(V={}).Folder="FOLDER",V.Workflow="WORKFLOW",V.Workspace="WORKSPACE",(j={}).Fail="FAIL",j.Pass="PASS",(K={}).BackfillAoss="BACKFILL_AOSS",K.ReindexAoss="REINDEX_AOSS",K.SearchBackfill="SEARCH_BACKFILL",K.SearchCreateIndex="SEARCH_CREATE_INDEX",K.SearchDeleteIndex="SEARCH_DELETE_INDEX",K.SearchPutAlias="SEARCH_PUT_ALIAS",K.SearchReindex="SEARCH_REINDEX",K.SearchSetup="SEARCH_SETUP",(Q={}).App="APP",Q.Url="URL",(H={}).Capture="CAPTURE",H.Guidance="GUIDANCE",(z={}).Asc="ASC",z.Desc="DESC",(Y={}).Automated="AUTOMATED",Y.Manual="MANUAL",(X={}).Authentication="AUTHENTICATION",X.Generic="GENERIC",X.HighStakes="HIGH_STAKES",(J={}).Artemis="ARTEMIS",J.Guidance="GUIDANCE",(Z={}).Insight="INSIGHT",Z.Warning="WARNING";var tI=((ee={}).Desktop="DESKTOP",ee.Extension="EXTENSION",ee.Manual="MANUAL",ee.Unknown="UNKNOWN",ee),ty=((et={}).Generic="GENERIC",et.Specific="SPECIFIC",et),tv=((er={}).StepCompletion="STEP_COMPLETION",er.StepHighlight="STEP_HIGHLIGHT",er.StepPrediction="STEP_PREDICTION",er.StepPredictionInteraction="STEP_PREDICTION_INTERACTION",er.StepView="STEP_VIEW",er);(ei={}).ActionBoxMoved="ACTION_BOX_MOVED",ei.ActionBoxRemoved="ACTION_BOX_REMOVED",(en={}).CreatedAt="CREATED_AT",en.Name="NAME",en.UpdatedAt="UPDATED_AT",(eo={}).Name="NAME",eo.WorkflowCount="WORKFLOW_COUNT",(es={}).AncestorAuthor="ANCESTOR_AUTHOR",es.AncestorShare="ANCESTOR_SHARE",es.ContentAuthor="CONTENT_AUTHOR",es.ContentShare="CONTENT_SHARE",es.DescendantAuthor="DESCENDANT_AUTHOR",es.DescendantShare="DESCENDANT_SHARE",es.WorkspaceAdmin="WORKSPACE_ADMIN",es.WorkspaceMember="WORKSPACE_MEMBER",(ea={}).Backfill="BACKFILL",ea.Event="EVENT",ea.Sync="SYNC";var tE=((el={}).Artemis="ARTEMIS",el.Embed="EMBED",el.Guidance="GUIDANCE",el.GuideMe="GUIDE_ME",el.Web="WEB",el),tk=((eu={}).BlockCompleted="BLOCK_COMPLETED",eu.TargetNotFound="TARGET_NOT_FOUND",eu);(ec={}).De="DE",ec.Es="ES",ec.Fr="FR",ec.Hi="HI",ec.Ja="JA",ec.Ko="KO",ec.PtBr="PT_BR",ec.PtPt="PT_PT",ec.ZhCn="ZH_CN",ec.ZhTw="ZH_TW",(ed={}).Frontegg="FRONTEGG",ed.Scim="SCIM",ed.Tango="TANGO";var tw=((ep={}).Admin="ADMIN",ep.Creator="CREATOR",ep.Guest="GUEST",ep.Sidekick="SIDEKICK",ep),tT=((ef={}).Lite="LITE",ef.Pro="PRO",ef);(eh={}).Failed="FAILED",eh.Pending="PENDING",eh.Ready="READY",eh.Stale="STALE",(eg={}).InviteOnly="INVITE_ONLY",eg.Private="PRIVATE",eg.Public="PUBLIC",eg.Workspace="WORKSPACE",eg.WorkspaceWithLink="WORKSPACE_WITH_LINK",(em={}).LlmExtract="LLM_EXTRACT",em.UserInput="USER_INPUT";var tb=((eI={}).Failed="FAILED",eI.Processing="PROCESSING",eI.Ready="READY",eI),tS=((ey={}).Automation="AUTOMATION",ey.Static="STATIC",ey);(ev={}).CreatedAt="CREATED_AT",ev.Name="NAME",ev.UpdatedAt="UPDATED_AT",(eE={}).Accepted="ACCEPTED",eE.Approved="APPROVED",eE.Canceled="CANCELED",eE.Declined="DECLINED",eE.Pending="PENDING",eE.Requested="REQUESTED";var t_=((ek={}).Enterprise="ENTERPRISE",ek.Pro="PRO",ek.Starter="STARTER",ek),tD=((ew={}).WorkflowView="WORKFLOW_VIEW",ew);let tA=eO.gql`
+  fragment SharedFolderFields on Folder {
+    id
+    contentSpace
+    contentVisibility
+    createdAt
+    createdBy {
+      firstName
+      id
+      lastName
+      profilePictureURL
+      isRemoved
+    }
+    deletedAt
+    name
+    updatedAt
+    userPermissionLevel
+    workspaceId
+    parentId
+    rootId
+  }
+`,tN=eO.gql`
+  fragment ProfileFields on Profile {
+    id
+    firstName
+    lastName
+    profilePictureURL
+    isRemoved
+  }
+`,tO=eO.gql`
+  fragment UserGroupListFields on UserGroup {
+    id
+    name
+    source
+    createdAt
+    updatedAt
+    sharingEnabled
+    description
+    usersConnection {
+      totalCount
+    }
+  }
+`,tC=eO.gql`
+  fragment ShareFieldsWithPartyData on Share {
+    permissionLevel
+    party
+    partyId
+    partyData {
+      ... on Profile {
+        ...ProfileFields
+      }
+      ... on UserGroup {
+        ...UserGroupListFields
+      }
+    }
+  }
+  ${tN}
+  ${tO}
+`,t$=eO.gql`
+  fragment FolderDetailFields on Folder {
+    ...SharedFolderFields
+    parentFolder {
+      ...SharedFolderFields
+      parentFolder {
+        ...SharedFolderFields
+        parentFolder {
+          ...SharedFolderFields
+          parentFolder {
+            ...SharedFolderFields
+            parentFolder {
+              ...SharedFolderFields
+              parentFolder {
+                ...SharedFolderFields
+                parentFolder {
+                  ...SharedFolderFields
+                  parentFolder {
+                    ...SharedFolderFields
+                    parentFolder {
+                      ...SharedFolderFields
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    shares {
+      ...ShareFieldsWithPartyData
+    }
+    depth
+    height
+  }
+  ${tA}
+  ${tC}
+`,tF=eO.gql`
+  fragment AppFields on App {
+    id
+    name
+    iconURL
+    url
+  }
+`,tR=eO.gql`
+  fragment WorkflowFields on Workflow {
+    id
+    name
+    workspaceId
+    contentSpace
+    captureDuration
+    createdAt
+    deletedAt
+    updatedAt
+    description
+    visibility
+    stepCount
+    hasBranches
+    viewCount
+    previewScreenshot {
+      url
+      zoomLevel
+      deliveryPath
+      pixelWidth
+      pixelHeight
+    }
+    apps {
+      ...AppFields
+    }
+    pins {
+      id
+      externalId
+      url
+      title
+    }
+    folderId
+    createdBy {
+      ...ProfileFields
+    }
+    isStarred
+    userPermissionLevel
+    type
+  }
+  ${tF}
+  ${tN}
+`,tP=eO.gql`
+  fragment ShareFields on Share {
+    permissionLevel
+    party
+    partyId
+  }
+`;eO.gql`
+  fragment FolderWorkflowCardFields on Workflow {
+    ...WorkflowFields
+    shares {
+      ...ShareFields
+    }
+  }
+  ${tR}
+  ${tP}
+`;let tU=eO.gql`
+  fragment GetWorkspaceLimitsFields on WorkspaceUser {
+    id
+    role
+    tier
+    userId
+    workflowLimitation {
+      count
+      limit
+    }
+  }
+`,tL=eO.gql`
+  fragment ListWorkspaceUsersFields on WorkspaceUser {
+    id
+    role
+    tier
+    userId
+    workspaceId
+    email
+    firstName
+    lastName
+    profilePictureURL
+    guidanceViewCount
+  }
+`,tx=eO.gql`
+  fragment ListWorkspaceUpgradeUsersFields on WorkspaceUser {
+    ...ListWorkspaceUsersFields
+    isActive
+  }
+  ${tL}
+`,tW=eO.gql`
+  fragment WorkflowEmbedMetaFields on Workflow {
+    id
+    name
+    description
+    updatedAt
+  }
+`,tq=eO.gql`
+  fragment TargetDetailsBounds on TargetDetails {
+    bounds {
+      x
+      y
+      width
+      height
+    }
+    parent {
+      tag
+      bounds {
+        x
+        y
+        width
+        height
+      }
+    }
+  }
+`,tM=eO.gql`
+  fragment StepTitleDetails on Step {
+    titleDetails {
+      template
+      variables {
+        name
+        specificValue
+        genericValue
+        currentSetting
+        capturedValue
+      }
+    }
+  }
+`,tB=eO.gql`
+  fragment AttachedDocumentFields on AttachedDocument {
+    name
+    description
+    filetype
+    screenshot {
+      url
+    }
+  }
+`,tG=eO.gql`
+  fragment StepFields on Step {
+    id
+    index
+    stepIndex
+    createdAt
+    updatedAt
+    title
+    titleDetails {
+      template
+      variables {
+        name
+        specificValue
+        genericValue
+        currentSetting
+        capturedValue
+      }
+    }
+    url
+    description
+    label
+    eventType
+    type
+    stepOrigin
+    classifications
+    isFlexible
+    stepOrigin
+    stepOriginVersion
+    mergeKey
+    parentId
+    automation
+    app {
+      ...AppFields
+    }
+    screenshot {
+      bounds {
+        x
+        y
+        width
+        height
+        draw
+        captureBoxShape
+        captureBoxColor {
+          name
+          value
+        }
+      }
+      focalPoint {
+        x
+        y
+      }
+      sourcePath
+      deliveryPath
+      editorState
+      zoomLevel
+      pixelWidth
+      pixelHeight
+      pixelRatio
+      altText
+    }
+    originatedFields {
+      dataType
+      name
+      originEvent
+      originalValue
+      description
+      originStepId
+      required
+      index
+    }
+    referencedField {
+      id
+      name
+      dataType
+      originEvent
+      description
+    }
+    insertOption
+    branchId
+    stepOrder
+    stepDepth
+    attachedDocument {
+      ...AttachedDocumentFields
+    }
+    transitions {
+      id
+      event
+      toId
+      name
+      order
+      description
+    }
+  }
+  ${tF}
+  ${tB}
+`,tV=eO.gql`
+  fragment StepFieldsWithChildren on Step {
+    ...StepFields
+    children {
+      ...StepFields
+    }
+  }
+  ${tG}
+`;eO.gql`
+  fragment StepFieldsWithChildrenAndPresignedURL on Step {
+    ...StepFieldsWithChildren
+    screenshotPresignedURLs {
+      deliveryPathPresignedURL
+      sourcePathPresignedURL
+      sourcePath
+      deliveryPath
+    }
+  }
+  ${tV}
+`;let tj=eO.gql`
+  fragment WorkflowCardFields on Workflow {
+    ...WorkflowFields
+  }
+  ${tR}
+`,tK=eO.gql`
+  fragment FolderListFields on Folder {
+    ...SharedFolderFields
+  }
+  ${tA}
+`,tQ=eO.gql`
+  fragment FolderFields on Folder {
+    ...FolderListFields
+    owner {
+      ...ProfileFields
+    }
+    shares {
+      ...ShareFieldsWithPartyData
+    }
+  }
+  ${tK}
+  ${tN}
+  ${tC}
+`,tH=eO.gql`
+  fragment WorkflowCardFieldsWithShares on Workflow {
+    ...WorkflowCardFields
+    shares {
+      ...ShareFields
+    }
+    folder {
+      ...FolderFields
+    }
+  }
+  ${tj}
+  ${tP}
+  ${tQ}
+`,tz=eO.gql`
+  fragment CalloutFields on Callout {
+    calloutType
+    type
+    createdAt
+    icon
+    id
+    index
+    text
+    updatedAt
+    transitions {
+      id
+      event
+      toId
+      name
+      order
+      description
+    }
+  }
+`,tY=eO.gql`
+  fragment HeadingFields on Heading {
+    type
+    createdAt
+    icon
+    id
+    index
+    text
+    updatedAt
+    url
+    description
+    transitions {
+      id
+      event
+      toId
+      name
+      order
+      description
+    }
+  }
+`,tX=eO.gql`
+  fragment FrequentlyAskedQuestionsFields on FrequentlyAskedQuestions {
+    type
+    createdAt
+    id
+    index
+    updatedAt
+    frequentlyAskedQuestionsItems {
+      question
+      answer
+    }
+  }
+`,tJ=eO.gql`
+  fragment MiniTargetDetails on ParentTargetDetails {
+    tag
+    text
+    attributes
+    xPath
+  }
+`,tZ=eO.gql`
+  fragment TargetDetailsFields on TargetDetails {
+    userAction
+    eventType
+    tag
+    text
+    attributes
+    baseURI
+    xPath
+    iframeURI
+    windowWidth
+    windowHeight
+    iconHash
+    offsetTop
+    bounds {
+      x
+      y
+      width
+      height
+    }
+    parent {
+      ...MiniTargetDetails
+    }
+    labelledBy {
+      ...MiniTargetDetails
+    }
+    children {
+      ...MiniTargetDetails
+    }
+  }
+  ${tJ}
+`,t0=eO.gql`
+  fragment ExceptionResolutionActionFields on ExceptionResolutionAction {
+    id
+    type
+    index
+    action
+    reason
+    completesStep
+    createdAt
+    updatedAt
+    transitions {
+      id
+      toId
+      event
+      name
+      order
+      description
+    }
+    targetDetails {
+      ...TargetDetailsFields
+    }
+    titleDetails {
+      template
+      variables {
+        name
+        specificValue
+        genericValue
+        currentSetting
+        capturedValue
+      }
+    }
+  }
+  ${tZ}
+`,t1=eO.gql`
+  fragment BranchPointFields on BranchPoint {
+    type
+    createdAt
+    id
+    index
+    text
+    updatedAt
+    transitions {
+      id
+      event
+      toId
+      name
+      order
+      description
+    }
+  }
+`,t2=eO.gql`
+  fragment PublicWorkflowDetailFields on Workflow {
+    id
+    name
+    workspaceId
+    description
+    deletedAt
+    visibility
+    stepCount
+    hasBranches
+    viewCount
+    apps {
+      ...AppFields
+    }
+    previewScreenshot {
+      zoomLevel
+      url
+      deliveryPath
+      pixelWidth
+      pixelHeight
+    }
+    createdBy {
+      ...ProfileFields
+    }
+    owner {
+      ...ProfileFields
+    }
+    contentBlocks {
+      ...StepFieldsWithChildren
+      ...CalloutFields
+      ...HeadingFields
+      ...FrequentlyAskedQuestionsFields
+      ...ExceptionResolutionActionFields
+      ...BranchPointFields
+    }
+    exceptionResolutions {
+      ...ExceptionResolutionActionFields
+    }
+    createdAt
+    updatedAt
+    userPermissionLevel
+    type
+    workspaceSetting {
+      captureBoxColor {
+        name
+        value
+      }
+      isBrandingEnabled
+      hideTangoBranding
+      logoUrl
+      iconUrl
+      primaryColor {
+        name
+        value
+      }
+      isWorkflowTranslationEnabled
+      isVideoEmbedEnabled
+      tier
+    }
+  }
+  ${tF}
+  ${tN}
+  ${tV}
+  ${tz}
+  ${tY}
+  ${tX}
+  ${t0}
+  ${t1}
+`,t3=eO.gql`
+  fragment WorkflowGuideMeDetailFields on Workflow {
+    ...PublicWorkflowDetailFields
+    versionId
+    contentSpace
+    folderId
+    pins {
+      id
+      externalId
+      url
+      title
+    }
+    shares {
+      ...ShareFields
+    }
+    isStarred
+  }
+  ${t2}
+  ${tP}
+`,t6=eO.gql`
+  fragment WorkflowDetailFields on Workflow {
+    ...WorkflowGuideMeDetailFields
+    folder {
+      ...FolderFields
+    }
+  }
+  ${t3}
+  ${tQ}
+`,t8=eO.gql`
+  fragment WorkflowPreviewFields on Workflow {
+    id
+    name
+    createdAt
+    createdBy {
+      ...ProfileFields
+    }
+    owner {
+      ...ProfileFields
+    }
+    apps {
+      ...AppFields
+    }
+    previewScreenshot {
+      zoomLevel
+      url
+      deliveryPath
+      pixelWidth
+      pixelHeight
+      focalPoint {
+        x
+        y
+      }
+    }
+  }
+  ${tN}
+  ${tF}
+`,t9=eO.gql`
+  fragment WorkflowSummaryFields on Workflow {
+    name
+    createdBy {
+      ...ProfileFields
+    }
+    owner {
+      ...ProfileFields
+    }
+  }
+  ${tN}
+`,t4=eO.gql`
+  fragment BlurrableField on BlurrableField {
+    id
+    category
+    modifier
+    name
+    pattern
+    type
+    value
+  }
+`,t7=eO.gql`
+  fragment WorkspaceSettingsFields on WorkspaceSettings {
+    autoBrandingUrl
+    domains
+    guestsEnabled
+    hideTangoBranding
+    iconUrl
+    logoUrl
+    logoBlackUrl
+    logoWhiteUrl
+    name
+    isWorkflowTranslationEnabled
+    isVideoEmbedEnabled
+    customCaptureBoxColor {
+      name
+      value
+    }
+    captureBoxColor {
+      name
+      value
+    }
+    primaryColor {
+      name
+      value
+    }
+    customPrimaryColor {
+      name
+      value
+    }
+    loginMethods {
+      email
+      google
+      sso
+    }
+    sso {
+      configured
+      enabled
+      scim
+    }
+    defaultContentVisibility
+    secureBlurSettingsV2 {
+      global {
+        activeFields {
+          ...BlurrableField
+        }
+        allowChanges
+      }
+      domains {
+        id
+        allowChanges
+        domain
+        activeFields {
+          ...BlurrableField
+        }
+      }
+      customFields {
+        ...BlurrableField
+      }
+    }
+  }
+  ${t4}
+`,t5=eO.gql`
+  fragment WorkspaceDetails on Workspace {
+    id
+    tier
+    status
+    settings {
+      ...WorkspaceSettingsFields
+    }
+    liteUserLimitation {
+      count
+      limit
+    }
+    createdAt
+    updatedAt
+  }
+  ${t7}
+`;eO.gql`
+  fragment WorkspaceDetailsWithBilling on Workspace {
+    ...WorkspaceDetails
+    billingDetail {
+      billingScheme
+      renewalDate
+      willBeCanceledAt
+      paymentInterval
+      status
+      totalSeatPrice
+      subscriptionQuantityPerProduct {
+        pro
+      }
+    }
+    proUserLimitation {
+      count
+      limit
+    }
+    sidekickUserLimitation {
+      count
+      limit
+    }
+  }
+  ${t5}
+`;let re=eO.gql`
+  fragment WorkspaceDetailsWithUsers on Workspace {
+    ...WorkspaceDetails
+    workspaceUsers {
+      userId
+      firstName
+      lastName
+      profilePictureURL
+    }
+  }
+  ${t5}
+`,rt=eO.gql`
+  fragment WorkspaceUserFields on WorkspaceUser {
+    ...ListWorkspaceUsersFields
+    workflowLimitation {
+      count
+      limit
+    }
+  }
+  ${tL}
+`,rr=eO.gql`
+  fragment WorkspaceFields on Workspace {
+    id
+    tier
+    status
+    workspaceUser {
+      ...WorkspaceUserFields
+    }
+    workspaceUsers {
+      userId
+      firstName
+      lastName
+      profilePictureURL
+    }
+    settings {
+      ...WorkspaceSettingsFields
+    }
+    liteUserLimitation {
+      count
+      limit
+    }
+    workflowLimitation {
+      count
+      limit
+    }
+    userLimitation {
+      count
+      limit
+    }
+    createdAt
+    createdBy
+    updatedAt
+    organizationId
+    automationStartDate
+  }
+  ${rt}
+  ${t7}
+`,ri=eO.gql`
+  fragment WorkspaceMemberDetailsFields on WorkspaceMemberDetails {
+    memberCounts {
+      adminCount
+      guestCount
+      creatorProCount
+      creatorFreeCount
+      sidekickCount
+    }
+    inviteCounts {
+      adminCount
+      creatorProCount
+      creatorFreeCount
+      sidekickCount
+      requestedStatusCount
+    }
+  }
+`;eO.gql`
+  fragment WorkspaceUsersFieldsFragment on WorkspaceUser {
+    id
+    userId
+    role
+  }
+`,eO.gql`
+  fragment UserGroupFields on UserGroup {
+    id
+    name
+    source
+    createdAt
+    updatedAt
+    sharingEnabled
+    usersConnection {
+      edges {
+        node {
+          id
+          firstName
+          lastName
+          profilePictureURL
+        }
+      }
+    }
+  }
+`;let rn=eO.gql`
+  mutation ClearUserSession($token: String!) {
+    clearUserSession(token: $token)
+  }
+`,ro=eO.gql`
+  mutation ClearFronteggUserSession($input: ClearFronteggUserSessionInput!) {
+    clearFronteggUserSession(input: $input)
+  }
+`;eO.gql`
+  mutation CopyWorkflowV1($workflowId: ID!, $name: String, $versionId: ID) {
+    copyWorkflowV1(workflowId: $workflowId, input: { name: $name, versionId: $versionId }) {
+      id
+    }
+  }
+`,eO.gql`
+  mutation DuplicateStep($workflowId: ID!, $stepId: ID!) {
+    duplicateStep(workflowId: $workflowId, input: { stepId: $stepId }) {
+      ...StepFieldsWithChildren
+    }
+  }
+  ${tV}
+`,eO.gql`
+  mutation DuplicateContentBlock($workflowId: ID!, $contentBlockId: ID!) {
+    duplicateContentBlock(workflowId: $workflowId, input: { contentBlockId: $contentBlockId }) {
+      ...StepFieldsWithChildren
+      ...CalloutFields
+      ...HeadingFields
+      ...FrequentlyAskedQuestionsFields
+      ...ExceptionResolutionActionFields
+      ...BranchPointFields
+    }
+  }
+  ${tV}
+  ${tz}
+  ${tY}
+  ${tX}
+  ${t0}
+  ${t1}
+`,eO.gql`
+  mutation UpdateWorkflow($input: UpdateWorkflowInput!) {
+    updateWorkflowV1(input: $input) {
+      id
+      name
+      description
+      folder {
+        id
+      }
+      pins {
+        id
+        externalId
+        url
+      }
+      visibility
+    }
+  }
+`,eO.gql`
+  mutation DeleteWorkflows($input: DeleteWorkflowsInput) {
+    deleteWorkflows(input: $input)
+  }
+`,eO.gql`
+  mutation UpdateContentBlock($input: UpdateContentBlockInput!) {
+    updateContentBlock(input: $input) {
+      ...StepFieldsWithChildren
+      ...CalloutFields
+      ...HeadingFields
+      ...FrequentlyAskedQuestionsFields
+      ...ExceptionResolutionActionFields
+      ...BranchPointFields
+    }
+  }
+  ${tV}
+  ${tz}
+  ${tY}
+  ${tX}
+  ${t0}
+  ${t1}
+`;let rs=eO.gql`
+  mutation UpdateContentBlocks($workflowId: ID!, $input: [UpdateContentBlockInput!]) {
+    updateContentBlocks(workflowId: $workflowId, input: $input) {
+      ...StepFieldsWithChildren
+      ...CalloutFields
+      ...HeadingFields
+      ...FrequentlyAskedQuestionsFields
+      ...ExceptionResolutionActionFields
+      ...BranchPointFields
+    }
+  }
+  ${tV}
+  ${tz}
+  ${tY}
+  ${tX}
+  ${t0}
+  ${t1}
+`;eO.gql`
+  mutation AddContentBlock($workflowId: ID!, $input: AddContentBlockInput!) {
+    addContentBlockV2(workflowId: $workflowId, input: $input) {
+      contentBlock {
+        id
+        index
+        type
+        ... on Step {
+          ...StepFields
+          screenshotPresignedURLs {
+            sourcePathPresignedURL
+            sourcePath
+          }
+        }
+        ... on Heading {
+          ...HeadingFields
+        }
+        ... on Callout {
+          ...CalloutFields
+        }
+        ... on BranchPoint {
+          ...BranchPointFields
+        }
+      }
+      contentBlocks {
+        id
+        index
+        type
+        ... on Step {
+          ...StepFieldsWithChildren
+          screenshotPresignedURLs {
+            sourcePathPresignedURL
+            sourcePath
+          }
+        }
+        ... on Heading {
+          ...HeadingFields
+        }
+        ... on Callout {
+          ...CalloutFields
+        }
+        ... on BranchPoint {
+          ...BranchPointFields
+        }
+      }
+    }
+  }
+  ${tG}
+  ${tY}
+  ${tz}
+  ${t1}
+  ${tV}
+`,eO.gql`
+  mutation ReorderContentBlocks($workflowId: ID!, $contentBlockOrders: [ContentBlockOrderInput!]!) {
+    reorderContentBlocks(workflowId: $workflowId, contentBlockOrders: $contentBlockOrders) {
+      ...StepFieldsWithChildren
+      ...CalloutFields
+      ...HeadingFields
+      ...FrequentlyAskedQuestionsFields
+      ...ExceptionResolutionActionFields
+      ...BranchPointFields
+    }
+  }
+  ${tV}
+  ${tz}
+  ${tY}
+  ${tX}
+  ${t0}
+  ${t1}
+`;let ra=eO.gql`
+  mutation DeleteContentBlocks($workflowId: ID!, $contentBlockIds: [ID!]!) {
+    deleteContentBlocks(workflowId: $workflowId, contentBlockIds: $contentBlockIds)
+  }
+`;eO.gql`
+  mutation UpdateFolder($input: UpdateFolderInput!) {
+    updateFolder(input: $input) {
+      name
+      contentVisibility
+    }
+  }
+`,eO.gql`
+  mutation DeleteFolder($input: ID!) {
+    deleteFolder(folderId: $input)
+  }
+`,eO.gql`
+  mutation BulkUpsertWorkflowShare($input: BulkShareWorkflowsInput!) {
+    bulkUpsertWorkflowSharesV1(input: $input) {
+      id
+      shares {
+        permissionLevel
+        party
+        partyId
+        profile {
+          id
+          firstName
+          lastName
+          profilePictureURL
+        }
+      }
+    }
+  }
+`,eO.gql`
+  mutation UpsertWorkflowShare($input: ShareWorkflowInput!) {
+    upsertWorkflowShare(input: $input) {
+      permissionLevel
+      party
+      partyId
+      profile {
+        id
+        firstName
+        lastName
+        profilePictureURL
+      }
+    }
+  }
+`,eO.gql`
+  mutation DeleteWorkflowShare($workflowId: ID!, $partyId: ID!) {
+    deleteWorkflowShare(workflowId: $workflowId, partyId: $partyId)
+  }
+`,eO.gql`
+  mutation UpsertFolderShare($input: ShareFolderInput!) {
+    upsertFolderShareV1(input: $input) {
+      permissionLevel
+      party
+      partyId
+      profile {
+        id
+        firstName
+        lastName
+        profilePictureURL
+      }
+    }
+  }
+`,eO.gql`
+  mutation BulkUpsertFolderShares($input: BulkShareFoldersInput!) {
+    bulkUpsertFolderShares(input: $input) {
+      id
+      shares {
+        ...ShareFieldsWithPartyData
+      }
+    }
+  }
+  ${tC}
+`,eO.gql`
+  mutation DeleteFolderShare($folderId: ID!, $partyId: ID!) {
+    deleteFolderShare(folderId: $folderId, partyId: $partyId)
+  }
+`,eO.gql`
+  mutation UpdateUser($input: UserInput) {
+    updateUser(input: $input) {
+      email
+      firstName
+      lastName
+      profilePictureURL
+    }
+  }
+`,eO.gql`
+  mutation AcceptTermsOfService {
+    acceptTermsOfService
+  }
+`,eO.gql`
+  mutation RequestEmailChange($newEmail: String!) {
+    requestEmailChange(newEmail: $newEmail)
+  }
+`,eO.gql`
+  mutation StarWorkflow($workflowId: ID!, $workspaceId: ID!, $isStarred: Boolean!) {
+    starWorkflow(workflowId: $workflowId, workspaceId: $workspaceId, isStarred: $isStarred) {
+      isStarred
+    }
+  }
+`,eO.gql`
+  mutation UpdateStarredWorkflowOrder($input: UpdateStarredWorkflowOrderInput!) {
+    updateStarredWorkflowOrder(input: $input)
+  }
+`,eO.gql`
+  mutation UpdateWorkspaceSettings($workspaceId: ID!, $input: UpdateWorkspaceSettingsInput) {
+    updateWorkspaceSettings(workspaceId: $workspaceId, input: $input) {
+      autoBrandingUrl
+      domains
+      iconUrl
+      logoUrl
+      logoBlackUrl
+      logoWhiteUrl
+      hideTangoBranding
+      name
+      customCaptureBoxColor {
+        name
+        value
+      }
+      captureBoxColor {
+        name
+        value
+      }
+      primaryColor {
+        name
+        value
+      }
+      customPrimaryColor {
+        name
+        value
+      }
+      guestsEnabled
+      loginMethods {
+        email
+        google
+        sso
+      }
+      defaultContentVisibility
+      secureBlurSettingsV2 {
+        global {
+          activeFields {
+            ...BlurrableField
+          }
+          allowChanges
+        }
+        domains {
+          allowChanges
+          domain
+          activeFields {
+            ...BlurrableField
+          }
+        }
+        customFields {
+          ...BlurrableField
+        }
+      }
+    }
+  }
+  ${t4}
+`,eO.gql`
+  mutation CreateWorkspace($input: CreateWorkspaceInput!) {
+    createWorkspace(input: $input) {
+      ...WorkspaceDetails
+    }
+  }
+  ${t5}
+`,eO.gql`
+  mutation CreateWorkspaceInvitations($workspaceId: ID!, $input: [WorkspaceInvitationInput!]!) {
+    createWorkspaceInvitations(workspaceId: $workspaceId, input: $input) {
+      workspaceId
+      email
+      role
+      tier
+      status
+    }
+  }
+`,eO.gql`
+  mutation CreateWorkspaceInvitationsV2($workspaceId: ID!, $input: [WorkspaceInvitationInput!]!) {
+    createWorkspaceInvitationsV2(workspaceId: $workspaceId, input: $input) {
+      workspaceId
+      email
+      role
+      tier
+      status
+    }
+  }
+`,eO.gql`
+  mutation RequestWorkspaceInvitation($workspaceId: ID!) {
+    requestWorkspaceInvitation(workspaceId: $workspaceId) {
+      status
+    }
+  }
+`,eO.gql`
+  mutation AcceptWorkspaceInvitation($workspaceId: ID!) {
+    acceptWorkspaceInvitation(workspaceId: $workspaceId) {
+      workspaceId
+      email
+      role
+      tier
+      status
+    }
+  }
+`,eO.gql`
+  mutation UpdateWorkspaceUsers($input: [WorkspaceUserInput!]!, $workspaceId: ID!) {
+    updateWorkspaceUsers(input: $input, workspaceId: $workspaceId) {
+      email
+      firstName
+      lastName
+      role
+      tier
+      userId
+      workspaceId
+    }
+  }
+`,eO.gql`
+  mutation DeleteWorkspaceUsers($userIds: [ID!]!, $workspaceId: ID!) {
+    deleteWorkspaceUsers(userIds: $userIds, workspaceId: $workspaceId)
+  }
+`,eO.gql`
+  mutation ReassignContentOwnership($input: ReassignContentOwnershipInput!) {
+    reassignContentOwnership(input: $input) {
+      reassignedWorkflowCount
+      reassignedFolderCount
+      failedWorkflowIds
+      failedFolderIds
+      workflows {
+        ...WorkflowCardFields
+      }
+      folders {
+        ...FolderFields
+      }
+    }
+  }
+  ${tj}
+  ${tQ}
+`,eO.gql`
+  mutation DeleteWorkspaceInvitations($workspaceId: ID!, $emails: [String!]!) {
+    deleteWorkspaceInvitations(workspaceId: $workspaceId, emails: $emails)
+  }
+`,eO.gql`
+  mutation MoveWorkflowsV2($input: MoveWorkflowsInput) {
+    moveWorkflowsV2(input: $input)
+  }
+`,eO.gql`
+  mutation MoveFolderV2($input: MoveFolderInput) {
+    moveFolderV2(input: $input)
+  }
+`,eO.gql`
+  mutation CreateTeamFolder($input: CreateFolderInput!) {
+    createTeamFolder(input: $input) {
+      id
+      name
+      rootId
+      parentId
+    }
+  }
+`,eO.gql`
+  mutation VerifyCheckout($sessionId: String!) {
+    verifyCheckout(sessionId: $sessionId) {
+      success
+      amountTotal
+      currency
+    }
+  }
+`,eO.gql`
+  mutation ResendWorkspaceInvitation($workspaceId: ID!, $email: String!) {
+    resendWorkspaceInvitation(workspaceId: $workspaceId, email: $email)
+  }
+`,eO.gql`
+  mutation RestoreFolder($folderId: ID!) {
+    restoreFolder(folderId: $folderId)
+  }
+`,eO.gql`
+  mutation PermanentlyDeleteFolder($folderId: ID!) {
+    permanentlyDeleteFolder(folderId: $folderId)
+  }
+`,eO.gql`
+  mutation RestoreWorkflowV2($workflowId: ID!) {
+    restoreWorkflowV2(workflowId: $workflowId) {
+      ...WorkflowCardFieldsWithShares
+    }
+  }
+  ${tH}
+`,eO.gql`
+  mutation PermanentlyDeleteWorkflow($workflowId: ID!) {
+    permanentlyDeleteWorkflow(workflowId: $workflowId)
+  }
+`,eO.gql`
+  mutation DeleteWorkspace($workspaceId: ID!) {
+    deleteWorkspace(workspaceId: $workspaceId)
+  }
+`,eO.gql`
+  mutation MergeContentBlocks($workflowId: ID!, $contentBlockIds: [ID!]!) {
+    mergeContentBlocks(workflowId: $workflowId, contentBlockIds: $contentBlockIds) {
+      ...StepFieldsWithChildren
+      ...CalloutFields
+      ...HeadingFields
+      ...FrequentlyAskedQuestionsFields
+      ...ExceptionResolutionActionFields
+      ...BranchPointFields
+    }
+  }
+  ${tV}
+  ${tz}
+  ${tY}
+  ${tX}
+  ${t0}
+  ${t1}
+`,eO.gql`
+  mutation SplitContentBlock($workflowId: ID!, $contentBlockId: ID!, $childContentBlockId: ID) {
+    splitContentBlock(
+      workflowId: $workflowId
+      contentBlockId: $contentBlockId
+      childContentBlockId: $childContentBlockId
+    ) {
+      ...StepFieldsWithChildren
+      ...CalloutFields
+      ...HeadingFields
+      ...FrequentlyAskedQuestionsFields
+      ...ExceptionResolutionActionFields
+      ...BranchPointFields
+    }
+  }
+  ${tV}
+  ${tz}
+  ${tY}
+  ${tX}
+  ${t0}
+  ${t1}
+`,eO.gql`
+  mutation JoinWorkspaces($workspaceIds: [ID!]!) {
+    joinDomainWorkspaces(workspaceIds: $workspaceIds) {
+      workspaceId
+    }
+  }
+`,eO.gql`
+  mutation JoinWorkspacesV2($workspaceIds: [ID!]!) {
+    joinDomainWorkspacesV2(workspaceIds: $workspaceIds) {
+      userId
+      workspaceId
+    }
+  }
+`,eO.gql`
+  mutation UnsubscribeFromNotification($input: UnsubscribeFromNotificationInput!) {
+    unsubscribeFromNotification(input: $input) {
+      email
+      notificationGroupId
+      notificationGroupName
+      subscribed
+    }
+  }
+`;let rl=eO.gql`
+  mutation TrackEvents($input: TrackEventsInput!) {
+    trackEvents(input: $input)
+  }
+`;eO.gql`
+  mutation GenerateTinybirdAuthToken($input: GenerateTinybirdAuthTokenInput!) {
+    generateTinybirdAuthToken(input: $input) {
+      accessToken
+      expiresAt
+      type
+    }
+  }
+`,eO.gql`
+  mutation GenerateWorkspaceAnalyticsOutput($input: GenerateWorkspaceAnalyticsInput!) {
+    generateWorkpsaceAnalytics(input: $input) {
+      reportUrl
+    }
+  }
+`,eO.gql`
+  mutation ExchangeFronteggOauthCode($input: ExchangeFronteggOauthCodeInput!) {
+    exchangeFronteggOauthCode(input: $input) {
+      refreshToken
+      accessToken
+      email
+      expiresIn
+      fronteggUser
+      type
+    }
+  }
+`,eO.gql`
+  mutation ApproveWorkspaceInvitation($workspaceId: ID!, $email: String!) {
+    approveWorkspaceInvitation(workspaceId: $workspaceId, email: $email) {
+      workspaceId
+      email
+      role
+      tier
+      status
+    }
+  }
+`,eO.gql`
+  mutation CreateComment($input: CreateCommentInput!) {
+    createComment(input: $input) {
+      text
+      emoji
+      firstName
+      lastName
+      createdAt
+      id
+      user {
+        id
+        firstName
+        lastName
+        profilePictureURL
+      }
+      stepId
+    }
+  }
+`,eO.gql`
+  mutation DeleteComment($input: DeleteCommentInput!) {
+    deleteComment(input: $input)
+  }
+`,eO.gql`
+  mutation EmptyTrash($workspaceId: ID!) {
+    emptyTrash(workspaceId: $workspaceId)
+  }
+`;let ru=eO.gql`
+  mutation AddReferralCode($referralCode: String!) {
+    addReferralCode(referralCode: $referralCode)
+  }
+`,rc=eO.gql`
+  mutation AssociateHubspotUtk($hubspotutk: String!, $pageUri: String, $pageName: String) {
+    associateHubspotUtk(hubspotutk: $hubspotutk, pageUri: $pageUri, pageName: $pageName)
+  }
+`,rd=eO.gql`
+  mutation SendContinueOnDesktopEmail {
+    sendContinueOnDesktopEmail
+  }
+`,rp=eO.gql`
+  mutation RefreshFronteggOauthToken($input: RefreshFronteggOauthTokenInput!) {
+    refreshFronteggOauthToken(input: $input) {
+      refreshToken
+      accessToken
+      expiresIn
+      tokenType
+    }
+  }
+`;eO.gql`
+  mutation CreateUserGroup($input: CreateUserGroupInput!) {
+    createUserGroup(input: $input) {
+      ...UserGroupListFields
+    }
+  }
+  ${tO}
+`,eO.gql`
+  mutation UpdateUserGroup($input: UpdateUserGroupInput!) {
+    updateUserGroup(input: $input) {
+      ...UserGroupListFields
+    }
+  }
+  ${tO}
+`,eO.gql`
+  mutation DeleteUserGroup($userGroupId: ID!) {
+    deleteUserGroup(userGroupId: $userGroupId)
+  }
+`,eO.gql`
+  mutation AddUsersToUserGroup($input: UserGroupUsersInput!) {
+    addUsersToUserGroup(input: $input) {
+      userIds
+      userGroupId
+    }
+  }
+`,eO.gql`
+  mutation RemoveUsersFromUserGroup($input: UserGroupUsersInput!) {
+    removeUsersFromUserGroup(input: $input) {
+      userIds
+      userGroupId
+    }
+  }
+`,eO.gql`
+  mutation UpsertPolicy($input: UpsertPolicyInput!) {
+    upsertPolicy(input: $input) {
+      id
+      name
+      content
+      workspaceId
+      isCollected
+      createdBy
+      updatedBy
+      createdAt
+      updatedAt
+      summary
+    }
+  }
+`,eO.gql`
+  mutation DeletePolicy($input: DeletePolicyInput!) {
+    deletePolicy(input: $input)
+  }
+`,eO.gql`
+  mutation SetFronteggUserTenant($input: SetFronteggUserTenantInput!) {
+    setFronteggUserTenant(input: $input)
+  }
+`,eO.gql`
+  mutation UpdateWorkflowField($input: UpdateWorkflowFieldInput!) {
+    updateWorkflowField(input: $input) {
+      id
+      name
+    }
+  }
+`,eO.gql`
+  mutation DeleteWorkflowField($input: DeleteWorkflowFieldInput!) {
+    deleteWorkflowField(input: $input)
+  }
+`,eO.gql`
+  mutation CreateWorkflowField($input: WorkflowFieldInput!) {
+    createWorkflowField(input: $input) {
+      id
+      name
+    }
+  }
+`,eO.gql`
+  mutation DeleteExceptionResolution($id: ID!) {
+    deleteExceptionResolution(id: $id)
+  }
+`,eO.gql`
+  mutation GenerateIntercomJwt {
+    generateIntercomJwt {
+      jwt
+    }
+  }
+`;let rf=eO.gql`
+  mutation RequestWorkflowTranslation($input: RequestWorkflowTranslationInput!) {
+    requestWorkflowTranslation(input: $input) {
+      requestId
+      workflowId
+      lang
+      status
+    }
+  }
+`;eO.gql`
+  mutation ExportAuditLog($input: ExportAuditLogInput!) {
+    exportAuditLog(input: $input) {
+      exportId
+      status
+    }
+  }
+`,eO.gql`
+  mutation CreateWorkflowVersion($input: CreateWorkflowVersionInput!) {
+    createWorkflowVersion(input: $input) {
+      id
+      workflowId
+      name
+      createdAt
+      updatedAt
+      changes {
+        updatedBy
+        updatedAt
+        description
+        profile {
+          id
+          firstName
+          lastName
+          profilePictureURL
+        }
+      }
+    }
+  }
+`,eO.gql`
+  mutation UpdateWorkflowVersion($input: UpdateWorkflowVersionInput!) {
+    updateWorkflowVersion(input: $input) {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`,eO.gql`
+  mutation RestoreWorkflowVersion($input: RestoreWorkflowVersionInput!) {
+    restoreWorkflowVersion(input: $input) {
+      id
+      workflowId
+      name
+      createdAt
+      updatedAt
+      changes {
+        updatedBy
+        updatedAt
+        description
+        profile {
+          id
+          firstName
+          lastName
+          profilePictureURL
+        }
+      }
+    }
+  }
+`,eO.gql`
+  mutation CancelSubscription($workspaceId: ID!) {
+    cancelSubscription(workspaceId: $workspaceId) {
+      status
+      willBeCanceledAt
+    }
+  }
+`;let rh=eO.gql`
+  mutation GenerateWorkflowAudio($input: GenerateWorkflowAudioInput!) {
+    generateWorkflowAudio(input: $input) {
+      workflowId
+      voice
+      status
+      contentBlocks {
+        contentBlockId
+        blockType
+        titleAudioUrl
+        descriptionAudioUrl
+        titleDurationSec
+        descriptionDurationSec
+      }
+      error
+    }
+  }
+`,rg=eO.gql`
+  query GetPublicWorkflow($id: ID!) {
+    getWorkflow(workflowId: $id) {
+      ...PublicWorkflowDetailFields
+    }
+  }
+  ${t2}
+`;eO.gql`
+  query GetPublicWorkflowEmbedMeta($id: ID!) {
+    getWorkflow(workflowId: $id) {
+      ...WorkflowEmbedMetaFields
+    }
+  }
+  ${tW}
+`,eO.gql`
+  query GetWorkflow($id: ID!, $lang: TranslationLanguage) {
+    getWorkflow(workflowId: $id, lang: $lang) {
+      contentBlocks {
+        ... on Step {
+          ...StepTitleDetails
+          policy {
+            id
+            content
+            isCollected
+            summary
+            workflowFields {
+              id
+            }
+          }
+          targetDetails {
+            ...TargetDetailsBounds
+            attributes
+            parent {
+              tag
+              text
+              attributes
+            }
+            labelledBy {
+              tag
+              text
+              attributes
+            }
+            userAction
+            tag
+            text
+          }
+          referencedField {
+            id
+          }
+          originatedFields {
+            id
+            name
+            originEvent
+            originalValue
+            originalName
+            index
+          }
+          attachedDocument {
+            ...AttachedDocumentFields
+          }
+          children {
+            ...StepTitleDetails
+            policy {
+              id
+              content
+              isCollected
+              summary
+            }
+            targetDetails {
+              ...TargetDetailsBounds
+              attributes
+              parent {
+                tag
+                text
+                attributes
+              }
+              labelledBy {
+                tag
+                text
+                attributes
+              }
+              userAction
+              tag
+              text
+            }
+          }
+        }
+      }
+      ...WorkflowDetailFields
+    }
+  }
+  ${tM}
+  ${tq}
+  ${tB}
+  ${t6}
+`,eO.gql`
+  query GetWorkflowVersion($id: ID!, $versionId: ID!) {
+    getWorkflow(workflowId: $id, versionId: $versionId) {
+      contentBlocks {
+        ... on Step {
+          ...StepTitleDetails
+          policy {
+            id
+            content
+            isCollected
+            summary
+            workflowFields {
+              id
+            }
+          }
+          targetDetails {
+            ...TargetDetailsBounds
+            attributes
+            parent {
+              tag
+              text
+              attributes
+            }
+            labelledBy {
+              tag
+              text
+              attributes
+            }
+            userAction
+            tag
+            text
+          }
+          referencedField {
+            id
+          }
+          originatedFields {
+            id
+            name
+            originEvent
+            originalValue
+            originalName
+            index
+          }
+          attachedDocument {
+            ...AttachedDocumentFields
+          }
+          children {
+            ...StepTitleDetails
+            policy {
+              id
+              content
+              isCollected
+              summary
+            }
+            targetDetails {
+              ...TargetDetailsBounds
+              attributes
+              parent {
+                tag
+                text
+                attributes
+              }
+              labelledBy {
+                tag
+                text
+                attributes
+              }
+              userAction
+              tag
+              text
+            }
+          }
+        }
+      }
+      ...WorkflowDetailFields
+    }
+  }
+  ${tM}
+  ${tq}
+  ${tB}
+  ${t6}
+`;let rm=eO.gql`
+  query GetWorkflowForTranslation($id: ID!, $lang: TranslationLanguage) {
+    getWorkflow(workflowId: $id, lang: $lang) {
+      id
+      translationStatus
+      translation {
+        translatedName
+        translatedDescription
+      }
+      contentBlocks {
+        __typename
+        ... on Step {
+          id
+          translation {
+            translatedTitle
+            translatedTitleTemplate
+            translatedTitleGenericVariables
+            translatedDescription
+          }
+          children {
+            id
+            translation {
+              translatedTitle
+              translatedTitleTemplate
+              translatedTitleGenericVariables
+              translatedDescription
+            }
+          }
+        }
+        ... on Heading {
+          id
+          translation {
+            translatedText
+            translatedDescription
+          }
+        }
+        ... on Callout {
+          id
+          translation: calloutTranslation {
+            translatedText
+          }
+        }
+        ... on BranchPoint {
+          id
+          branchPointTranslation {
+            translatedText
+            translatedTransitions {
+              id
+              translatedName
+              translatedDescription
+            }
+          }
+        }
+      }
+    }
+  }
+`;eO.gql`
+  query GetWorkflowSummary($id: ID!) {
+    getWorkflow(workflowId: $id) {
+      ...WorkflowSummaryFields
+    }
+  }
+  ${t9}
+`,eO.gql`
+  query GetWorkflowPreview($id: ID!) {
+    getWorkflow(workflowId: $id) {
+      ...WorkflowPreviewFields
+    }
+  }
+  ${t8}
+`,eO.gql`
+  query GetWorkflowShares($id: ID!, $withWorkspaceUsers: Boolean = false) {
+    getWorkflow(workflowId: $id) {
+      id
+      shares {
+        ...ShareFieldsWithPartyData
+        workspaceUser @include(if: $withWorkspaceUsers) {
+          ...ListWorkspaceUsersFields
+        }
+      }
+    }
+  }
+  ${tC}
+  ${tL}
+`,eO.gql`
+  query GetWorkflowForGuideMe($id: ID!) {
+    getWorkflow(workflowId: $id) {
+      ...WorkflowGuideMeDetailFields
+      currentVersionId
+      contentBlocks {
+        ...CalloutFields
+        ...HeadingFields
+        ... on Step {
+          ...StepFieldsWithChildren
+          ...StepTitleDetails
+          policy {
+            id
+            content
+            summary
+            workflowFields {
+              id
+            }
+          }
+          goal
+          classifications
+          isFlexible
+          targetDetails {
+            ...TargetDetailsFields
+          }
+          attachedDocument {
+            ...AttachedDocumentFields
+          }
+          originatedFields {
+            id
+            name
+            description
+            originEvent
+            originalValue
+            required
+            index
+          }
+          referencedField {
+            id
+          }
+          children {
+            ...StepFieldsWithChildren
+            ...StepTitleDetails
+            policy {
+              id
+              content
+              summary
+              workflowFields {
+                id
+              }
+            }
+            targetDetails {
+              ...TargetDetailsFields
+            }
+          }
+        }
+      }
+    }
+  }
+  ${t3}
+  ${tz}
+  ${tY}
+  ${tV}
+  ${tM}
+  ${tZ}
+  ${tB}
+`,eO.gql`
+  query GetWorkflowForGuideMeWithIntermediateTargets($id: ID!) {
+    getWorkflow(workflowId: $id) {
+      ...WorkflowGuideMeDetailFields
+      currentVersionId
+      contentBlocks {
+        ...CalloutFields
+        ...HeadingFields
+        ... on Step {
+          ...StepFieldsWithChildren
+          ...StepTitleDetails
+          policy {
+            id
+            content
+            summary
+            workflowFields {
+              id
+            }
+          }
+          goal
+          classifications
+          isFlexible
+          targetDetails {
+            ...TargetDetailsFields
+          }
+          intermediateTargets {
+            ...TargetDetailsFields
+          }
+          attachedDocument {
+            ...AttachedDocumentFields
+          }
+          originatedFields {
+            id
+            name
+            description
+            originEvent
+            originalValue
+            required
+            index
+          }
+          referencedField {
+            id
+          }
+          children {
+            ...StepFieldsWithChildren
+            ...StepTitleDetails
+            policy {
+              id
+              content
+              summary
+              workflowFields {
+                id
+              }
+            }
+            targetDetails {
+              ...TargetDetailsFields
+            }
+            intermediateTargets {
+              ...TargetDetailsFields
+            }
+          }
+        }
+      }
+    }
+  }
+  ${t3}
+  ${tz}
+  ${tY}
+  ${tV}
+  ${tM}
+  ${tZ}
+  ${tB}
+`,eO.gql`
+  query GetWorkflowStepTargetDetails($id: ID!) {
+    getWorkflow(workflowId: $id) {
+      id
+      contentBlocks {
+        ... on Heading {
+          id
+        }
+        ... on Callout {
+          id
+        }
+        ... on Step {
+          id
+          title
+          eventType
+          isFlexible
+          classifications
+          targetDetails {
+            userAction
+            tag
+            text
+            attributes
+            baseURI
+            xPath
+            parent {
+              ...MiniTargetDetails
+            }
+            labelledBy {
+              ...MiniTargetDetails
+            }
+          }
+          children {
+            id
+            eventType
+            isFlexible
+            classifications
+            targetDetails {
+              userAction
+              tag
+              text
+              attributes
+              baseURI
+              xPath
+              parent {
+                ...MiniTargetDetails
+              }
+              labelledBy {
+                ...MiniTargetDetails
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  ${tJ}
+`,eO.gql`
+  query GetDraftWorkflows($workspaceId: ID!, $limit: Int!, $offset: Int) {
+    getDraftWorkflows(workspaceId: $workspaceId, limit: $limit, offset: $offset) {
+      results {
+        ...WorkflowCardFields
+      }
+      total
+    }
+  }
+  ${tj}
+`,eO.gql`
+  query GetFolder($id: ID!) {
+    getFolder(folderId: $id) {
+      ...FolderDetailFields
+    }
+  }
+  ${t$}
+`,eO.gql`
+  query GetAuthorContentIds($workspaceId: ID!, $authorId: ID!, $workflowsFirst: Int!, $foldersFirst: Int!) {
+    getTeamWorkflowsConnectionV2(
+      workspaceId: $workspaceId
+      first: $workflowsFirst
+      filterV2: { authorId: $authorId, includeAllFolders: true }
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    getTeamFoldersConnectionV2(
+      workspaceId: $workspaceId
+      first: $foldersFirst
+      filter: { authorId: $authorId }
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+`,eO.gql`
+  query GetFolderWorkflows($id: ID!, $limit: Int!, $offset: Int, $sort: ListWorkflowsSort) {
+    getFolder(folderId: $id) {
+      id
+      workflows(limit: $limit, offset: $offset, sort: $sort) {
+        results {
+          ...WorkflowCardFields
+        }
+        total
+      }
+    }
+  }
+  ${tj}
+`,eO.gql`
+  query GetFolderShares($id: ID!, $withWorkspaceUsers: Boolean = false) {
+    getFolder(folderId: $id) {
+      id
+      shares {
+        ...ShareFieldsWithPartyData
+        workspaceUser @include(if: $withWorkspaceUsers) {
+          ...ListWorkspaceUsersFields
+        }
+      }
+    }
+  }
+  ${tC}
+  ${tL}
+`,eO.gql`
+  query SearchProfiles($input: ProfileSearchInput!) {
+    searchProfiles(input: $input) {
+      ...ProfileFields
+    }
+  }
+  ${tN}
+`,eO.gql`
+  query ListWorkflowTranscripts($workflowId: ID!) {
+    listWorkflowTranscripts(workflowId: $workflowId) {
+      workflowId
+      transcripts {
+        presignedURL
+        lastModified
+      }
+    }
+  }
+`,eO.gql`
+  query GetProfile($input: ProfileInput!) {
+    getProfile(input: $input) {
+      firstName
+      lastName
+      id
+      profilePictureURL
+    }
+  }
+`,eO.gql`
+  query GetBillingUpdateSessionUrl($workspaceId: String!) {
+    getBillingUpdateSessionUrl(workspaceId: $workspaceId)
+  }
+`,eO.gql`
+  query GetCheckoutSessionUrl(
+    $priceId: String!
+    $workspaceId: String!
+    $assignedUsers: [AssignedUsers]
+    $invitedUsers: [InvitedUsers]
+  ) {
+    getCheckoutSessionUrl(
+      priceId: $priceId
+      workspaceId: $workspaceId
+      assignedUsers: $assignedUsers
+      invitedUsers: $invitedUsers
+    )
+  }
+`,eO.gql`
+  query GetCheckoutSessionUrlByQuantity($priceId: String!, $workspaceId: String!, $quantity: Int!) {
+    getCheckoutSessionUrlByQuantity(priceId: $priceId, workspaceId: $workspaceId, quantity: $quantity)
+  }
+`,eO.gql`
+  query ListProducts($cacheKey: String = "cache") {
+    listProducts(cacheKey: $cacheKey) {
+      id
+      name
+      prices {
+        id
+        amount
+        currency
+        trialDays
+        interval
+      }
+    }
+  }
+`;let rI=eO.gql`
+  query ListWorkspaces($limit: Int!, $offset: Int) {
+    listWorkspaces(limit: $limit, offset: $offset) {
+      results {
+        ...WorkspaceFields
+      }
+      total
+    }
+  }
+  ${rr}
+`;eO.gql`
+  query ListMyWorkflows($workspaceId: ID!, $limit: Int!, $offset: Int, $filter: ListWorkflowsFilter) {
+    listMyWorkflowsV3(workspaceId: $workspaceId, limit: $limit, offset: $offset, filter: $filter) {
+      total
+      results {
+        ...WorkflowCardFields
+      }
+    }
+  }
+  ${tj}
+`,eO.gql`
+  query GetDraftWorkflowCount($workspaceId: ID!) {
+    getDraftWorkflows(workspaceId: $workspaceId, limit: 1, offset: 0) {
+      total
+    }
+  }
+`,eO.gql`
+  query GetTeamWorkflowsConnectionV2(
+    $workspaceId: ID!
+    $after: String
+    $before: String
+    $filter: ListWorkflowsFilter
+    $filterV2: ListWorkflowsFilterV2
+    $first: Int
+    $last: Int
+    $sortBy: WorkflowsSortBy
+  ) {
+    getTeamWorkflowsConnectionV2(
+      workspaceId: $workspaceId
+      after: $after
+      before: $before
+      filter: $filter
+      filterV2: $filterV2
+      first: $first
+      last: $last
+      sortBy: $sortBy
+    ) {
+      pageInfo {
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          ...WorkflowCardFields
+        }
+      }
+    }
+  }
+  ${tj}
+`,eO.gql`
+  query GetFolderWorkflowsConnectionV2(
+    $workspaceId: ID!
+    $folderId: ID!
+    $after: String
+    $before: String
+    $first: Int
+    $last: Int
+    $sortBy: WorkflowsSortBy
+  ) {
+    getFolderWorkflowsConnectionV2(
+      workspaceId: $workspaceId
+      folderId: $folderId
+      after: $after
+      before: $before
+      first: $first
+      last: $last
+      sortBy: $sortBy
+    ) {
+      pageInfo {
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          ...WorkflowCardFields
+        }
+      }
+    }
+  }
+  ${tj}
+`,eO.gql`
+  query ListMyFolders($workspaceId: ID!, $limit: Int!, $offset: Int) {
+    listMyFoldersV3(workspaceId: $workspaceId, limit: $limit, offset: $offset) {
+      total
+      results {
+        ...FolderListFields
+      }
+    }
+  }
+  ${tK}
+`,eO.gql`
+  query GetTeamFoldersConnectionV2(
+    $workspaceId: ID!
+    $after: String
+    $before: String
+    $first: Int
+    $last: Int
+    $sortBy: TeamFoldersSortBy
+    $filter: TeamFoldersFilter
+  ) {
+    getTeamFoldersConnectionV2(
+      workspaceId: $workspaceId
+      after: $after
+      before: $before
+      first: $first
+      last: $last
+      sortBy: $sortBy
+      filter: $filter
+    ) {
+      pageInfo {
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          ...FolderFields
+        }
+      }
+    }
+  }
+  ${tQ}
+`,eO.gql`
+  query OwnedWorkflows($workspaceId: ID!, $userId: ID!) {
+    getTeamWorkflowsConnectionV2(workspaceId: $workspaceId, filterV2: { authorId: $userId }, first: 100) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`,eO.gql`
+  query OwnedFolders($workspaceId: ID!, $userId: ID!) {
+    getTeamFoldersConnectionV2(workspaceId: $workspaceId, filter: { authorId: $userId }, first: 100) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`,eO.gql`
+  query GetSubfoldersConnection(
+    $folderId: ID!
+    $workspaceId: ID!
+    $after: String
+    $before: String
+    $first: Int
+    $last: Int
+    $sortBy: TeamFoldersSortBy
+  ) {
+    getSubfoldersConnection(
+      folderId: $folderId
+      workspaceId: $workspaceId
+      after: $after
+      before: $before
+      first: $first
+      last: $last
+      sortBy: $sortBy
+    ) {
+      pageInfo {
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          ...FolderFields
+        }
+      }
+    }
+  }
+  ${tQ}
+`,eO.gql`
+  query ListDetailedTeamFolders($workspaceId: ID!, $limit: Int!, $offset: Int) {
+    listTeamFolders(workspaceId: $workspaceId, limit: $limit, offset: $offset) {
+      total
+      results {
+        ...FolderFields
+      }
+    }
+  }
+  ${tQ}
+`,eO.gql`
+  query ListSharedFolders($workspaceId: ID!, $limit: Int!, $offset: Int) {
+    listSharedFolders(workspaceId: $workspaceId, limit: $limit, offset: $offset) {
+      total
+      results {
+        ...FolderFields
+      }
+    }
+  }
+  ${tQ}
+`,eO.gql`
+  query ListUserSharedFolders($workspaceId: ID!, $userId: ID, $limit: Int!, $offset: Int) {
+    listSharedFolders(workspaceId: $workspaceId, userId: $userId, limit: $limit, offset: $offset) {
+      total
+      results {
+        id
+        name
+        contentSpace
+      }
+    }
+  }
+`,eO.gql`
+  query ListSharedWorkflows($workspaceId: ID!, $limit: Int!, $offset: Int) {
+    listSharedWorkflows(workspaceId: $workspaceId, limit: $limit, offset: $offset) {
+      results {
+        ...WorkflowCardFieldsWithShares
+      }
+    }
+  }
+  ${tH}
+`,eO.gql`
+  query ListUserSharedWorkflows($workspaceId: ID!, $userId: ID, $limit: Int!, $offset: Int) {
+    listSharedWorkflows(workspaceId: $workspaceId, userId: $userId, limit: $limit, offset: $offset) {
+      results {
+        id
+        name
+        contentSpace
+      }
+    }
+  }
+`,eO.gql`
+  query ListStarredWorkflows($workspaceId: ID!, $limit: Int!, $offset: Int) {
+    listStarredWorkflows(workspaceId: $workspaceId, limit: $limit, offset: $offset) {
+      results {
+        ...WorkflowCardFieldsWithShares
+      }
+    }
+  }
+  ${tH}
+`,eO.gql`
+  query GetWorkspaceUser($workspaceId: ID!, $userId: ID!) {
+    getWorkspaceUser(workspaceId: $workspaceId, userId: $userId) {
+      id
+      userId
+      workspaceId
+      isLastAdmin
+      role
+      tier
+    }
+  }
+`;let ry=eO.gql`
+  query GetWorkspaceUserUserGroup($workspaceId: ID!, $userId: ID!, $first: Int!, $after: String) {
+    getWorkspaceUser(workspaceId: $workspaceId, userId: $userId) {
+      id
+      userId
+      workspaceId
+      userGroupsConnection(first: $first, after: $after) {
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`;eO.gql`
+  query GetWorkspaceMemberDetails($workspaceId: ID!) {
+    getWorkspace(workspaceId: $workspaceId) {
+      workspaceMemberDetails {
+        ...WorkspaceMemberDetailsFields
+      }
+      proUserLimitation {
+        count
+        limit
+      }
+      sidekickUserLimitation {
+        count
+        limit
+      }
+    }
+  }
+  ${ri}
+`,eO.gql`
+  query ListWorkspaceUsers($workspaceId: ID!, $limit: Int!, $offset: Int, $filter: ListWorkspaceUsersFilter) {
+    listWorkspaceUsers(workspaceId: $workspaceId, limit: $limit, offset: $offset, filter: $filter) {
+      results {
+        ...ListWorkspaceUsersFields
+      }
+      total
+    }
+  }
+  ${tL}
+`,eO.gql`
+  query GetWorkspaceUsersConnection(
+    $workspaceId: ID!
+    $first: Int!
+    $after: String
+    $filter: WorkspaceUsersConnectionFilter
+    $withInviteStatus: Boolean = false
+  ) {
+    getWorkspaceUsersConnection(workspaceId: $workspaceId, first: $first, after: $after, filter: $filter) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          ...ListWorkspaceUsersFields
+          invite @include(if: $withInviteStatus) {
+            status
+          }
+        }
+      }
+    }
+  }
+  ${tL}
+`,eO.gql`
+  query GetUserGroupWorkspaceUsersConnection(
+    $workspaceId: ID!
+    $first: Int!
+    $after: String
+    $filter: WorkspaceUsersConnectionFilter
+    $userGroupId: ID = ""
+    $withInUserGroup: Boolean = false
+  ) {
+    getWorkspaceUsersConnection(workspaceId: $workspaceId, first: $first, after: $after, filter: $filter) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          ...ListWorkspaceUsersFields
+          inUserGroup(id: $userGroupId) @include(if: $withInUserGroup)
+        }
+      }
+    }
+  }
+  ${tL}
+`,eO.gql`
+  query GetWorkspaceInvitationsConnection(
+    $workspaceId: ID!
+    $first: Int!
+    $after: String
+    $filter: GetWorkspaceInvitationsConnectionFilter
+    $withUserProfiles: Boolean = false
+  ) {
+    getWorkspaceInvitationsConnection(
+      workspaceId: $workspaceId
+      first: $first
+      after: $after
+      filter: $filter
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          email
+          role
+          tier
+          status
+          profile @include(if: $withUserProfiles) {
+            ...ProfileFields
+          }
+        }
+      }
+    }
+  }
+  ${tN}
+`,eO.gql`
+  query ListWorkspaceUpgradeUsers(
+    $workspaceId: ID!
+    $limit: Int!
+    $offset: Int
+    $filter: ListWorkspaceUsersFilter
+  ) {
+    listWorkspaceUsers(workspaceId: $workspaceId, limit: $limit, offset: $offset, filter: $filter) {
+      results {
+        ...ListWorkspaceUpgradeUsersFields
+      }
+      total
+    }
+  }
+  ${tx}
+`,eO.gql`
+  query ListWorkspaceInvitations(
+    $workspaceId: ID!
+    $limit: Int!
+    $offset: Int
+    $filter: ListWorkspaceInvitationsFilter
+  ) {
+    listWorkspaceInvitations(workspaceId: $workspaceId, limit: $limit, offset: $offset, filter: $filter) {
+      results {
+        email
+        role
+        tier
+        status
+      }
+      total
+    }
+  }
+`,eO.gql`
+  query ListComments($workflowId: ID!) {
+    listComments(workflowId: $workflowId) {
+      results {
+        id
+        text
+        emoji
+        user {
+          ...ProfileFields
+        }
+        firstName
+        lastName
+        userTrackingId
+        stepId
+        createdAt
+      }
+      total
+    }
+  }
+  ${tN}
+`,eO.gql`
+  query GetWorkspace($workspaceId: ID!) {
+    getWorkspace(workspaceId: $workspaceId) {
+      id
+      tier
+      status
+      userRole
+      settings {
+        autoBrandingUrl
+        domains
+        iconUrl
+        logoUrl
+        logoBlackUrl
+        logoWhiteUrl
+        hideTangoBranding
+        name
+        customCaptureBoxColor {
+          name
+          value
+        }
+        captureBoxColor {
+          name
+          value
+        }
+        loginMethods {
+          sso
+          google
+          email
+        }
+        sso {
+          enabled
+          configured
+          scim
+        }
+        defaultContentVisibility
+        guestsEnabled
+        isWorkflowTranslationEnabled
+        isVideoEmbedEnabled
+        secureBlurSettingsV2 {
+          global {
+            activeFields {
+              ...BlurrableField
+            }
+            allowChanges
+          }
+          domains {
+            id
+            allowChanges
+            domain
+            activeFields {
+              ...BlurrableField
+            }
+          }
+          customFields {
+            ...BlurrableField
+          }
+        }
+      }
+      liteUserLimitation {
+        count
+        limit
+      }
+      proUserLimitation {
+        count
+        limit
+      }
+      sidekickUserLimitation {
+        count
+        limit
+      }
+      createdAt
+      updatedAt
+      billingDetail {
+        billingScheme
+        renewalDate
+        willBeCanceledAt
+        paymentInterval
+        status
+        totalSeatPrice
+        subscriptionId
+        subscriptionQuantityPerProduct {
+          pro
+        }
+      }
+      customerServiceAgent {
+        id
+        firstName
+        lastName
+        profilePictureURL
+      }
+    }
+  }
+  ${t4}
+`,eO.gql`
+  query GetWorkspaceLimits($workspaceId: ID!) {
+    getWorkspace(workspaceId: $workspaceId) {
+      id
+      tier
+      workspaceUser {
+        ...GetWorkspaceLimitsFields
+      }
+    }
+  }
+  ${tU}
+`,eO.gql`
+  query ListArchivedFolders($workspaceId: ID!, $limit: Int!, $offset: Int) {
+    listArchivedFolders(workspaceId: $workspaceId, limit: $limit, offset: $offset) {
+      results {
+        ...FolderFields
+      }
+      total
+    }
+  }
+  ${tQ}
+`,eO.gql`
+  query ListArchivedWorkflows($workspaceId: ID!, $limit: Int!, $offset: Int) {
+    listArchivedWorkflows(workspaceId: $workspaceId, limit: $limit, offset: $offset) {
+      results {
+        ...WorkflowCardFieldsWithShares
+      }
+      total
+    }
+  }
+  ${tH}
+`,eO.gql`
+  query GetStepScreenshotPresignedURLs($fileType: String!, $stepId: ID!, $workflowId: ID!) {
+    getStepScreenshotPresignedURLs(input: { fileType: $fileType, stepId: $stepId, workflowId: $workflowId }) {
+      deliveryPathPresignedURL
+      sourcePathPresignedURL
+      sourcePath
+      deliveryPath
+    }
+  }
+`;let rv=eO.gql`
+  query SSOProvider($email: String!) {
+    getUserSSOProvider(email: $email) {
+      identityProviderName
+      fronteggEnabled
+      tenantId
+    }
+  }
+`;eO.gql`
+  query GetProfilePicturePresignedURLs($fileType: String!) {
+    getProfilePicturePresignedURL(input: { fileType: $fileType }) {
+      presignedURL
+      path
+    }
+  }
+`,eO.gql`
+  query GetWorkspaceLogoPresignedURL($fileType: String!, $workspaceId: String!) {
+    getWorkspaceLogoPresignedURL(input: { fileType: $fileType }, workspaceId: $workspaceId) {
+      presignedURL
+      path
+    }
+  }
+`,eO.gql`
+  query BulkGetStepScreenshotPresignedURLs(
+    $workflowId: ID!
+    $input: [BulkStepScreenshotPresignedURLsInput!]!
+  ) {
+    bulkGetStepScreenshotPresignedURLs(workflowId: $workflowId, input: $input) {
+      deliveryPathPresignedURL
+      sourcePathPresignedURL
+      sourcePath
+      deliveryPath
+      stepId
+    }
+  }
+`,eO.gql`
+  query ListSuggestedWorkspaces($limit: Int, $offset: Int) {
+    listSuggestedWorkspaces(limit: $limit, offset: $offset) {
+      results {
+        ...WorkspaceDetailsWithUsers
+      }
+      total
+    }
+  }
+  ${re}
+`,eO.gql`
+  query SearchContent($workspaceId: ID!, $query: String!, $offset: Int, $limit: Int!) {
+    searchContent(workspaceId: $workspaceId, query: $query, offset: $offset, limit: $limit) {
+      results {
+        contentType
+        workflowId
+        name
+        stepCount
+        apps {
+          ...AppFields
+        }
+        author {
+          ...ProfileFields
+        }
+        createdAt
+        updatedAt
+        workspaceId
+        type
+      }
+      total
+    }
+  }
+  ${tF}
+  ${tN}
+`;let rE=eO.gql`
+  query GetUserToken($token: String) {
+    getUserToken(token: $token)
+  }
+`,rk=eO.gql`
+  query GetUser {
+    getUser {
+      id
+      email
+      firstName
+      lastName
+      profilePictureURL
+      isBusinessAccount
+      tosAcceptedAt
+    }
+  }
+`;eO.gql`
+  query GetPersonalWorkflowCount($workspaceId: ID!) {
+    getPersonalWorkflowCount(workspaceId: $workspaceId)
+  }
+`,eO.gql`
+  query GetTeamLibraryAppsConnection(
+    $workspaceId: ID!
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
+    $filter: TeamLibraryAppsConnectionFilter
+    $sortBy: TeamLibraryAppsSortBy
+  ) {
+    getTeamLibraryAppsConnection(
+      workspaceId: $workspaceId
+      first: $first
+      after: $after
+      last: $last
+      before: $before
+      filter: $filter
+      sortBy: $sortBy
+    ) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          id
+          name
+          iconURL
+          workflowCount
+        }
+      }
+    }
+  }
+`,eO.gql`
+  query GetTeamLibraryAuthorsConnection(
+    $workspaceId: ID!
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
+    $filter: TeamLibraryAuthorsConnectionFilter
+  ) {
+    getTeamLibraryAuthorsConnection(
+      workspaceId: $workspaceId
+      first: $first
+      after: $after
+      last: $last
+      before: $before
+      filter: $filter
+    ) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          id
+          firstName
+          lastName
+          email
+          profilePictureURL
+          uploadedProfilePicture
+          workflowCount
+        }
+      }
+    }
+  }
+`;let rw=eO.gql`
+  query GetUserGroupsConnection(
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
+    $workspaceId: ID!
+    $filter: UserGroupsFilter
+  ) {
+    getUserGroupsConnection(
+      first: $first
+      after: $after
+      last: $last
+      before: $before
+      workspaceId: $workspaceId
+      filter: $filter
+    ) {
+      edges {
+        cursor
+        node {
+          ...UserGroupListFields
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+  ${tO}
+`;eO.gql`
+  query UserGroup($id: ID!) {
+    userGroup(id: $id) {
+      id
+      createdAt
+      description
+      name
+      sharingEnabled
+      source
+      updatedAt
+      usersConnection {
+        totalCount
+      }
+      sharedContentConnection {
+        totalCount
+      }
+    }
+  }
+`,eO.gql`
+  query UserGroupUsers($id: ID!, $first: Int, $after: String) {
+    userGroup(id: $id) {
+      id
+      usersConnection(first: $first, after: $after) {
+        edges {
+          cursor
+          node {
+            id
+            userId
+            firstName
+            lastName
+            email
+            workspaceId
+            profilePictureURL
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+`,eO.gql`
+  query UserGroupSharedContent($id: ID!, $first: Int, $after: String) {
+    userGroup(id: $id) {
+      id
+      sharedContentConnection(first: $first, after: $after) {
+        edges {
+          cursor
+          node {
+            content {
+              ... on Workflow {
+                id
+                name
+              }
+              ... on Folder {
+                id
+                name
+                parentId
+              }
+            }
+            share {
+              party
+              partyId
+              permissionLevel
+            }
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+`,eO.gql`
+  query ScorePolicy($input: ScorePolicyInput!) {
+    scorePolicy(input: $input) {
+      score
+      reason
+      suggestion
+      summary
+      requestId
+      suggestedRule
+    }
+  }
+`,eO.gql`
+  query AssertPolicy($input: AssertPolicyInput!) {
+    assertPolicy(input: $input) {
+      status
+      reason
+    }
+  }
+`,eO.gql`
+  query getGuidanceSnapshotPresignedURL($input: SnapshotPresignedURLInput!) {
+    getGuidanceSnapshotPresignedURL(input: $input) {
+      presignedURL
+      path
+    }
+  }
+`,eO.gql`
+  query listExceptionResolutions($input: GetExceptionResolutionsInput!) {
+    listExceptionResolutions(input: $input) {
+      results {
+        id
+        sessionId
+        workflowId
+        contentBlockId
+        userId
+        status
+        user {
+          id
+          firstName
+          lastName
+          profilePictureURL
+        }
+        traceId
+        createdAt
+        actions {
+          index
+          id
+          action
+          reason
+          createdAt
+          updatedAt
+          targetDetails {
+            ...TargetDetailsFields
+            computedLabels {
+              label
+              type
+            }
+            eventType
+            selectedLabel {
+              label
+              type
+            }
+          }
+          contentBlock {
+            id
+            type
+            index
+            createdAt
+            updatedAt
+          }
+          screenshot {
+            bounds {
+              x
+              y
+              width
+              height
+              draw
+            }
+            url
+            sourcePath
+            deliveryPath
+            zoomLevel
+            pixelWidth
+            pixelHeight
+            pixelRatio
+            altText
+          }
+        }
+      }
+      total
+    }
+  }
+  ${tZ}
+`,eO.gql`
+  query GetDocumentDownloadPresignedUrl($path: String!) {
+    getDocumentDownloadPresignedURL(path: $path) {
+      presignedURL
+    }
+  }
+`,eO.gql`
+  query GetDocumentUploadPresignedURL($input: PresignedURLInput!) {
+    getDocumentUploadPresignedURL(input: $input) {
+      presignedURL
+      path
+    }
+  }
+`,eO.gql`
+  query ListWorkflowVersions($input: ListWorkflowVersionsInput!) {
+    listWorkflowVersions(input: $input) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          id
+          workflowId
+          name
+          createdAt
+          updatedAt
+          restoredFromWorkflowVersion {
+            id
+            name
+            createdAt
+          }
+          changes {
+            updatedBy
+            updatedAt
+            description
+            profile {
+              ...ProfileFields
+              uploadedProfilePicture
+            }
+          }
+        }
+      }
+    }
+  }
+  ${tN}
+`,eO.gql`
+  query GetWorkflowVersionsBeyondRetentionCount($input: GetWorkflowVersionsBeyondRetentionCountInput!) {
+    getWorkflowVersionsBeyondRetentionCount(input: $input) {
+      count
+    }
+  }
+`,eO.gql`
+  subscription WorkflowAudioUpdated($workflowId: ID!, $voice: NarrationVoice!) {
+    workflowAudioUpdated(workflowId: $workflowId, voice: $voice) {
+      workflowId
+      voice
+      status
+      contentBlocks {
+        contentBlockId
+        blockType
+        titleAudioUrl
+        descriptionAudioUrl
+        titleDurationSec
+        descriptionDurationSec
+      }
+      error
+    }
+  }
+`,eO.gql`
+  subscription PublishedAuditLog($exportId: ID!) {
+    publishedAuditLog(exportId: $exportId) {
+      exportId
+      status
+      fileName
+      downloadLink
+    }
+  }
+`;let rT=eO.gql`
+  subscription WorkflowTranslationUpdated($workflowId: ID!, $lang: TranslationLanguage) {
+    workflowTranslationUpdated(workflowId: $workflowId, lang: $lang) {
+      workflowId
+      lang
+      status
+      error
+    }
+  }
+`;e.s(["AccountStatus",()=>tc,"AudioGenerationStatus",()=>td,"CalloutType",()=>tp,"CaptureBoxShape",()=>tf,"ClearFronteggUserSessionDocument",0,ro,"ClearUserSessionDocument",0,rn,"ContentBlockType",()=>th,"ContentSpace",()=>tg,"GenerateWorkflowAudioDocument",0,rh,"GetPublicWorkflowDocument",0,rg,"GetUserDocument",0,rk,"GetUserTokenDocument",0,rE,"GetWorkflowForTranslationDocument",0,rm,"ListWorkspacesDocument",0,rI,"NarrationVoice",()=>tm,"RefreshFronteggOauthTokenDocument",0,rp,"RequestWorkflowTranslationDocument",0,rf,"SsoProviderDocument",0,rv,"StepOrigin",()=>tI,"StepTitleVariableCurrentSetting",()=>ty,"StepTrackEventType",()=>tv,"TrackEventChannel",()=>tE,"TransitionEvent",()=>tk,"UserRole",()=>tw,"UserTier",()=>tT,"WorkflowTranslationStatus",()=>tb,"WorkflowTranslationUpdatedDocument",0,rT,"WorkflowType",()=>tS,"WorkspaceTier",()=>t_,"WorkspaceTrackEventType",()=>tD,"useAddReferralCodeMutation",0,function(e){return eq(ru,{...tu,...e})},"useAssociateHubspotUtkMutation",0,function(e){return eq(rc,{...tu,...e})},"useDeleteContentBlocksMutation",0,function(e){return eq(ra,{...tu,...e})},"useGetUserGroupsConnectionQuery",0,function(e){return e1(rw,{...tu,...e})},"useGetWorkspaceUserUserGroupQuery",0,function(e){return e1(ry,{...tu,...e})},"useSendContinueOnDesktopEmailMutation",0,function(e){return eq(rd,{...tu,...e})},"useTrackEventsMutation",0,function(e){return eq(rl,{...tu,...e})},"useUpdateContentBlocksMutation",0,function(e){return eq(rs,{...tu,...e})}],109807),Object.values(((eT={}).SAMPLE_VOICE_TRANSCRIPTION="sample-voice-transcription",eT.PRO_CHECKOUT_IMPROVEMENTS="pro-checkout-improvements",eT));let rb=`https://${eN.default.env.NEXT_PUBLIC_VERCEL_URL}/`,rS=eN.default.env.NEXT_PUBLIC_VERCEL_ENV,r_="lggdbpblkekjjbobadliahffoaobaknh",rD="ifigbhjamijkipoeckabmilnagjcfhec",rA=["localstack","lite-stack"].includes("prod"),rN="/app",rO=`https://chromewebstore.google.com/detail/tango/${r_}`,rC=`https://microsoftedge.microsoft.com/addons/detail/tango/${rD}`,r$=`${rN}/embed/:id`;(eb={}).Navigate="navigate",eb.Click="click",eb.RightClick="auxclick",eb.Type="input",eb.Copy="copy",eb.Paste="paste",eb.Select="select",eb.Input="input";var rF=((eS={}).CAPTURE_MORE_STEPS_GUIDANCE="capture-more-steps-guidance",eS.DESKTOP_CAPTURE_IN_EDITOR="desktop-capture-in-editor",eS.ENTERPRISE_VIEWER_ALLOW_LIST="enterprise-viewer-allow-list",eS.KL_PILOT="kl-pilot",eS.PRO_VELOCITY_TEAM="pro-velocity-team",eS.SHOW_SHARE_AND_EXPORT_MODAL="show-share-and-export-modal",eS.DISABLE_GENERATE_WORKFLOW_NAME="disable-generate-workflow-name",eS.CONTENTBLOCK_TRANSITION="contentblock-transition",eS.WORKFLOW_TRANSLATION="workflow-translation",eS.LLM_FLEXIBLE_DETECTION="llm-flexible-detection",eS.WORKFLOW_GRAPH_VISUALIZER="workflow-graph-visualizer",eS.ONBOARDING_REFRESH="onboarding-refresh",eS.WORKFLOW_VIDEO_EMBED="workflow-video-embed",eS.CHANGE_EMAIL="change-email",eS.DROPDOWN_HOVER_REPLAY="dropdown-hover-replay",eS.CONTENT_OWNERSHIP_REASSIGNMENT="content-ownership-reassignment",eS);(e_={}).MAINTENANCE_MODE="isInMaintenanceMode",e_.DEGRADED_BANNER_MODE="isInDegradedBannerMode",e_.MIN_EXTENSION_VERSION="minExtensionVersion",e_.MIN_EXTENSION_BROWSER_VERSION="minExtensionBrowserVersion",e_.MIN_DESKTOP_VERSION="minDesktopVersion",e_.CURRENT_DESKTOP_VERSION="currentDesktopVersion",e_.DESKTOP_RELEASE_DATE="desktopReleaseDate",e_.GUIDANCE_MIN_DATE="guidanceMinDate",e_.ENABLE_REFRESH_SIGNUP="enableRefreshSignup",e_.DESKTOP_ACCESSIBILITY_TREE_MACOS_ENABLED="desktopAccessibilityTreeMacOSEnabled",e_.DESKTOP_ACCESSIBILITY_TREE_WINDOWS_ENABLED="desktopAccessibilityTreeWindowsEnabled",e_.ENABLE_COOKIEBOT="enableCookiebot";var rR=((eD={}).TIMEOUT="Task timed out after",eD.RUNTIME="Runtime exited with error:",eD.HYDRATION="Hydration failed",eD.ALLOWED_DOMAINS="You are not allowed to add this workspace domain",eD);tg.Personal,tg.Drafts,tg.Team,(eA={}).FOLDER="folder",eA.WORKFLOW="workflow",eA.STEP="step",eA.NATIVE_FILE="__NATIVE_FILE__",e.s(["ANONYMOUS_USER_ID_COOKIE_NAME",0,"_TANGO_ANONYMOUS_USER_ID","APOLLO_ERROR_MESSAGE_KEYWORDS",()=>rR,"APOLLO_IGNORE_ERRORS",0,["Workspace user not found","Workflow not found","Valid authorization header not provided","Step not found","You do not have permission","You are not permitted to view this workflow","Error deleting content blocks","Error updating content blocks","Workflow Content Block not found",/^Content block with id '.+' not found/,"Error updating workflow","You are not authorized to view this resource","User does not have sufficient privileges","User does not have sufficient privileges.","403 Forbidden","Workflow video not found","Error searching content"],"APOLLO_IGNORE_NETWORK_ERROR_CODES",0,["401","404"],"CHROME_EXTENSION_PAGE",0,rO,"CHROME_MSG_GET_USER_TOKEN",0,"getUserToken","CHROME_MSG_OPEN_SIDEPANEL",0,"openSidePanel","COGNITO_IDENTITY_COOKIE_PREFIX",0,"CognitoIdentityServiceProvider","CONTINUE_ON_DESKTOP_PENDING",0,"tango-continue-on-desktop-pending","CURRENT_WORKSPACE_ID",0,"tango-current-workspace-id","DIRECT_TO_GUIDANCE_PATH",0,"/play","EDGE_EXTENSION_PAGE",0,rC,"EMBED_VIEW_PATH",0,r$,"EMPTY_RICH_TEXT",0,/<\/?.+?>/gi,"EXTENSION_CHROME_ID",0,r_,"EXTENSION_EDGE_ID",0,rD,"EXTENSION_INSTALLED",0,"tango-ext-installed","FRONTEGG_ACCESS_TOKEN_SESSION_KEY",0,"fronteggAccessToken","FRONTEGG_BASE_URL",0,"https://sso.tango.us","FRONTEGG_REDIRECT_URI",0,"https://app.tango.us/oauth/callback","FRONTEGG_REFRESH_TOKEN_SESSION_KEY",0,"fronteggRefreshToken","FRONTEGG_USER_SESSION_KEY",0,"fronteggUser","FeatureFlag",()=>rF,"LANDING_PAGE",0,"https://tango.ai","META_FBCLID_KEY",0,"meta_fbclid","META_FBCLID_TIMESTAMP_KEY",0,"meta_fbclid_ts","MIN_THRESHOLD_TOKEN_REFRESH",0,1.5,"NEW_WORKSPACE_PATH",0,"/new-workspace","ONBOARDING_SURVEY_PATH",0,"/onboarding-survey","POSTHOG_PROXY_HOST",0,"https://i.tango.us","PUBLIC_IMGIX_URL",0,"https://images.tango.us/public/:id","QUERY_PARAM_LANGUAGE_CODE",0,"lang","RECENTLY_VIEWED_WORKFLOWS_KEY",0,"tango-recently-viewed-workflows","REDIRECT_QUERY_PARAM",0,"redirectTo","ROOT_PATH",0,"/","SCREENSHOT_API_URL",0,"https://screenshots.tango.us","SCREEN_SM",0,640,"SECURE_IMGIX_URL",0,"https://images.tango.us/:id","SEGMENT_ANONYMOUS_ID_COOKIE_NAME",0,"ajs_anonymous_id","SEGMENT_KEY",0,"I3MwA0oCi6AGiNFoZClDV1YW1uC4AdEu","SENTRY_IGNORE_ERRORS",0,["TypeError: Failed to fetch","Failed to fetch","TypeError: NetworkError when attempting to fetch resource.","network error","Network error","Token has expired","Workspace user not found","Workflow not found","Valid authorization header","Step not found",/^Script error\.$/,"Could not establish connection. Receiving end does not exist.","TypeError: Cancelled","TypeError: cancelado","TypeError: annullato","TypeError: 已取消","TypeError: 無法完成作業。軟體導致連線失敗","ResizeObserver loop limit exceeded","ResizeObserver loop completed with undelivered notifications.","TypeError: Load failed","Load failed","Failed to execute 'setTranslate' on 'SVGTransform': The provided float value is non-finite.","Failed to execute 'setRotate' on 'SVGTransform': The provided float value is non-finite.","Failed to execute 'abort' on 'IDBTransaction'","Failed to execute 'objectStore' on 'IDBTransaction'","IDBFactory.open() called in an invalid security context","SecurityError IDBFactory.open() called in an invalid security context","InvalidStateError Failed to execute 'createObjectStore' on 'IDBDatabase'","Transaction aborted","Failed to execute 'abort' on 'IDBTransaction': The transaction is inactive or finished","Object Not Found Matching Id","ei.getBoundingClientRect is not a function","Can't find variable: analytics","Can't find variable: visitor","Failed identify user against Dopt: Network Error","window.gam","cyclic object value","googletag","Invalid code provided, please request a code again.","Invalid verification code provided, please try again.","Pending sign-in attempt already in progress","Signout timeout fail","cancelled","zaraz","Not implemented on this platform","<unknown>","Event `CustomEvent` (type=unhandledrejection) captured as promise rejection","Non-Error promise rejection captured with value: undefined","Non-Error promise rejection captured with value: Adding pending query params","Unexpected token '='","Unexpected token '<'","Unexpected token '||='","Unexpected token 'B'","expected expression, got '='","Can't find variable: _AutofillCallbackHandler","not valid JSON","zaloJSV2","UserLambdaValidationException","PreSignUp failed with error","Error response from Identity Provider","Navigation prevented","The node to be removed is not a child of this node","The node before which the new node is to be inserted is not a child of this node",/Error updating workflow\b(?! field| version)/,"Error updating content blocks","Error deleting content blocks","Failed to execute 'contains' on 'Node': parameter 1 is not of type 'Node'"],"SHOW_ONBOARDING_SURVEY",0,"tango-show-onboarding-survey","SIGNUP_EVENT_FIRED_KEY_PREFIX",0,"tango-signup-event-fired-","SIGN_IN_PATH",0,"/sign-in","SIGN_UP_CONTINUE_ON_DESKTOP_PATH",0,"/sign-up/continue-on-desktop","STATIC_IMGIX_URL",0,"https://images.tango.us/static/:id","TANGO_ENV",0,"prod","TANGO_EXPERIMENTS",0,"tango-experiments","TANGO_FEATURE_FLAGS",0,"tango-feature-flags","TANGO_FEATURE_FLAGS_GROUPS",0,"tango-feature-flags-groups","TANGO_WORKSPACE_ID_INT",0,"64cdebcb-1025-4aba-a799-b9a53b96d28a","TANGO_WORKSPACE_ID_PROD",0,"33616f45-9b59-41f6-9ce2-0f2586b63c32","URL_REGEX",0,/\b(?:(?:https?:\/\/)?(?:www\.)?(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/[^\s]*)?|app\.[a-zA-Z]+\.[a-zA-Z]{2,}\/[^\s]*|go\.[a-zA-Z]+\.[a-zA-Z]{2,})\b/,"USER_ID_COOKIE_NAME",0,"_TANGO_USER_ID","WEBURL",0,"preview"===rS?rb:"https://app.tango.us/","WORKFLOWS_LIST_VIEW_PREFERENCE",0,"tango-workflows-list-views-preference","WORKFLOW_PATH",0,rN+"/workflow/:id","currentExtensionInfo",0,{version:""},"defaultColorSet",0,[{name:"Tango",value:"#FF7442"},{name:"Red",value:"#DB3030"},{name:"Yellow",value:"#FFB733"},{name:"Green",value:"#2DA75E"},{name:"Blue",value:"#3270EB"},{name:"Purple",value:"#7F4EC3"},{name:"Black",value:"#000000"}],"noop",0,(...e)=>{},"shouldSkipFrontegg",0,rA||!1],73570)}]);
+
+//# debugId=534c2696-882d-6c02-1846-dfed2b11ba62
+//# sourceMappingURL=0dbv8a6jjlp-o.js.map

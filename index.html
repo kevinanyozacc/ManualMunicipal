@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Manual de Gestión Municipal - SENASA | Guía Interactiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f0f4f8;
+            color: #1e293b;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        /* Contenedor principal */
+        .manual-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .manual-header {
+            background: linear-gradient(135deg, #0b3b2f 0%, #1e5a3e 100%);
+            padding: 2rem 2rem 1.8rem 2rem;
+            color: white;
+            border-bottom: 4px solid #ffcd3c;
+        }
+
+        .manual-header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .manual-header h1 span {
+            background: rgba(255,255,240,0.2);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .badge-portal {
+            background: #ffcd3c;
+            color: #1e4620;
+            padding: 6px 14px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            width: fit-content;
+        }
+
+        .badge-portal a {
+            color: #1e4620;
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 1px dashed;
+        }
+
+        .description-intro {
+            margin-top: 1rem;
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 80%;
+        }
+
+        /* Navegación rápida */
+        .quick-nav {
+            background: #ffffffdd;
+            backdrop-filter: blur(8px);
+            padding: 0.8rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .step-counter {
+            font-weight: 500;
+            background: #eef2ff;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #1f5e3c;
+        }
+
+        .btn-top {
+            background: #f1f5f9;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #1e293b;
+        }
+
+        .btn-top:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        /* Pasos estilo tarjeta mejorada */
+        .steps-wrapper {
+            padding: 2rem 2rem 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.2rem;
+        }
+
+        .step-card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+            border: 1px solid #eef2f6;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+            border-color: #cbd5e1;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 1.8rem;
+            background: #fafcff;
+            border-bottom: 2px solid #ecfdf5;
+            flex-wrap: wrap;
+        }
+
+        .step-number {
+            background: #1e5a3e;
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .step-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0f2b21;
+            letter-spacing: -0.2px;
+        }
+
+        .step-support-text {
+            background: #eef9ff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 48px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #0369a1;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            padding: 1.5rem 1.8rem;
+        }
+
+        .step-description {
+            background: #f8fafc;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            border-left: 5px solid #2c7a4b;
+            font-size: 0.95rem;
+            color: #2d3e50;
+        }
+
+        .step-img {
+            background: #f1f5f9;
+            border-radius: 1rem;
+            overflow: hidden;
+            text-align: center;
+            border: 1px solid #e4e7eb;
+            transition: 0.1s;
+        }
+
+        .step-img img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            background: white;
+        }
+
+        /* texto adicional en pasos específicos */
+        .info-note {
+            background: #fff9e6;
+            border-radius: 14px;
+            padding: 0.8rem 1.2rem;
+            font-size: 0.85rem;
+            color: #b45309;
+            border-right: 3px solid #fbbf24;
+        }
+
+        .footer {
+            background: #f1f5f9;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: #475569;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 700px) {
+            .manual-header {
+                padding: 1.5rem;
+            }
+            .steps-wrapper {
+                padding: 1.2rem;
+            }
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .step-support-text {
+                margin-left: 0;
+                margin-top: 6px;
+            }
+            .step-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        .btn-copy-info {
+            background: none;
+            border: none;
+            font-size: 0.75rem;
+            color: #4b5563;
+            cursor: pointer;
+            margin-left: 6px;
+        }
+    </style>
+</head>
+<body>
+<div class="manual-container">
+    <div class="manual-header">
+        <h1>
+            🌿 SENASA - Portal de Municipalidades
+            <span>Manual de Gestión</span>
+        </h1>
+        <div class="badge-portal">
+            🔗 Portal oficial: <a href="https://muni.senasa.gob.pe/" target="_blank" rel="noopener">muni.senasa.gob.pe</a>
+        </div>
+        <div class="description-intro">
+            Guía completa para la gestión de usuarios, solicitudes, tablas maestras, padrones, fichas de comerciantes, transportistas, capacitación ISM y más.  
+            Sigue cada paso con su explicación y captura de referencia.
+        </div>
+    </div>
+
+    <div class="quick-nav">
+        <div class="step-counter">📌 72 pasos ilustrados</div>
+        <button class="btn-top" id="scrollTopBtn">⬆ Volver al inicio</button>
+    </div>
+
+    <div class="steps-wrapper" id="stepsContainer">
+        <!-- Los pasos se generarán dinámicamente con JS para mejor mantenimiento, pero basado en contenido extraído del HTML original.
+        He incluido todos los pasos textuales y mejorados con textos de apoyo explicativos -->
+    </div>
+    <div class="footer">
+        © SENASA - Gestión Municipal | Manual interactivo con apoyo paso a paso | Versión mejorada
+    </div>
+</div>
+
+<script>
+    // Array de pasos basado en el documento original (rescatando cada paso y añadiendo textos de apoyo claros)
+    const stepsData = [
+        { number: 1, title: "Ingresar nombre de usuario", description: "En la pantalla de inicio, escribe el nombre de usuario proporcionado por SENASA. Asegúrate de no tener espacios adicionales. Este campo es sensible a mayúsculas/minúsculas.", img: "./Manual de Gestion Municipal - SENASA_files/3aeefdf0-715f-4dd8-8749-bb2a27786149(1).png" },
+        { number: 2, title: "Ingresar credenciales de acceso", description: "Introduce tu contraseña secreta. Si es la primera vez, verifica los datos de acceso con el administrador del sistema. Mantén la confidencialidad.", img: "./Manual de Gestion Municipal - SENASA_files/11b1c140-20f2-49bb-83c9-24079b8fe095.png" },
+        { number: 3, title: "Iniciar sesión", description: "Una vez completados los campos, haz clic en el botón 'Iniciar sesión' para acceder al dashboard principal. Si falla, revisa conexión o credenciales.", img: "./Manual de Gestion Municipal - SENASA_files/efa9fe5c-fa58-44f1-a826-b65944faf4b8.png" },
+        { number: 4, title: "Acceder a Gestión de Usuarios", description: "En el menú lateral, encontrarás la sección 'Gestión de Usuarios'. Este módulo permite administrar perfiles y permisos.", img: "./Manual de Gestion Municipal - SENASA_files/e78aa293-8a12-4fc4-bc6d-26856a9245f7.png" },
+        { number: 5, title: "Ir a Usuarios", description: "Dentro de Gestión de Usuarios, selecciona 'Usuarios' para visualizar el listado completo de cuentas activas y gestionarlas.", img: "./Manual de Gestion Municipal - SENASA_files/1bee0336-da61-4a66-8a71-2bf7c855ad21.png" },
+        { number: 6, title: "Crear nuevo usuario", description: "Haz clic en el botón 'Nuevo' para iniciar el registro de un usuario adicional en el sistema (operador, inspector, etc).", img: "./Manual de Gestion Municipal - SENASA_files/b5fc5864-7593-49f8-a4c0-5578c3c118b2.png" },
+        { number: 7, title: "Seleccionar 'Nuevo usuario'", description: "Se desplegará un formulario donde debes llenar datos personales, correo y rol correspondiente. Verifica que el correo sea válido.", img: "./Manual de Gestion Municipal - SENASA_files/a3baa6e4-7866-4f2a-b2f7-987ebf33cb31.png" },
+        { number: 8, title: "Completar formulario de registro", description: "Rellena todos los campos obligatorios (nombre, DNI, cargo, teléfono, etc). Las contraseñas deben cumplir políticas de seguridad.", img: "./Manual de Gestion Municipal - SENASA_files/d5f352b8-2e7c-46b9-b725-5f972bf6f702.png" },
+        { number: 9, title: "Guardar usuario (Crear)", description: "Finalmente pulsa 'Crear' para registrar al nuevo usuario. El sistema enviará una notificación de activación.", img: "./Manual de Gestion Municipal - SENASA_files/e69a5e45-6690-4d5f-a1a2-5bb9fc84175d.png" },
+        { number: 10, title: "Acceder a Solicitudes", description: "Desde el menú principal, dirígete a la pestaña 'Solicitud'. Aquí se gestionan las peticiones de registro y certificación.", img: "./Manual de Gestion Municipal - SENASA_files/e685a1b7-1922-4bf5-8cdf-f2c1b8dc6bd9.png" },
+        { number: 11, title: "Listado de solicitudes", description: "Visualiza todas las solicitudes recibidas, con estado, fecha y tipo. Se pueden ordenar y buscar rápidamente.", img: "./Manual de Gestion Municipal - SENASA_files/8e52f398-ac39-4e34-b9a2-20b0234f7dff.png" },
+        { number: 12, title: "Filtrar por estado", description: "Usa el filtro 'Estado' para clasificar solicitudes: Pendientes, Aprobadas, Rechazadas. Ideal para priorizar tareas.", img: "./Manual de Gestion Municipal - SENASA_files/f395242f-75c4-4c1b-a1f4-1be3b1921f10.png" },
+        { number: 13, title: "Ver pendientes", description: "Selecciona 'Pendientes' para revisar aquellas solicitudes que aún requieren atención. Cada una tiene opción de revisión.", img: "./Manual de Gestion Municipal - SENASA_files/a761fb30-407f-48f2-86b1-3385db533ea0.png" },
+        { number: 14, title: "Ver todas las solicitudes", description: "Puedes regresar a 'Todos' para visualizar el listado completo sin ningún filtro.", img: "./Manual de Gestion Municipal - SENASA_files/019c25da-d068-4b12-9ccb-2480370d3b5d.png" },
+        { number: 15, title: "Generar nueva solicitud", description: "Haz clic en 'Generar solicitud' para iniciar un trámite de registro de municipalidad o comerciante.", img: "./Manual de Gestion Municipal - SENASA_files/f39beb88-7204-4336-a7bd-628d47dc0990.png" },
+        { number: 16, title: "Revisar link de solicitud", description: "El sistema genera un enlace único para compartir o para que el interesado complete la documentación.", img: "./Manual de Gestion Municipal - SENASA_files/a6c4850b-50fd-4992-8e72-8fc17931cf03.png" },
+        { number: 17, title: "Copiar link", description: "Copia el enlace haciendo clic en el ícono correspondiente. Útil para enviar por correo o chat.", img: "./Manual de Gestion Municipal - SENASA_files/6c0c1667-e2ee-4a85-a228-062940759f9c.png" },
+        { number: 18, title: "Confirmar copiado", description: "El sistema notificará 'Link copiado'. Asegúrate de pegarlo en un lugar seguro.", img: "./Manual de Gestion Municipal - SENASA_files/42c4c676-1f3b-4b98-b987-f397de02d994.png" },
+        { number: 19, title: "Enviar solicitud", description: "Presiona 'Enviar solicitud' para remitir la petición al área correspondiente. Quedará en estado pendiente.", img: "./Manual de Gestion Municipal - SENASA_files/cecf5440-379b-43b0-9efc-fd894d5b5ef5.png" },
+        { number: 20, title: "Acciones sobre la solicitud", description: "En la columna de acciones (tres puntos) encontrarás opciones como ver registro, editar o aprobar.", img: "./Manual de Gestion Municipal - SENASA_files/c47117da-c572-4b33-b804-14610218ae5e.png" },
+        { number: 21, title: "Ver registro detallado", description: "Haz clic en 'Ver registro' para consultar cada campo de la solicitud, documentos adjuntos y trazabilidad.", img: "./Manual de Gestion Municipal - SENASA_files/0edc633c-9266-4af5-8a1a-dd740bda9bc2.png" },
+        { number: 22, title: "Revisar información del usuario", description: "Aparecerán los datos ingresados por el solicitante. Valida nombres, documento y requisitos.", img: "./Manual de Gestion Municipal - SENASA_files/f0c87fa9-83f2-4b84-b650-19df61287dbf.png" },
+        { number: 23, title: "Aprobar solicitud", description: "Si todo está correcto, haz clic en 'Aprobar la solicitud' para autorizar el acceso o registro.", img: "./Manual de Gestion Municipal - SENASA_files/75974818-55ba-4ad0-b2e3-25879618df7c.png" },
+        { number: 24, title: "Confirmar aprobación", description: "Se abrirá una ventana emergente para confirmar la acción. Pulsa 'Aceptar' para completar el proceso.", img: "./Manual de Gestion Municipal - SENASA_files/c5fbe706-dfc7-4af0-9b7e-448a8f9a24a7.png" },
+        { number: 25, title: "Opciones Generales", description: "Regresa al menú y selecciona 'Opciones Generales' para configuraciones avanzadas.", img: "./Manual de Gestion Municipal - SENASA_files/6956a006-790b-4ece-b800-09e40442f060.png" },
+        { number: 26, title: "Mantenimiento de Tablas", description: "Accede a 'Mantenimiento de Tablas' para gestionar datos maestros (categorías, productos, etc.)", img: "./Manual de Gestion Municipal - SENASA_files/26800f5c-9ab6-487b-bc32-e8e447bf802d.png" },
+        { number: 27, title: "Lista de tablas maestras", description: "Se visualizan todas las tablas parametrizables: grupo de alimentos, piensos, especies, etc.", img: "./Manual de Gestion Municipal - SENASA_files/e87ffbd9-9a29-4959-b582-51a714ebd9dc.png" },
+        { number: 28, title: "Grupo de Alimento Agropecuario", description: "Selecciona esta tabla para editar o agregar nuevos grupos de productos.", img: "./Manual de Gestion Municipal - SENASA_files/6879a2a9-32e7-414c-a3b3-33e5724a6c7a.png" },
+        { number: 29, title: "Vista de listas maestras", description: "Desde aquí puedes agregar, editar o eliminar elementos en cada catálogo de referencia.", img: "./Manual de Gestion Municipal - SENASA_files/1dd5a348-dbaa-4f4c-ab72-e0e1b4dc234f.png" },
+        { number: 30, title: "Módulos de Capacitación", description: "Menú para administrar los cursos, módulos y evaluaciones del personal municipal.", img: "./Manual de Gestion Municipal - SENASA_files/0e902469-94e4-4d68-918c-7d99267ebff4.png" },
+        { number: 31, title: "Gestión de cursos", description: "Permite crear nuevos cursos, asignar instructores, fechas y contenidos educativos.", img: "./Manual de Gestion Municipal - SENASA_files/83ecb0b5-5f0b-46ef-8609-8a4684f28205.png" },
+        { number: 32, title: "Correos de notificación", description: "Configuración de correos electrónicos donde se enviarán copias de alertas y notificaciones del sistema.", img: "./Manual de Gestion Municipal - SENASA_files/90764333-6159-4944-918c-3746d8dc5765.png" },
+        { number: 33, title: "Escribir correo de copia", description: "Ingresa la dirección de correo (ej. notificaciones@muni.gob.pe) que recibirá las copias de notificaciones salientes.", img: "./Manual de Gestion Municipal - SENASA_files/c272abde-4982-4193-97be-cf18624390b2.png" },
+        { number: 34, title: "Agregar correo", description: "Presiona 'Agregar' para incluir el correo en el listado de destinatarios funcionales.", img: "./Manual de Gestion Municipal - SENASA_files/16019f73-685d-479e-85fd-5217a2fc586d.png" },
+        { number: 35, title: "Correo listado", description: "Verifica que aparezca en la tabla de correos registrados. Puedes eliminar o añadir más.", img: "./Manual de Gestion Municipal - SENASA_files/0a88f5a7-b41b-48f1-8f8d-ac9159986682.png" },
+        { number: 36, title: "Padrón Municipal", description: "Accede a la sección 'Padrón Municipal' para manejar mercados, comerciantes y puestos.", img: "./Manual de Gestion Municipal - SENASA_files/8a170abe-1b82-4dcb-bf2f-61725f030a46.png" },
+        { number: 37, title: "Mercados registrados", description: "Click en 'Mercados' para ver listado de centros de abastos fiscalizados.", img: "./Manual de Gestion Municipal - SENASA_files/45ea67f3-4868-4f80-af48-475ec143590a.png" },
+        { number: 38, title: "Lista de mercados", description: "Se visualiza información de cada mercado (ubicación, administrador, estado).", img: "./Manual de Gestion Municipal - SENASA_files/6d34c2ea-7fdc-4a8c-8a17-06898dad1a96.png" },
+        { number: 39, title: "Fichas de Comerciantes", description: "Opción 'Ver Fichas de Comerciantes' para gestionar perfiles de vendedores.", img: "./Manual de Gestion Municipal - SENASA_files/26fc1b88-3338-4026-a19f-e6340cb16610.png" },
+        { number: 40, title: "Nueva ficha de comerciante", description: "Presiona 'Nueva ficha' para registrar a un comerciante. Esta opción abre el formulario completo.", img: "./Manual de Gestion Municipal - SENASA_files/21d6ea3b-67d6-4f3f-8214-fd825839790d.png", extraNote: "Permite registrar datos personales, licencias, y actividad comercial." },
+        { number: 41, title: "Vista general de la ficha", description: "Formulario con pestañas: Datos personales, ubicación del puesto, información laboral.", img: "./Manual de Gestion Municipal - SENASA_files/9fddcf4c-d8c0-490c-85b6-0a3fba159421.png" },
+        { number: 42, title: "Datos del puesto", description: "Registra número de puesto, tipo de producto, medidas sanitarias básicas.", img: "./Manual de Gestion Municipal - SENASA_files/3c126a71-dfc7-4817-b4dc-cda0a413db99.png" },
+        { number: 43, title: "Datos de trabajadores", description: "Agrega colaboradores del comercio (ayudantes, personal de manipulación).", img: "./Manual de Gestion Municipal - SENASA_files/148985dd-9ab8-4df8-9c1f-e2931d8c1ee3.png" },
+        { number: 44, title: "Manipulación de alimentos", description: "Registra si el personal cuenta con certificación en buenas prácticas. Finaliza aquí el registro del comerciante.", img: "./Manual de Gestion Municipal - SENASA_files/3abe3af8-fe02-4ee3-aa5f-ffd6b73eec97.png", extraNote: "Registro completado exitosamente." },
+        { number: 45, title: "Registro de transportistas", description: "Sigue los siguientes pasos para inscribir transportistas de productos agropecuarios.", img: "./Manual de Gestion Municipal - SENASA_files/655f368a-b9fc-4b70-abb9-f3bd6ec950fd.png" },
+        { number: 46, title: "Ver Fichas de Vehículos", description: "Accede a 'Ver Fichas de Vehículos' para gestionar flota de transporte.", img: "./Manual de Gestion Municipal - SENASA_files/fc96269d-5b53-48b8-a001-6dc33d1a3502.png" },
+        { number: 47, title: "Nueva ficha de vehículo", description: "Clic en 'Nueva ficha' para registrar un nuevo vehículo o empresa transportista.", img: "./Manual de Gestion Municipal - SENASA_files/46e2a62b-ac77-4afe-9678-3a65646dd0a1.png" },
+        { number: 48, title: "Datos de persona o empresa", description: "Ingresa razón social, RUC, contacto, dirección del transportista.", img: "./Manual de Gestion Municipal - SENASA_files/10e9106f-6555-41ef-a526-fad07619c4fd.png" },
+        { number: 49, title: "Datos del vehículo", description: "Placa, marca, modelo, capacidad y condiciones sanitarias.", img: "./Manual de Gestion Municipal - SENASA_files/35386c8b-d154-408d-9347-535ded724060.png" },
+        { number: 50, title: "Mercancía transportada", description: "Registra el tipo de producto (frutas, carnes, lácteos) y volumen habitual.", img: "./Manual de Gestion Municipal - SENASA_files/70970401-5210-4a7d-adf2-9b0d32ffaf99.png" },
+        { number: 51, title: "Detalles del transporte", description: "Confirma rutas, documentación y habilitación sanitaria.", img: "./Manual de Gestion Municipal - SENASA_files/278d39f5-e73c-4e97-8dec-a398f6f64d02.png" },
+        { number: 52, title: "Reporte de Fichas", description: "Sección que permite exportar reportes y estadísticas de comerciantes y vehículos.", img: "./Manual de Gestion Municipal - SENASA_files/e7a87171-76b5-431c-b2f4-34bcec88cc9c.png" },
+        { number: 53, title: "Consultar Fichas", description: "Visualiza listado completo de fichas con filtros avanzados.", img: "./Manual de Gestion Municipal - SENASA_files/09007090-481c-45d8-af5d-f5c9fa96b98d.png" },
+        { number: 54, title: "Vista general fichas", description: "Tabla interactiva con resumen de cada registro, accesos a detalles.", img: "./Manual de Gestion Municipal - SENASA_files/e741098e-7f63-4066-b921-49ed022288ee.png" },
+        { number: 55, title: "Módulo Vigilancia y Certificación", description: "Accede a este bloque para gestionar inspecciones sanitarias y certificaciones.", img: "./Manual de Gestion Municipal - SENASA_files/c6a45eb6-054c-41f6-b129-81857046ee9b.png" },
+        { number: 56, title: "Capacitación ISM", description: "Herramienta para la capacitación de inspectores sanitarios municipales (ISM).", img: "./Manual de Gestion Municipal - SENASA_files/a7d8ac8f-a3ec-43cc-9011-0a733a9f5c51.png", extraNote: "Los inspectores pueden llevar cursos y evaluaciones." },
+        { number: 57, title: "Registro de capacitación", description: "Dentro de Capacitación ISM, haz clic en 'Registro' para gestionar participantes.", img: "./Manual de Gestion Municipal - SENASA_files/d7a3135d-6607-4599-b6b9-30d794cb5049.png" },
+        { number: 58, title: "Filtrar por ubigeo", description: "Al seleccionar ubigeo se mostrarán los inspectores autorizados en esa jurisdicción.", img: "./Manual de Gestion Municipal - SENASA_files/2205b8c1-10ca-4cba-856d-f174e0e87f91.png" },
+        { number: 59, title: "Nuevo registro de inspector", description: "Haz clic en 'Nuevo' para añadir un inspector al programa de capacitación.", img: "./Manual de Gestion Municipal - SENASA_files/6b4f291c-0f84-4923-988f-e79c02e31b36.png" },
+        { number: 60, title: "Guardar datos", description: "Llena la información requerida y presiona 'Guardar' para inscribir al inspector.", img: "./Manual de Gestion Municipal - SENASA_files/d19739fc-4bfa-422e-9aca-73c99707bfc5.png" },
+        { number: 61, title: "Datos del personal autorizado", description: "Visualiza resumen de inspectores, su estado y avance de capacitación.", img: "./Manual de Gestion Municipal - SENASA_files/3e8686d6-748b-4e36-9ddb-f250ee2fb661.png" },
+        { number: 62, title: "Programa de capacitación", description: "Haz clic en 'Programa' para iniciar el proceso de evaluación y asignación de notas.", img: "./Manual de Gestion Municipal - SENASA_files/40bccf4e-54ae-4acf-934b-c8f750768f5b.png" },
+        { number: 63, title: "Seleccionar programa", description: "Elige el programa o módulo de capacitación específico.", img: "./Manual de Gestion Municipal - SENASA_files/1a84b967-b99a-42b7-a822-cdcb2efe23f7.png" },
+        { number: 64, title: "Ejecutar módulo", description: "Pulsa 'Ejecutar' para acceder a la gestión de calificaciones.", img: "./Manual de Gestion Municipal - SENASA_files/64b630f1-7f78-4594-9428-7f3b0b3d997c.png" },
+        { number: 65, title: "Módulo a evaluar", description: "Selecciona el módulo (ej. Buenas prácticas, inocuidad) para calificar.", img: "./Manual de Gestion Municipal - SENASA_files/4b2b4156-c1a1-4d11-b7be-274a45c60aaf.png" },
+        { number: 66, title: "Inspectores del curso", description: "Se despliega la lista de inspectores matriculados.", img: "./Manual de Gestion Municipal - SENASA_files/332c4771-5cd9-4d6a-97f2-8cc5c0822f9b.png" },
+        { number: 67, title: "Asignar nota individual", description: "Ingresa la calificación para cada inspector de forma manual.", img: "./Manual de Gestion Municipal - SENASA_files/020d256c-d67c-4620-86eb-076c49e10f78.png" },
+        { number: 68, title: "Asignación masiva de notas", description: "Para ahorrar tiempo, puedes aplicar la misma nota a todos los participantes.", img: "./Manual de Gestion Municipal - SENASA_files/8a646094-2597-425d-b6ca-9cf88732917f.png" },
+        { number: 69, title: "Asignación masiva", description: "Haz clic en 'Asignación masiva' para abrir la herramienta.", img: "./Manual de Gestion Municipal - SENASA_files/827f01eb-becc-4659-a3cc-2637889978a5.png" },
+        { number: 70, title: "Escribir nota masiva", description: "Digita la calificación (ej. 15.5) que se aplicará a todos los inspectores listados.", img: "./Manual de Gestion Municipal - SENASA_files/593dbee5-f622-467b-8c0c-86d1b2a41f94.png" },
+        { number: 71, title: "Aplicar nota masiva", description: "Presiona 'Aplicar' para asignar la calificación a todo el grupo.", img: "./Manual de Gestion Municipal - SENASA_files/5103fbc8-a9b7-44a8-85cb-89900561cabc.png" },
+        { number: 72, title: "Visualización de notas", description: "Confirmar que cada inspector ha recibido su nota. Puedes editar individualmente si es necesario.", img: "./Manual de Gestion Municipal - SENASA_files/dbe116e4-342b-4e75-9dcd-6d5739d3e2f5.png" }
+    ];
+
+    const container = document.getElementById('stepsContainer');
+    if (container) {
+        stepsData.forEach(step => {
+            const stepCard = document.createElement('div');
+            stepCard.className = 'step-card';
+
+            // Header
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'step-header';
+            headerDiv.innerHTML = `
+                <div class="step-number">${step.number}</div>
+                <div class="step-title">${step.title}</div>
+                <div class="step-support-text">💡 Texto de apoyo</div>
+            `;
+
+            // Content
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'step-content';
+
+            const descDiv = document.createElement('div');
+            descDiv.className = 'step-description';
+            descDiv.innerHTML = `<strong>📘 Explicación:</strong> ${step.description}`;
+
+            const imgDiv = document.createElement('div');
+            imgDiv.className = 'step-img';
+            imgDiv.innerHTML = `<img src="${step.img}" alt="Paso ${step.number}: ${step.title}" loading="lazy" onerror="this.style.opacity=0.4; this.alt='Imagen no disponible';">`;
+
+            contentDiv.appendChild(descDiv);
+            contentDiv.appendChild(imgDiv);
+
+            // Nota extra si existe
+            if (step.extraNote) {
+                const noteDiv = document.createElement('div');
+                noteDiv.className = 'info-note';
+                noteDiv.innerHTML = `📌 ${step.extraNote}`;
+                contentDiv.appendChild(noteDiv);
+            }
+
+            stepCard.appendChild(headerDiv);
+            stepCard.appendChild(contentDiv);
+            container.appendChild(stepCard);
+        });
+    }
+
+    // Botón scroll top
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    if (scrollBtn) {
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+</script>
+</body>
+</html>
